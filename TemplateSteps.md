@@ -24,3 +24,10 @@
 1. Modificar as informação no arquivo [.vuepress/public/manifest.json](.vuepress/public/manifest.json)
    1. name
    1. short_name
+
+## Publicar
+
+1. Ir nas configurações do repositório
+2. Pages
+3. Branch
+4. selecionar `gh-pages`
