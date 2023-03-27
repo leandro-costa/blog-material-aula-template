@@ -31,3 +31,4 @@
 2. Pages
 3. Branch
 4. selecionar `gh-pages`
+5. salvar
