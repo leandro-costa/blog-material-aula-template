@@ -20,10 +20,13 @@
    1. author
    1. repo
    1. blog
-1. Modificar a informação `base` no arquivo [.vuepress/config.ts](.vuepress/config.ts)
+1. Modificar as informação no arquivo [.vuepress/config.ts](.vuepress/config.ts)
+   1. base
+   1. title
 1. Modificar as informação no arquivo [.vuepress/public/manifest.json](.vuepress/public/manifest.json)
    1. name
    1. short_name
+1. Modificar a informação `name` no arquivo [package.json](package.json)
 
 ## Publicar
 
