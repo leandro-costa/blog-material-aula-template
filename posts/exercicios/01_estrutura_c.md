@@ -13,7 +13,8 @@ index: false
 
 # Exercícios Entrada e Saida em C
 
-[^caelumoo]
+[^SOFFNER]
+
 
 1. Escreva um programa que receba dois números e mostre a soma, a subtração, a multiplicação e a divisão desses números.
 1. Escreva um programa que receba um número qualquer e mostre o seu dobro
