@@ -59,6 +59,8 @@ export default hopeTheme({
       // only files under posts are articles
       filter: ({ filePathRelative }) =>
         filePathRelative ? filePathRelative.startsWith("posts/") : false,
+
+      excerptLength: 1,
     },
 
 
