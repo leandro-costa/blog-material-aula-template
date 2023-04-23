@@ -26,6 +26,104 @@
             "</figure>"
         ],
         "description": "Região imagem com legenda"
-    }
+    },
+	
+    "info": {
+        "prefix": "info",
+        "body": [
+            "::: info $1",
+            "$2",
+            ":::"
+        ],
+        "description": "Bloco de destaque info"
+    },
+    
+    
+    "note": {
+        "prefix": "note",
+        "body": [
+            "::: note $1",
+            "$2",
+            ":::"
+        ],
+        "description": "Bloco de destaque note"
+    },
+    
+    "tip": {
+        "prefix": "tip",
+        "body": [
+            "::: tip $1",
+            "$2",
+            ":::"
+        ],
+        "description": "Bloco de destaque tip"
+    },
+    
+    "warning": {
+        "prefix": "warning",
+        "body": [
+            "::: warning $1",
+            "$2",
+            ":::"
+        ],
+        "description": "Bloco de destaque warning"
+    },
+    
+    "danger": {
+        "prefix": "danger",
+        "body": [
+            "::: danger $1",
+            "$2",
+            ":::"
+        ],
+        "description": "Bloco de destaque danger"
+    },
+    
+    "details": {
+        "prefix": "details",
+        "body": [
+            "::: details $1",
+            "$2",
+            ":::"
+        ],
+        "description": "Bloco de destaque details"
+    },
+        
+    "fluxograma": {
+        "prefix": "fluxograma",
+        "body": [
+           "```plantuml",
+           "@startuml",
+           "digraph G {",
+           "     //graph [rankdir=LR nodesep=0.5 ranksep=0.5];",
+           "     graph [nodesep=0.5 ranksep=0.5];",
+           "",
+           "     ini[shape=ellipse label=\"In\\ício\"  style=filled fillcolor=\"navy\" fontcolor=\"white\"];",
+           "     Nota1Nota2Nota3[shape=invtrapezium label=\"Nota1,Nota2,Nota3\" style=filled fillcolor=\"cornflowerblue\" fontcolor=\"white\"];",
+           "     media[shape=box label=\"media<-(Nota1+Nota2+Nota3)/3\" style=filled fillcolor=\"steelblue\" fontcolor=\"white\"];",
+           "     testemediaap[shape=diamond label=\"Media >= 7\" style=filled fillcolor=\"darkorange\" fontcolor=\"white\"];",
+           "     testemediarp[shape=diamond label=\"Media < 5\" style=filled fillcolor=\"darkorange\" fontcolor=\"white\"];",
+           "     apro[shape=parallelogram label=\"Aluno passado por média\" style=filled fillcolor=\"forestgreen\" fontcolor=\"white\"];",
+           "     reco[shape=parallelogram label=\"10-media+2\" style=filled fillcolor=\"forestgreen\" fontcolor=\"white\"];",
+           "     final[shape=parallelogram label=\"10-media\" style=filled fillcolor=\"forestgreen\" fontcolor=\"white\"];",
+           "     joinrepo,joinap[shape=circle label=\"\" style=filled fillcolor=\"navy\" fontcolor=\"white\"  width=.3 fixedsize=true ];",
+           "     fim[shape=ellipse label=\"Fim\"  style=filled fillcolor=\"navy\" fontcolor=\"white\"];",
+           "     ",
+           "     ini->Nota1Nota2Nota3->media->testemediaap",
+           "     testemediaap:e->apro[label=Sim]",
+           "     apro->joinap",
+           "     testemediaap:w->testemediarp[label=Não]",
+           "     testemediarp:w->reco[label=Sim]",
+           "     testemediarp->final[label=Não]",
+           "     {reco,final}->joinrepo",
+           "     joinrepo->joinap->fim",
+           "}",
+           "@enduml",
+           "```"
+        ],
+        "description": "fluxograma"
+    },
+
 	
 }
+
