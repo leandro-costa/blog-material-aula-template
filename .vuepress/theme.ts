@@ -53,6 +53,8 @@ export default hopeTheme({
 
   plugins: {
 
+    pwa:true,
+
     blog: {
       // only files under posts are articles
       filter: ({ filePathRelative }) =>

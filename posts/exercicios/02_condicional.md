@@ -6,8 +6,6 @@ tag:
   - condicional
 category:
   - exercicio
-star: true
-index: false
 ---
 
 # Exercícios Condicional
@@ -40,6 +38,19 @@ Crie um arquivo q\<numero\>.c para cada questão
     | Sênior     | maiores de 18 anos |
 1. Usando o comando switch, escreva um programa que leia um inteiro entre 1 e 7 e imprima o dia da semana correspondente a esse número. Isto é, domingo, se 1, segunda-feira, se 2, e assim por diante.
 1. Faça um programa que mostre ao usuário um menu com quatro opções de operações matemáticas (as operações básicas, por exemplo). O usuário escolhe uma das opções, e o seu programa pede dois valores numéricos e realiza a operação, mostrando o resultado.
+
+
+::: tabs#fruit
+
+@tab apple#apple
+
+Apple
+
+@tab banana#banana
+
+Banana
+
+:::
 
 ## Link para atividade
 

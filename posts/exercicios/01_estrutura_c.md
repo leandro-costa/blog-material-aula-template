@@ -7,8 +7,6 @@ tag:
   - saida
 category:
   - exercicio
-star: true
-index: false
 ---
 
 # Exercícios Entrada e Saida em C
