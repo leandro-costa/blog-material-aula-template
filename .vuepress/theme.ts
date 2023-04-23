@@ -61,7 +61,11 @@ export default hopeTheme({
 
 
     mdEnhance: {
-      enableAll: true,
+      include: true,
+      footnote: true,
+      container: true,
+      tabs: true,
+      mathjax: true,
       presentation: {
         plugins: ["highlight", "math", "search", "notes", "zoom"],
       },

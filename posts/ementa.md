@@ -48,7 +48,7 @@ index: false
 - Padrões Criacionais
 - Padrões Estruturais
 - Padrões Comportamentais
-- Java EE
+- Jakarta EE
 
 ## Metodologia
 
