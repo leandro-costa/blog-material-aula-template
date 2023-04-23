@@ -112,6 +112,7 @@ Na execução do comando if a condição será avaliada e:
 - Se a condição for **verdadeira**, a sequência de comandos será executada.
 - Se a condição for **falsa**, a sequência de comandos não será executada, e o progra-ma continuará a partir do primeiro comando seguinte ao final do comando if.
 
+<figure>
 
 ```plantuml
 @startuml
@@ -134,6 +135,8 @@ digraph G {
 }
 @enduml
 ```
+<figcaption>Fluxograma para um programa verificar se um número e maior do que 10</figcaption>
+</figure>
 
 ::: tabs#if
 
