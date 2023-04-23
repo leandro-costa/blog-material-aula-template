@@ -4,7 +4,7 @@ import sidebar from "./sidebar.js";
 
 export default hopeTheme({
   
-  hostname: "20231-ifba-saj-ads-ppr.github.io/blog-material-aula/",
+  hostname: "20231-ifba-saj-ads-lpr.github.io/blog-material-aula/",
 
   author: {
     name: "Leandro Souza",
@@ -18,7 +18,7 @@ export default hopeTheme({
 
   logo: "/logo.svg",
 
-  repo: "20231-ifba-saj-ads-ppr/blog-material-aula",
+  repo: "20231-ifba-saj-ads-lpr/blog-material-aula",
 
   docsBranch: 'master',
 
