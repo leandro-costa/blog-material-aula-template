@@ -1,6 +1,6 @@
 ---
 icon: edit
-date: 2023-03-24
+date: 2023-03-24 17:40:00.00 -3
 tag:
   - ementa
 category:
@@ -18,11 +18,11 @@ index: false
 
 **PERÍODO LETIVO:** 2023.1
 
-**Código Disciplina:** PRG09 Programação Orientada a Objetos
+**Código Disciplina:** COM07 Linguagem de Programação
 
-**Pré-requisitos da disciplina:** PRG04 - Programação Orientada a Objetos 
+**Pré-requisitos da disciplina:** COM04 - Lógica de Programação
 
-**Pré-requisito para:** -
+**Pré-requisito para:** COM11 - Programação Orientada a Objetos
 
 **Créditos**
 | Teóricos | Práticos | Estágio | Total |
@@ -37,18 +37,42 @@ index: false
 
 ## Ementa
 
-- Técnicas para construção de software fracamente acoplado e reutilizável; Padrões de Projeto; Técnicas de refatoração de código; Padrões de projeto para frameworks.
+- Modularização
+- Funções
+- Estruturas
+- Recursividade
+- Passagem de parâmetros por valor
+- Passagem de parâmetros por referência
+- Ponteiros
+- Alocação dinâmica
+- Arquivos.
 
 ## Objetivos
-- Fornecer as técnicas necessárias para que o aluno possa desenvolver habilidade de programação, Empregando as boas práticas de programação com o intuito de tornar o código mais flexível e reutilizável.
+- Continuar o desenvolvimento dos conceitos básicos de lógica de programação, estimulando o raciocínio lógico e estruturado para resolver problemas e desenvolver algoritmos, praticando conceitos com uso de uma linguagem de programação estruturada.
+- Habilitar o aluno a desenvolver algoritmos mais elaborados.
 
 ## Conteúdo programático
-- SOLID
-- Definição de padrão de projeto (GOF)
-- Padrões Criacionais
-- Padrões Estruturais
-- Padrões Comportamentais
-- Java EE
+1. Introdução
+    1. Lógica e Lógica de Programação
+    1. Algoritmos – Definição e estratégias de construção de algoritmos
+    1. Representação de algoritmos - Fluxogramas
+    1. Armazenamento de dados – variáveis
+    1. Decisão em Fluxogramas
+1. Introdução à linguagem C
+    1. Linguagens de programação, compiladores, interpretadores
+    1. Tipos de dados e operadores da linguagem
+    1. Entrada e saída de dados
+    1. Estruturas de seleção
+    1. Estruturas de repetição
+    1. Vetores e matrizes
+1. Modularização
+    1. Funções com retorno
+    1. Funções sem retorno
+1. Estruturas
+1. Recursão
+1. Ponteiros
+1. Alocação dinâmica de memória
+1. Arquivos
 
 ## Metodologia
 
@@ -56,20 +80,20 @@ Aulas teóricas e demonstração de casos reais que ajudem na assimilação dos 
 
 ## Avaliação
 
-O processo de avaliação dar-se-á ao longo do desenvolvimento da disciplina. Categorias de análise, tais como, o aproveitamento individual e a capacidade de interação do educando serão cruciais para avaliar o seu aproveitamento em todas as etapas da disciplina. De modo específico, serão realizadas atividades para casa, provas práticas, seminários e trabalho em grupo.
+O processo de avaliação dar-se-á ao longo do desenvolvimento da disciplina. Categorias de análise, tais como, o aproveitamento individual e a capacidade de interação do educando serão cruciais para avaliar o seu aproveitamento em todas as etapas da disciplina. De modo específico, serão realizadas atividades para casa, provas práticas e trabalho em grupo.
 
 
 ## Bibliografia básica:
 
-- GAMMA, E.; HELM, R.; JOHNSON, K.; VLISSIDES, J. **Padrões de projeto – Soluções reutilizáveis de software orientado a objetos.** Porto Alegre: Bookman, 2000.
-- FOWLER, M. **Refatoração: Aperfeiçoando o Projeto de Código Existente.** Porto Alegre: Bookman, 2011.
-- FREEMAN, E.; FREEMAN, E.  **Use a Cabeça! Padrões de Projetos.**  Rio de Janeirio: Alta Books, 2007.
+- BACKES, A. **Linguagem C: Completa e Descomplicada**. Elsevier-Campus, 2013.
+- PEREIRA, S. L. **Algoritmos e Lógica de Programação Em C -Uma Abordagem Didática**. Érica, 2010.
+- SHILDT, H. **C - Completo e Total**. 3.ed. Makron Books, 2010.
 
 ## Bibliografia complementar:
-- LARMAN, C. **Utilizando UML e Padrões – Uma Introdução à Análise ao Projeto Orientado a Objetos.** 3. ed. Porto Alegre: Bookmann, 2007.
-- BRAUDE, E. **Projeto de Software: da programação à arquitetura - Uma abordagem baseada em Java.** Bookman, 2005.
-- HORSTMANN, C. **Padrões e Projeto Orientado a Objetos.** 2. ed. Bookman, 2007.
-- MARINESCU, F. **Padrões de Projeto EJB: Padrões Avançados, Processos e Idiomas.**  Bookman, 2004.
-- SANDERS, W. **Aprendendo Padrões de Projeto em PHP: Programação Orientada a Objetos para Projetos Dinâmicos.** Novatec, 2013.
-- SHALLOWAY, Alan; TROTT, James R. **Explicando padrões de projeto Uma nova perspectiva em Projeto orientado a objeto.** Bookman, 2004.
-- SHVETS, Alexander. **Dive Into Design Patterns.** (https://refactoring.guru/pt-br/design-patterns)
+- ALBANO, R. S.; ALBANO, S. G. **Programação em Linguagem C**. Ciência Moderna, 2010.
+- DAMAS, L. **Linguagem C**. LTC, 2007.
+- FORBELLONE, A. L. **Introdução a Lógica de Programação.** 3.ed. Pearson Brasil, 2005.
+- LOPES, A.; GARCIA, G. **Introdução à Programação: 500 Algoritmos Resolvidos.** Campus, 2002.
+- ZIVIANI, N. **Projeto de Algoritmos –com implementação em Pascal e C**. 3.ed. Cengage Learning, 2010.
+
+
