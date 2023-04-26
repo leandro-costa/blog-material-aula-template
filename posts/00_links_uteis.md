@@ -6,7 +6,7 @@ tag:
 category:
   - multimidia
 order: 0
-star:true
+star: true
 ---
 
 # Links
