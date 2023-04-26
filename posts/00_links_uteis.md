@@ -11,5 +11,4 @@ star: true
 
 # Links
 
-- [Entenda os conceitos básicos da codificação](https://learndigital.withgoogle.com/ateliedigital/course/basics-code) curso do google
-- [Material Estudo](https://github.com/20231-ifba-saj-ads-lpr/material-complementar/blob/main/README.md)
+- [Material Estudo](https://github.com/20231-ifba-saj-ads-ppr/material-complementar/blob/main/README.md)
