@@ -8,8 +8,10 @@ category:
 order: 0
 star: true
 ---
+# Links Úteis
 
-# Links
+- [Material Complementar](https://github.com/20231-ifba-saj-ads-ppr/material-complementar/blob/main/README.md)
+- [Repl IT IDE Java Online](https://replit.com/languages/java10)
+- [sourcemaking Design Patterns](https://sourcemaking.com/design_patterns)
+- [Padrões de Projeto - Prof. Diogo D. Moreira](https://diogomoreira.gitbook.io/padroes-de-projeto/)
 
-- [Entenda os conceitos básicos da codificação](https://learndigital.withgoogle.com/ateliedigital/course/basics-code) curso do google
-- [Material Estudo](https://github.com/20231-ifba-saj-ads-lpr/material-complementar/blob/main/README.md)
