@@ -7,6 +7,7 @@
 
 [^Dornelles]:Nemora  Dornelles.As 15 principais linguagens de programação do mundo! | Becode.https://becode.com.br/principais-linguagens-de-programacao/. (Acessado em 15/08/2019).
 
+
 [^Oracle]:Oracle."Hello World!" for Microsoft Windows (The Java™Tutorials > Getting Started> The "Hello World!" Application).[https://docs.oracle.com/javase/tutorial/getStarted/cupojava/win32.html](https://docs.oracle.com/javase/tutorial/getStarted/cupojava/win32.html). (Acessado em 07/08/2019).
 
 [^Santos]:R. Santos.Introdução à programação orientada a objetos usando Java. Campus, 2003.ISBN:9788535212068.
@@ -122,3 +123,12 @@
 [^CsiUneb]: Object Pool - Padrões de Projeto. [http://www.csi.uneb.br/padroes_de_projetos/object_pool.html] 
 
 [^Microsoft]: Reutilização de objeto com Object Pool no ASP.NET Core. [https://learn.microsoft.com/pt-br/aspnet/core/performance/objectpool?view=aspnetcore-7.0] 
+
+[^MANZANO]: Manzano, J. and Oliveira, J., 2005. Algoritmos. 17th ed. São Paulo (SP): Érica.
+
+[^GAMMA]: GAMMA, Erich. et al. Padrões de projetos: Soluções reutilizáveis de software orientados a objetos Bookman editora, 2009.
+
+[^Shvets]: Shvets, Alexander. EBOOK Mergulho Nos Padrões de Projeto.
+
+[^ProjectLombok]: Project Lombok [https://projectlombok.org/features/Builder](https://projectlombok.org/features/Builder) (Acessado em 24/04/2023)
+
