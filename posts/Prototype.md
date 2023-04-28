@@ -22,90 +22,134 @@ Clone ou clonagem de objetos.
 
 ## Motivação
 
-Para um programa de cadastro de clientes, é importante que existam diferentes formas de realizar o cadastro de cada tipo de cliente, levando em conta que alguns clientes podem exigir mais informações do que outros. Nesse contexto, a utilização do Padrão Prototype pode ser uma solução adequada, uma vez que permite criar uma interface com as informações que precisam ser coletadas do cliente. Com esse padrão, é possível adicionar ou remover atributos conforme as necessidades do cliente, tornando o processo de cadastro mais flexível e adaptável às particularidades de cada tipo de cliente. Por exemplo, se um paciente precisar fornecer informações adicionais, é possível acrescentar novos atributos sem comprometer a estrutura original da interface.
+É possível construir um editor para partituras musicais, customizando um framework geral para editores gráficos, acrescentando novos objetos que representam notas, pausas e pentagramas. O editor poderia conter:
+- Uma paleta de ferramentas para acrescentar esses objetos de música à partitura.
+- A paleta incluiria ferramentas para:
+    - Selecionar
+    - Mover
+    - Manipular objetos de outras formas
+
+O usuário poderia: 
+- Adicionar semínimas em partituras
+- Mover notas para cima ou para baixo
+
+Criação da classe abstrata Graphic para componentes gráficos. Com os métodos draw() para desenhar componentes gráficos e clone() para clonar o componente gráfico.
 
 ```java
-
-// Interface que define o comportamento do protótipo
-
-interface Prototype {
-    Prototype clone();
+abstract class Graphic {
+    public abstract void draw();
+    
+    public abstract Graphic clone();
 }
+```
 
-// Classe que implementa o protótipo
+Criação da subclasse concreta de Graphic para as notas musicais. Com o método construtor Note() e os métodos herdados da classe Graphic.
 
-class Pessoa implements Prototype {
-    private String nome;
-    private int idade;
-    private String sexo;
-
-    public Pessoa(String nome, int idade, String sexo) {
-        this.name = nome;
-        this.age = idade;
-        this.sexo = sexo;
+```java
+class Note extends Graphic {
+    private String pitch;
+    private int duration;
+    
+    public Note(String pitch, int duration) {
+        this.pitch = pitch;
+        this.duration = duration;
     }
-
-    // Implementação do método clone
-
-    public Prototype clone() {
-        return new Person(nome, idade, sexo);
+    
+    public void draw() {
     }
-
-    // Outros métodos da classe Pessoa
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-}
-
-// Cliente que usa o padrão Prototype
-
-class Cliente {
-    public static void main(String[] args) {
-        Pessoa pessoa1 = new Pessoa("Luís", 19, "Masculino");
-        Pessoa pessoa2 = (Pessoa) pessoa1.clone();
-
-        // Operações com o clone
-        System.out.println(pessoa1.getName()); //Luís
-        System.out.println(pessoa2.getName()); //Luís
+    
+    public Graphic clone() {
+        return new Note(this.pitch, this.duration);
     }
 }
 ```
 
-O padrão Prototype declara uma interface comum para todos os objetos que suportam a clonagem, no caso o processo de clonagem é delegado pelo padrão para o objeto que está sendo clonado. Essa interface permite que você clone um objeto sem acoplar seu código à classe daquele objeto. Geralmente, tal interface contém apenas um único método clonar. A implementação do método clonar é muito parecida em todas as classes. O método cria um objeto da classe atual e carrega todos os valores de campo para do antigo objeto para o novo.
+Criação da subclasse concreta de Graphic para as pausas musicais. Com o método construtor Rest() e os métodos herdados da classe Graphic.
+
+```java
+class Rest extends Graphic {
+    private int duration;
+    
+    public Rest(int duration) {
+        this.duration = duration;
+    }
+    
+    public void draw() {
+    }
+    
+    public Graphic clone() {
+        return new Rest(this.duration);
+    }
+}
+```
+
+Criação da class abstrata para as ferramentas do editor gráfico. Com os métodos activate(), deactivate() e manipulate(). Para ativar/desativar a ferramenta e para manipular um componente gráfico.
+
+```java
+abstract class Tool {
+    public abstract void activate();
+    
+    public abstract void deactivate();
+    
+    public abstract void manipulate(Graphic graphic);
+}
+```
+
+Criação da subclasse concreta de Tool para a criação de objetos gráficos. Com o método construtor para criar os objetos gráficos, os métodos herdados pela classe Tool e método para clonar a própria classe.
+
+```java
+class GraphicTool extends Tool {
+    private Graphic prototype;
+    private boolean active;
+
+    public GraphicTool(Graphic prototype) {
+        this.prototype = prototype;
+        this.active = false;
+    }
+    
+    public void activate() {
+        this.active = true;
+    }
+
+    public void deactivate() {
+        this.active = false;
+    }
+
+    public void manipulate(Graphic graphic) {
+    }
+
+    public Graphic createGraphic() {
+        return this.prototype.clone();
+    }
+}
+```
+
+Exemplo do código de aplicação, onde instância a classe Note, criando uma nota e a instância da classe GraphicTool para adicionar as notas na partitura.
+
+```java
+public class MusicEditor {
+    public static void main(String[] args) {
+        Graphic notePrototype = new Note("C", 4);
+        Graphic notePrototype2 = (Note) Note.clone();
+
+        GraphicTool noteTool = new GraphicTool(notePrototype);
+    }
+}
+```
 
 ## Aplicabilidade
 
-Use o padrão Prototype quando um sistema tiver que ser independente de como os seus produtos são criados, compostos e representados; e
-- quando as classes a instanciar forem especificadas em tempo de execução, por exemplo, por carga dinâmica; ou
-- para evitar a construção de uma hierarquia de classes de fábricas paralela à hierarquia de classes de produto; ou
-- quando as instâncias de uma classe puderem ter uma dentre poucas combinações diferentes de estados. Pode ser mais conveniente instalar um número correspondente de protótipos e cloná-los, ao invés de instanciar a classe manualmente, cada vez com um estado apropriado; ou
-- quando o objeto for caro, no sentido de complexos para serem construídos ou caros computacionalmente.
+Utilize o padrão Prototype quando:
+- o seu código não dever depender de classes concretas de objetos que você precisa copiar;
+    - O padrão Prototype fornece o código cliente com uma interface geral para trabalhar com todos os objetos que suportam clonagem. Essa interface faz o código do cliente ser independente das classes concretas dos objetos que ele clona.
+- você precisa reduzir o número de subclasses que somente diferem a forma que inicializam seus respectivos objetos;
+    - O padrão Prototype permite que você use um conjunto de objetos construídos, configurado de diversas formas, como protótipos.
+- o custo de criar um novo objeto é muito grande.
+    - O padrão Prototype permite que ao invés de chamar o new, apenas clonamos um objeto existente.
 
 ## Estrutura
 
 <figure>
-
 
 @startuml
 class Client {
@@ -138,17 +182,17 @@ note bottom: Retorna a cópia de si mesmo
  - **Prototype** - uma interface para garantir que todos os objetos protótipo tenham o método "clone".
  - **ConcretePrototype1|2** - são objetos protótipos. 
 
-<figcaption>Estrutura Prototype.</figcaption>
+<figcaption>Estrutura Prototype</figcaption>
 </figure>
 
 
 ## Participantes
 
-- **Prototype** (Prototype)
+- **Prototype** (Graphic)
     - declara uma interface para clonar a si próprio.
-- **ConcretePrototype** (Pessoa)
+- **ConcretePrototype** (Note, Rest, GraphicTool)
     - implementa uma operação para clonar a si próprio
-- **Client** (Cliente)
+- **Client** (MusicEditor)
     - cria um novo objeto solicitando a um protótipo que clone a si próprio.
 
 ## Colaborações
