@@ -99,7 +99,7 @@ O padrão Abstract Factory tem os seguintes benefícios e desvantagens:
 A implementação clássica para o padrão Abstract Factory é a seguinte:
 
 <figure>
-<img src="./AbstractFactory/assets/code implement.png">
+<img src="./AbstractFactory/assets/code_implement.png">
 
 </figure>
 
