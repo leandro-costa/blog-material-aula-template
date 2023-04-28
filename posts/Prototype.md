@@ -56,6 +56,7 @@ class Note extends Graphic {
     }
     
     public void draw() {
+        //gerar imagem
     }
     
     public Graphic clone() {
@@ -75,6 +76,7 @@ class Rest extends Graphic {
     }
     
     public void draw() {
+        //gerar imagem
     }
     
     public Graphic clone() {
@@ -151,6 +153,7 @@ Utilize o padrão Prototype quando:
 
 <figure>
 
+```plantuml
 @startuml
 class Client {
   Operation()
@@ -177,13 +180,15 @@ note bottom: Retorna a cópia de si mesmo
 class ConcretPrototype2 
 note bottom: Retorna a cópia de si mesmo
 @enduml
+```
+
+<figcaption>Estrutura Prototype</figcaption>
+</figure>
 
  - **Client** - é o código fora da estrutura do Prototype, que deseja clonar o objeto protótipo.
  - **Prototype** - uma interface para garantir que todos os objetos protótipo tenham o método "clone".
  - **ConcretePrototype1|2** - são objetos protótipos. 
 
-<figcaption>Estrutura Prototype</figcaption>
-</figure>
 
 
 ## Participantes
