@@ -103,21 +103,110 @@ $$VOLUME = COMPRIMENTO \times LARGURA \times ALTURA$$.
 1. Efetuar a leitura de um valor inteiro positivo ou negativo e apresentar o número lido como sendo um valor positivo, ou seja, o programa deverá apresentar o módulo de um número fornecido. Lembre-se de verificar se o número fornecido é menor que zero; sendo, multiplique-o por $-1$.
 1. Ler quatro valores referentes a quatro notas escolares de um aluno e imprimir uma mensagem dizendo que o aluno foi aprovado, se o valor da média escolar for maior ou igual a 5. Se o aluno não foi aprovado, indicar uma mensagem informando esta condição. Apresentar junto das mensagens o valor da média do aluno para qualquer condição.
 1. Ler quatro valores referentes a quatro notas escolares de um aluno e imprimir uma mensagem dizendo que o aluno foi aprovado, se o valor da média escolar for maior ou igual a 7. Se o valor da média for menor que 7, solicitar a nota de prova final, somar com o valor da média e obter nova média. Se a nova média for maior ou igual a 5, apresentar uma mensagem dizendo que o aluno foi aprovado em prova final. Se o aluno não foi aprovado, indicar uma mensagem informando esta condição. Apresentar com as mensagens o valor da média do aluno, para qualquer condição.
-1. Efetuar a leitura de três valores (variáveis A, B e C) e efetuar o cálculo da equação completa de segundo grau, apresentando as duas raízes, se para os valores informados for possível efetuar o referido cálculo. Lembre-se de que a variável A deve ser diferente de zero. Dada a equação $f(x) = ax^2 + bx + c$ as raízes são obtidas por $x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}$.
-1. Efetuar a leitura de três valores (variáveis A, B e C) e apresentá-los dispostos em ordem crescente.
-1. Efetuar a leitura de quatro números inteiros e apresentar os números que são divisíveis por 2 e 3.
-1. Efetuar a leitura de cinco números inteiros e identificar o maior e o menor valores.
-1. Elaborar um programa que efetue a leitura de um número inteiro e apresentar uma mensagem informando se o número é par ou ímpar. 
-1. Elaborar um programa que efetue a leitura de um valor que esteja entre a faixa de 1 a 9. Após a leitura do valor fornecido pelo usuário, o programa deverá indicar uma de duas mensagens: "O valor está na faixa permitida", caso o usuário forneça o valor nesta faixa, ou a mensagem "O valor está fora da faixa permitida", caso o usuário forneça valores menores que 1 ou maiores que 9.
-1. Elaborar um programa que efetue a leitura de um determinado valor inteiro, e efetue a sua apresentação, caso o valor não seja maior que três.
-1. Formule um algoritmo que leia a matrícula e nome de um vendedor, seu salário fixo e o total de vendas e calcule a comissão do vendedor. Se o total de vendas é inferior a R\$ 1500,00 o percentual de comissão é 2\% e se for maior o percentual é de 4\%. Apresente o nome do vendedor, matrícula, salário ixo e salário total.
-1. Escreva um algoritmo que leia um número e informe se ele é divisível por 3 e por 7.
-1. Formule um algoritmo que leia cinco números e conte quantos deles são negativos.
-1. De acordo com uma tabela médica, o peso ideal está relacionado com a altura e o sexo. Elabore um algoritmo que receba altura e sexo de uma pessoa e calcule e imprima o seu peso ideal, sabendo que:
+    ::: details 
+    ```c
+    #include <stdio.h>
+    int main(){
+        float nota1, nota2, nota3, nota4, media, final;
+        printf("informar nota 1\n");
+        scanf("%f", &nota1);
+        printf("informar nota 1\n");
+        scanf("%f", &nota1);
+        printf("informar nota 2\n");
+        scanf("%f", &nota2);
+        printf("informar nota 3\n");
+        scanf("%f", &nota3);
+        printf("informar nota 4\n");
+        scanf("%f", &nota4);
+        //ler notas
+        media = (nota1+nota2+nota3+nota4)/4;
+
+        if (media >=7){
+            printf("aprovado %2.2f", media);
+        }else{
+            //nota de prova final
+            printf("informar nota da final\n");
+            scanf("%f", &final);
+
+            media = (media + final)/2;
+            if (media >= 5 ){
+                printf("aluno foi aprovado em prova final %2.2f", media);
+            }else{
+                printf("aluno não foi aprovado %2.2f", media);
+            }        
+        }
+        return 0;
+    }
+    ```
+    :::    
+2. Efetuar a leitura de três valores (variáveis A, B e C) e efetuar o cálculo da equação completa de segundo grau, apresentando as duas raízes, se para os valores informados for possível efetuar o referido cálculo. Lembre-se de que a variável A deve ser diferente de zero. Dada a equação $f(x) = ax^2 + bx + c$ as raízes são obtidas por $x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}$.
+3. Efetuar a leitura de três valores (variáveis A, B e C) e apresentá-los dispostos em ordem crescente.
+4. Efetuar a leitura de quatro números inteiros e apresentar os números que são divisíveis por 2 e 3.
+5. Efetuar a leitura de cinco números inteiros e identificar o maior e o menor valores.
+6. Elaborar um programa que efetue a leitura de um número inteiro e apresentar uma mensagem informando se o número é par ou ímpar. 
+7. Elaborar um programa que efetue a leitura de um valor que esteja entre a faixa de 1 a 9. Após a leitura do valor fornecido pelo usuário, o programa deverá indicar uma de duas mensagens: "O valor está na faixa permitida", caso o usuário forneça o valor nesta faixa, ou a mensagem "O valor está fora da faixa permitida", caso o usuário forneça valores menores que 1 ou maiores que 9.
+8. Elaborar um programa que efetue a leitura de um determinado valor inteiro, e efetue a sua apresentação, caso o valor não seja maior que três.
+9.  Formule um algoritmo que leia a matrícula e nome de um vendedor, seu salário fixo e o total de vendas e calcule a comissão do vendedor. Se o total de vendas é inferior a R\$ 1500,00 o percentual de comissão é 2\% e se for maior o percentual é de 4\%. Apresente o nome do vendedor, matrícula, salário ixo e salário total.
+10. Escreva um algoritmo que leia um número e informe se ele é divisível por 3 e por 7.
+    ::: details 
+    ```c
+    #include <stdio.h>
+    int main(){
+        int numero;
+        printf("Informe um numero\n");
+        scanf("%d", &numero);
+        //divisível por 3 e por 7
+        if ((numero % 3 == 0) && (numero % 7 == 0)){
+            printf("O numero %d é divisível por 3 e por 7", numero);
+        }else{
+            printf("O numero %d NÃO é divisível por 3 e por 7", numero);
+        }
+        return 0;
+    }
+    ```
+    :::
+11. Formule um algoritmo que leia cinco números e conte quantos deles são negativos.
+    ::: details 
+    ```c
+    #include <stdio.h>
+    int main(){
+        int numero;
+        int qtdNegativos = 0;
+        printf("Informe um numero\n");
+        scanf("%d", &numero);
+        if (numero<0){
+            qtdNegativos++;
+        }
+        printf("Informe um numero\n");
+        scanf("%d", &numero);
+        if (numero<0){
+            qtdNegativos++;
+        }
+        printf("Informe um numero\n");
+        scanf("%d", &numero);
+        if (numero<0){
+            qtdNegativos++;
+        }
+        printf("Informe um numero\n");
+        scanf("%d", &numero);
+        if (numero<0){
+            qtdNegativos++;
+        }
+        printf("Informe um numero\n");
+        scanf("%d", &numero);
+        if (numero<0){
+            qtdNegativos++;
+        }
+        printf("Quantidade de numeros negativos %d", qtdNegativos);
+        return 0;
+    }
+    ```
+    :::
+12. De acordo com uma tabela médica, o peso ideal está relacionado com a altura e o sexo. Elabore um algoritmo que receba altura e sexo de uma pessoa e calcule e imprima o seu peso ideal, sabendo que:
     - Homens: $(72,7 \times h) – 58$
     - Mulheres: $(62,1 \times h) – 44,7$
-1. Elabore um algoritmo que leia o percurso em quilômetros, o tipo de moto e informe o consumo estimado de combustível, sabendo que uma moto do tipo `A` faz 26 km com um litro de gasolina, uma moto do tipo `B` faz 20 km e o tipo `C` faz 7 km.
-1. Uma instituição financeira concederá crédito a uma taxa de juros de 3\% aos seus clientes de acordo com o saldo médio do período. Elabore um algoritmo que calcule o valor que pode ser concedido ao cliente e imprima-o. Os clientes com saldo médio inferior a R\$ 500,00 não têm direito a crédito. Já os clientes com saldo entre R\$ 501,00 e R\$ 1000,00 podem obter créditos de 35\% em relação ao saldo médio. Clientes com saldo entre R\$ 1001,00 a R\$ 3000,00 podem obter créditos de 50\% em relação ao saldo médio. E para aqueles clientes com saldo superior a R\$ 3001,00 pode ser concedido crédito de 75\% do valor do saldo.
+13. Elabore um algoritmo que leia o percurso em quilômetros, o tipo de moto e informe o consumo estimado de combustível, sabendo que uma moto do tipo `A` faz 26 km com um litro de gasolina, uma moto do tipo `B` faz 20 km e o tipo `C` faz 7 km.
+14. Uma instituição financeira concederá crédito a uma taxa de juros de 3\% aos seus clientes de acordo com o saldo médio do período. Elabore um algoritmo que calcule o valor que pode ser concedido ao cliente e imprima-o. Os clientes com saldo médio inferior a R\$ 500,00 não têm direito a crédito. Já os clientes com saldo entre R\$ 501,00 e R\$ 1000,00 podem obter créditos de 35\% em relação ao saldo médio. Clientes com saldo entre R\$ 1001,00 a R\$ 3000,00 podem obter créditos de 50\% em relação ao saldo médio. E para aqueles clientes com saldo superior a R\$ 3001,00 pode ser concedido crédito de 75\% do valor do saldo.
 
 ## Repetição
 
