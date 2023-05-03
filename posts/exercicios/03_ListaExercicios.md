@@ -107,8 +107,6 @@ $$VOLUME = COMPRIMENTO \times LARGURA \times ALTURA$$.
 1. Elaborar um programa que efetue a leitura de um número inteiro e apresentar uma mensagem informando se o número é par ou ímpar. 
 1. Elaborar um programa que efetue a leitura de um valor que esteja entre a faixa de 1 a 9. Após a leitura do valor fornecido pelo usuário, o programa deverá indicar uma de duas mensagens: "O valor está na faixa permitida", caso o usuário forneça o valor nesta faixa, ou a mensagem "O valor está fora da faixa permitida", caso o usuário forneça valores menores que 1 ou maiores que 9.
 1. Elaborar um programa que efetue a leitura de um determinado valor inteiro, e efetue a sua apresentação, caso o valor não seja maior que três.
-
-
 1. Formule um algoritmo que leia a matrícula e nome de um vendedor, seu salário fixo e o total de vendas e calcule a comissão do vendedor. Se o total de vendas é inferior a R\$ 1500,00 o percentual de comissão é 2\% e se for maior o percentual é de 4\%. Apresente o nome do vendedor, matrícula, salário ixo e salário total.
 1. Escreva um algoritmo que leia um número e informe se ele é divisível por 3 e por 7.
 1. Formule um algoritmo que leia cinco números e conte quantos deles são negativos.
@@ -117,3 +115,66 @@ $$VOLUME = COMPRIMENTO \times LARGURA \times ALTURA$$.
     - Mulheres: $(62,1 \times h) – 44,7$
 1. Elabore um algoritmo que leia o percurso em quilômetros, o tipo de moto e informe o consumo estimado de combustível, sabendo que uma moto do tipo `A` faz 26 km com um litro de gasolina, uma moto do tipo `B` faz 20 km e o tipo `C` faz 7 km.
 1. Uma instituição financeira concederá crédito a uma taxa de juros de 3\% aos seus clientes de acordo com o saldo médio do período. Elabore um algoritmo que calcule o valor que pode ser concedido ao cliente e imprima-o. Os clientes com saldo médio inferior a R\$ 500,00 não têm direito a crédito. Já os clientes com saldo entre R\$ 501,00 e R\$ 1000,00 podem obter créditos de 35\% em relação ao saldo médio. Clientes com saldo entre R\$ 1001,00 a R\$ 3000,00 podem obter créditos de 50\% em relação ao saldo médio. E para aqueles clientes com saldo superior a R\$ 3001,00 pode ser concedido crédito de 75\% do valor do saldo.
+
+## Repetição
+
+1. Faça um programa que leia um número inteiro positivo N e imprima todos os  números naturais de 0 até N em ordem crescente.
+1. Faça um programa que leia um número inteiro positivo N e imprima todos os  números naturais de 0 até N em ordem decrescente.
+1. Faça um programa que leia um número inteiro N e depois imprima os N primeiros números naturais ímpares.
+1. Faça um programa que determine e mostre os cinco primeiros múltiplos de 3  considerando números maiores que 0.
+1. Faça um programa que calcule e mostre a soma dos 50 primeiros números pares.
+1. Faça um programa que mostre uma contagem regressiva na tela, iniciando em 10  e terminando em 0. Mostre uma mensagem "FIM!" após a contagem.
+1. Elabore um programa que peça ao usuário para digitar 10 valores. Some esses  valores e apresente o resultado na tela.
+1. Faça um programa que leia 10 inteiros e imprima sua média.
+1. Escreva um programa que leia 10 números e escreva o menor valor lido e o maior  valor lido.
+1. Faça um programa que leia 10 inteiros positivos, ignorando não positivos, e imprima sua média.
+1. Faça um algoritmo que leia um número positivo e imprima seus divisores. Exemplo: os divisores do número 66 são: 1, 2, 3, 6, 11, 22, 33 e 66.
+1. Escreva um programa que leia um número inteiro e calcule a soma de todos os  divisores desse número, com exceção dele próprio. Exemplo: a soma dos divisores  do número 66 é 1 + 2 + 3 + 6 + 11 + 22 + 33 = 78.
+1. Faça um programa que exiba a soma de todos os números naturais abaixo de  1.000 que são múltiplos de 3 ou 5.
+1. Escreva um programa que leia um número inteiro, maior ou igual a zero, do usuário. Imprima o enésimo termo da sequência de Fibonacci. Essa sequência começa  no termo de ordem zero, e, a partir do segundo termo, seu valor é dado pela soma  dos dois termos anteriores. Alguns termos dessa sequência são: 0, 1, 1, 2, 3, 5, 8,  13, 21, 34.
+1. Elabore um programa que faça a leitura de vários números inteiros até que se digite um número negativo. O programa tem de retornar o maior e o menor número  lido.
+1. Em matemática, a série harmônica é a série infinita definida como:
+$$
+\sum _{k=1}^{\infty }{\frac {1}{k}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
+$$
+
+    O n-ésimo($H_{n}$) número harmônico é designado por:
+    $$
+    {\displaystyle H_{n}=\sum _{k=1}^{n}{\frac {1}{k}}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
+    +{\frac {1}{n}}
+    $$
+    Apresente um programa que calcule o valor de qualquer $H_{n}$.
+1. Escreva um programa que leia um número inteiro positivo N e em seguida imprima N linhas do chamado triângulo de Floyd:
+    ```console
+    1
+    2 3
+    4 5 6
+    7 8 9 10
+    11 12 13 14 15
+    16 17 18 19 20 21
+    ```
+1. Faça um programa que receba um número inteiro maior do que 1 e verifique se o  número fornecido é primo ou não.
+1. Faça um programa que calcule e escreva o valor de S:
+$$
+S={\frac {1}{1}}
++{\frac {3}{2}}
++{\frac {5}{3}}
++{\frac {7}{4}}
++{\frac {9}{5}}
++\cdots 
++{\frac {1}{55}}
+$$
+1. Na matemática, o fatorial de um número natural n, representado por n!, é o produto de todos os inteiros positivos menores ou iguais a n. 
+    A função fatorial é normalmente definida por:
+    $$
+    n!=\prod _{k=1}^{n}k=n\times (n-1)\times (n-2)\times ...\times 3\times 2\times 1,\qquad \forall n\in \mathbb {N} 
+    $$
+    Faça um programa que leia um valor inteiro e positivo N, calcule o mostre o valor  E, conforme a fórmula a seguir:
+    $$
+    E={\frac {1}{1!}}
+    +{\frac {1}{2!}}
+    +{\frac {1}{3!}}
+    +\cdots 
+    +{\frac {1}{N!}}
+    $$
+1. Escreva um programa que leia certa quantidade de números, imprima o maior  deles e quantas vezes o maior número foi lido. A quantidade de números a serem lidos deve ser fornecida pelo usuário.
