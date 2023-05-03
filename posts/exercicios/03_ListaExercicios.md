@@ -6,6 +6,7 @@ tag:
   - condicional
 category:
   - exercicio
+star: true
 ---
 # Lista de Exercícios
 
@@ -157,14 +158,14 @@ $$
 1. Faça um programa que receba um número inteiro maior do que 1 e verifique se o  número fornecido é primo ou não.
 1. Faça um programa que calcule e escreva o valor de S:
 $$
-S={\frac {1}{1}}
-+{\frac {3}{2}}
-+{\frac {5}{3}}
-+{\frac {7}{4}}
-+{\frac {9}{5}}
-+\cdots 
-+{\frac {1}{55}}
-$$
+    S={\frac {1}{1}}
+    +{\frac {3}{2}}
+    +{\frac {5}{3}}
+    +{\frac {7}{4}}
+    +{\frac {9}{5}}
+    +\cdots 
+    +{\frac {1}{55}}
+    $$
 1. Na matemática, o fatorial de um número natural n, representado por n!, é o produto de todos os inteiros positivos menores ou iguais a n. 
     A função fatorial é normalmente definida por:
     $$
