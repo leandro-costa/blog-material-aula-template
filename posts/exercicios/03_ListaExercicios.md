@@ -137,12 +137,11 @@ $$VOLUME = COMPRIMENTO \times LARGURA \times ALTURA$$.
 $$
 \sum _{k=1}^{\infty }{\frac {1}{k}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
 $$
-
     O n-ésimo($H_{n}$) número harmônico é designado por:
-    $$
-    {\displaystyle H_{n}=\sum _{k=1}^{n}{\frac {1}{k}}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
-    +{\frac {1}{n}}
-    $$
+$$
+{H_{n}=\sum _{k=1}^{n}{\frac {1}{k}}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
++{\frac {1}{n}}
+$$
     Apresente um programa que calcule o valor de qualquer $H_{n}$.
 1. Escreva um programa que leia um número inteiro positivo N e em seguida imprima N linhas do chamado triângulo de Floyd:
     ```console
