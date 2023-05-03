@@ -28,11 +28,44 @@ Considere um toolkit para construção de interfaces de usuários que suporte m�
 Podemos resolver esse problema definindo uma classe abstrata WidgetFactory que declara uma interface para criação de cada tipo básico de widget. Existe também uma classe abstrata para cada tipo de widget, e subclasses concretas implementam os widgets para interação. A interface de WidgetFactory tem uma operação que retorna um novo objeto widget para cada classe abstrata de widget. Os clientes chamam estas operações para obter instâncias de widget, mas não têm conhecimento das classes concretas que estão usando. Desta forma, os clientes ficam independentes do padrão de interação usado no momento.
 
 
-<figure>
+```plantuml
+@startuml _01
+abstract class WidgetFactory{
 
-<img src="./AbstractFactory/assets/motive.png">
+    +CreateScrollBar()
+    +CreateWindow()
+}
 
-</figure>
+class MotifWidgetFactory{
+
+    +CreateScrollBar()
+    +CreateWindow()
+}
+
+class PMWidgetFactory{
+
+    +CreateScrollBar()
+    +CreateWindow()
+}
+
+WidgetFactory --> MotifWidgetFactory
+WidgetFactory --> PMWidgetFactory
+
+Client-->WidgetFactory
+Client-->Window
+Client-->ScrollBar
+
+Window--> PMWindow
+Window-->MotifWindow
+
+ScrollBar-->PMScrollBar
+ScrollBar-->MotifScrollBar
+
+
+@enduml
+
+
+```
 
 Existe uma subclasse concreta de WidgetFactory para cada estilo de interação. Cada subclasse implementa as operações para criar o widget apropriado para aquele estilo de interação. Por exemplo, a operação CreateScrollBar aplicada à MotifWidgetFactory instancia e retorna uma barra de rolamento de acordo com o Motif, enquanto que a correspondente operação aplicada à PMWidgetFactory retorna uma barra de rolamento para o Presentation Manager. Os clientes criam widgets exclusivamente através da interface de WidgetFactory e não tem conhecimento das classes que implementam os widgets para um padrão em particular. Em outras palavras, os clientes têm somente que se comprometer com uma interface definida por uma classe abstrata, não uma determinada classe concreta. Uma WidgetFactory também implementa e garante as dependências entre as classes concretas de widgets. Uma barra de rolamento Motif deveria ser usada com um botão Motif e um editor de textos Motif, e essa restrição é garantida automaticamente como conseqüência de usar uma MotifWidgetFactory.
 
@@ -48,11 +81,43 @@ Use o padrão Abstract Factory quando:
 
 ## Estrutura
 
-<figure>
-<img src="./AbstractFactory/assets/structure.png">
+```plantuml
+@startuml _02
+abstract class AbstractFactory{
 
-</figure>
+    +CreateProductA()
+    +CreateProductB()
+}
 
+class ConcreteFactory1{
+
+    +CreateProductA()
+    +CreateProductB()
+}
+
+class ConcreteFactory2{
+
+    +CreateProductA()
+    +CreateProductB()
+}
+
+AbstractFactory --> ConcreteFactory1
+AbstractFactory --> ConcreteFactory2
+
+
+Client --> AbstractFactory
+Client --> AbstractProductA
+Client --> AbstractProductB
+
+AbstractProductA --> ProductA1
+AbstractProductA --> ProductA2
+
+AbstractProductB --> ProductB1
+AbstractProductB --> ProductB2
+
+@enduml
+
+```
 
 ## Participantes
 - **AbstractFactory** (WidgetFactory)
@@ -98,82 +163,387 @@ O padrão Abstract Factory tem os seguintes benefícios e desvantagens:
 
 A implementação clássica para o padrão Abstract Factory é a seguinte:
 
-<figure>
-<img src="./AbstractFactory/assets/code_implement.png">
 
-</figure>
+````java
+
+abstract class AbstractProductA 
+{
+	public abstract void operationA1();
+	public abstract void operationA2();
+}
+
+class ProductA1 extends AbstractProductA 
+{
+	ProductA1(String arg)
+	{
+		System.out.println("Hello "+arg);
+	} 
+	// Implement the code here
+	public void operationA1() { };
+	public void operationA2() { };
+}
+
+class ProductA2 extends AbstractProductA 
+{
+	ProductA2(String arg)
+	{
+		System.out.println("Hello "+arg);
+	} 
+	// Implement the code here
+	public void operationA1() { };
+	public void operationA2() { };
+}
+
+abstract class AbstractProductB 
+{
+	public abstract void operationB1();
+	public abstract void operationB2();
+}
+
+class ProductB1 extends AbstractProductB 
+{
+	ProductB1(String arg)
+	{
+		System.out.println("Hello "+arg);
+	} 
+	// Implement the code here
+}
+
+class ProductB2 extends AbstractProductB 
+{
+	ProductB2(String arg)
+	{
+		System.out.println("Hello "+arg);
+	} 
+	// Implement the code here
+}
+
+abstract class AbstractFactory 
+{
+	abstract AbstractProductA createProductA();
+	abstract AbstractProductB createProductB();
+}
+
+class ConcreteFactory1 extends AbstractFactory 
+{
+	AbstractProductA createProductA()
+	{
+		return new ProductA1("ProductA1");
+	}
+	AbstractProductB createProductB()
+	{
+		return new ProductB1("ProductB1");
+	}
+}
+
+class ConcreteFactory2 extends AbstractFactory 
+{
+	AbstractProductA createProductA()
+	{
+		return new ProductA2("ProductA2");
+	}
+	AbstractProductB createProductB()
+	{
+		return new ProductB2("ProductB2");
+	}
+}
+
+
+//Factory creator - an indirect way of instantiating the factories
+class FactoryMaker 
+{
+	private static AbstractFactory pf=null;
+	static AbstractFactory getFactory(String choice)
+	{
+		if(choice.equals("a"))
+		{
+			pf=new ConcreteFactory1();
+		}
+		else if(choice.equals("b"))
+		{
+			pf=new ConcreteFactory2();
+		} 
+		return pf;
+	}
+}
+
+
+// Client
+public class Client
+{
+	public static void main(String args[])
+	{
+		AbstractFactory pf=FactoryMaker.getFactory("a");
+		AbstractProductA product=pf.createProductA();
+		//more function calls on product
+	}
+}
+
+````
 
 
 ## Exemplo de código
 
-Vamos levar o conceito de kit de ferramentas de interface do usuário para nosso exemplo de código Java. Vamos criar um aplicativo cliente que precisa criar uma janela.
+Nesse exemplo foi utilizado dois tipos de hambúger para de dois tipos de lugares do mundo para inlustar o mecanismo da
+Abstract Factory:
 
+1. Primeiro é criado uma classe abstract chamada **FabricaAbstrataHamburger** que contem duas assinturas de metódos:
+- **criarHamburgerGourmet()** que retorna um objeto do tipo **HamburgerGourmet**
+- **criarHamburgerNormal()** que retorna um objeto do tipo **HamburgerNormal**
+
+````java
+
+public interface FabricaAbstrataHamburger {
+    public HamburgerGourmet criarHamburgerGourmet();
+    public HamburgerNormal  criarHamburgerNormal();
+    
+}
+
+````
+
+
+2. Agora apartir dessa fábrica abstrata, criamos duas outras concretas:
+- **HamburgerBrasileiro** que representa um hambúrger do tipo brasileiro
+- **HamburgerUSA** que representa um hambúrger do tipo norte-americano
+
+````java
+public class HamburgerUSA implements FabricaAbstrataHamburger{
+    
+    @Override
+    public HamburgerGourmet criarHamburgerGourmet(){
+        
+        return new HamburgerGourmet("Com Gergerlin", "Beacon", "Cheddar", "Molho barbecue");
+        
+    };
+    @Override
+    public HamburgerNormal criarHamburgerNormal(){
+        
+        return new HamburgerNormal("Com Gergerlin", "Beacon", "Cheddar", "sem");
+        
+    };
+    
+}
+
+
+````
+
+````java
+public class HamburgerBrasileiro implements FabricaAbstrataHamburger{
+    
+    @Override
+    public HamburgerGourmet criarHamburgerGourmet(){
+        
+        return new HamburgerGourmet("Com Gergerlin", "Picanha", "Cheddar", "Molho barbecue");
+    };
+    @Override
+    public HamburgerNormal criarHamburgerNormal(){
+        
+        return new HamburgerNormal("Pão de hambúrger", "Carne de hambúrger ", "Quijo minas", "Sem");
+        
+    };
+    
+    
+}
+
+
+````
+
+Ambos retornam nos metodos implemetados atravez da classe abstarata, dois objetos:
+- No método **criarHamburgerGourmet()**, um obejto **HamburgerGourmet**
+- No método **criarHamburgerNormal()**, um obejto **HamburgerNormal**
+
+
+3. Agora só restou criar as duas classes que representar os objetos **HamburgerGourmet** e **HamburgerNormal** elas
+repesentam os dois estilos de hambúrgers em si.
+
+
+````java
+
+class HamburgerGourmet {
+    private String tipoDoPao;
+    private String tipoDaCarne;
+    private String tipoDoQueijo;
+    private String tipoDoMolho;
+
+    public HamburgerGourmet(String tipoDoPao, String tipoDaCarne, String tipoDoQueijo, String tipoDoMolho) {
+        this.tipoDoPao    = tipoDoPao;
+        this.tipoDaCarne  = tipoDaCarne;
+        this.tipoDoQueijo = tipoDoQueijo;
+        this.tipoDoMolho  = tipoDoMolho;
+    }
+
+    @Override
+    public String toString() {
+        return "HamburgerGourmet{" + "tipoDoPao=" + tipoDoPao + ", tipoDaCarne=" + tipoDaCarne + ", tipoDoQueijo=" + tipoDoQueijo + ", tipoDoMolho=" + tipoDoMolho + '}';
+    }
+
+    public String getTipoDoPao() {
+        return tipoDoPao;
+    }
+
+    public void setTipoDoPao(String tipoDoPao) {
+        this.tipoDoPao = tipoDoPao;
+    }
+
+    public String getTipoDaCarne() {
+        return tipoDaCarne;
+    }
+
+    public void setTipoDaCarne(String tipoDaCarne) {
+        this.tipoDaCarne = tipoDaCarne;
+    }
+
+    public String getTipoDoQueijo() {
+        return tipoDoQueijo;
+    }
+
+    public void setTipoDoQueijo(String tipoDoQueijo) {
+        this.tipoDoQueijo = tipoDoQueijo;
+    }
+
+    public String getTipoDoMolho() {
+        return tipoDoMolho;
+    }
+
+    public void setTipoDoMolho(String tipoDoMolho) {
+        this.tipoDoMolho = tipoDoMolho;
+    }
+    
+}
+
+
+````
+
+
+````java
+
+class HamburgerNormal {
+    private String tipoDoPao;
+    private String tipoDaCarne;
+    private String tipoDoQueijo;
+    private String tipoDoMolho;
+
+    public HamburgerNormal(String tipoDoPao, String tipoDaCarne, String tipoDoQueijo, String tipoDoMolho) {
+        this.tipoDoPao    = tipoDoPao;
+        this.tipoDaCarne  = tipoDaCarne;
+        this.tipoDoQueijo = tipoDoQueijo;
+        this.tipoDoMolho  = tipoDoMolho;
+    }
+
+    @Override
+    public String toString() {
+        return "HamburgerNormal{" + "tipoDoPao=" + tipoDoPao + ", tipoDaCarne=" + tipoDaCarne + ", tipoDoQueijo=" + tipoDoQueijo + ", tipoDoMolho=" + tipoDoMolho + '}';
+    }
+    
+   
+    public String getTipoDoPao() {
+        return tipoDoPao;
+    }
+
+    public void setTipoDoPao(String tipoDoPao) {
+        this.tipoDoPao = tipoDoPao;
+    }
+
+    public String getTipoDaCarne() {
+        return tipoDaCarne;
+    }
+
+    public void setTipoDaCarne(String tipoDaCarne) {
+        this.tipoDaCarne = tipoDaCarne;
+    }
+
+    public String getTipoDoQueijo() {
+        return tipoDoQueijo;
+    }
+
+    public void setTipoDoQueijo(String tipoDoQueijo) {
+        this.tipoDoQueijo = tipoDoQueijo;
+    }
+
+    public String getTipoDoMolho() {
+        return tipoDoMolho;
+    }
+
+    public void setTipoDoMolho(String tipoDoMolho) {
+        this.tipoDoMolho = tipoDoMolho;
+    }
+      
+}
+
+````
+
+4. Por fim vamos só visualizar os resultados:
+
+
+````java
+public class AbstractFactory {
+
+    public static void main(String[] args) {
+        HamburgerBrasileiro brBurger = new HamburgerBrasileiro();
+        HamburgerUSA usaBurger       = new HamburgerUSA();
+        
+        System.out.println(brBurger.criarHamburgerNormal());
+        System.out.println(brBurger.criarHamburgerGourmet());
+        
+        System.out.println(usaBurger.criarHamburgerNormal());
+        System.out.println(usaBurger.criarHamburgerGourmet());
+        
+    }
+}
+
+
+````
+
+
+````
+//Saida
+
+//Hambúrger Brasileiro
+HamburgerNormal{tipoDoPao=Pão de hambúrger, tipoDaCarne=Carne de hambúrger , tipoDoQueijo=Queijo minas, tipoDoMolho=Sem}
+HamburgerGourmet{tipoDoPao=Com Gergerlin, tipoDaCarne=Picanha, tipoDoQueijo=Cheddar, tipoDoMolho=Molho barbecue}
+
+//Hambúrger Norte-americano
+HamburgerNormal{tipoDoPao=Com Gergerlin, tipoDaCarne=Beacon, tipoDoQueijo=Cheddar, tipoDoMolho=sem}
+HamburgerGourmet{tipoDoPao=Com Gergerlin, tipoDaCarne=Beacon, tipoDoQueijo=Cheddar, tipoDoMolho=Molho barbecue}
+
+
+````
+5. Vejamos esse código em um diagrama UML
+
+```plantuml
+@startuml _02
+abstract class FabricaAbstrataHamburger{
+ +criarHamburgerGourmet()
+ +criarHamburgerNormal()
+ }
  
-1. Primeiro, precisamos criar nossa interface Window. A janela é o nosso AbstractProduct.
+ class HamburgerUSA{
+ +criarHamburgerGourmet()
+ +criarHamburgerNormal()
+ }
 
-<figure>
-<img src="./AbstractFactory/assets/00.png">
+ class HamburgerBrasileiro{
+ +criarHamburgerGourmet()
+ +criarHamburgerNormal()
+ }
+ 
+ FabricaAbstrataHamburger --> HamburgerUSA
+ FabricaAbstrataHamburger --> HamburgerBrasileiro
 
-</figure>
+Client --> HamburgerUSA
+Client --> HamburgerBrasileiro
+Client --> FabricaAbstrataHamburger
 
+HamburgerUSA --> HamburgerGourmet
+HamburgerBrasileiro --> HamburgerGourmet
 
-2. Vamos criar duas implementações do Window, como nossos ConcreteProducts. Um para Microsoft Windows:
+HamburgerUSA --> HamburgerNormal
+HamburgerBrasileiro --> HamburgerNormal
 
-<figure>
-<img src="./AbstractFactory/assets/01.png">
+@enduml
 
-</figure>
+```
 
-
-3. E um para Mac OSX:
-
-<figure>
-<img src="./AbstractFactory/assets/02.png">
-
-</figure>
-
-
-
-
-4. Agora precisamos fornecer nossas fábricas. Primeiro vamos definir nosso AbstractFactory. Para este exemplo, digamos que eles apenas criem o Windows:
-
-<figure>
-<img src="./AbstractFactory/assets/03.png">
-
-</figure>
-
-
-
-5. Em seguida, precisamos fornecer implementações ConcreteFactory dessas fábricas para nossos dois sistemas operacionais. Primeiro para MS Windows:
-
-<figure>
-<img src="./AbstractFactory/assets/04.png">
-
-</figure>
-
-
-6. E para MacOSX:
-
-<figure>
-<img src="./AbstractFactory/assets/05.png">
-
-</figure>
-
-
-7. Por fim, precisamos de um cliente para aproveitar todas essas funcionalidades.
-
-<figure>
-<img src="./AbstractFactory/assets/06.png">
-
-</figure>
-
-
-8. Precisamos de alguma forma para especificar qual tipo de AbstractWidgetFactory para o nosso GUIBuilder. Isso geralmente é feito com uma instrução switch semelhante ao código abaixo:
-
-<figure>
-<img src="./AbstractFactory/assets/07.png">
-
-</figure>
 
 
 ## Usos conhecidos
