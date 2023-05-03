@@ -148,51 +148,81 @@ O padrão Object Pool tem os seguintes benefícios e desvantagens:
 
 ## Implementação
 
+Uma ideia de uso do padrão de projeto object pool, poderia ser em um jogo de damas, onde existe a opção de recuperar peças que já foram perdida. Cada jogador possui o seu cemitério, onde ficam suas peças que foram "mortas" pelo seu adversario, em certo ponto do jogo é possivel recuperar algumas peças que se encontram no cemitério;
+Para que não seja necessário criar novas instâncias sempre que um jogador puder recuperar uma peça do cemitério, podemos utilizar o padrão de projeto e deixar uma pool de peças já prontas para serem usadas quando for preciso. Ao termino do jogo, ou quando forem "mortas" novamente, todas as peças serão devolvidas a pool.
 
-
-
-
-
-
-## Exemplo de código
-
-<!-- um jogo de damas onde o tabuleiro tem espaços especiais, e caso uma peça pare em cima desse espaço, receberá alguma instrução do que deve ser feito, uma dessas instruções é ganhar uma peça que está no monte (caso aja alguma disponivel), outra intrução é devolver uma peça para o monte caso tenha pego alguma -->
+Abaixo podemos ver um exemplo de como ficariam as classes com a utilização do object pool:
 
 ```java
 public class Peca {
 
     private int idPeca;
-    private boolean disponivel;
-
     public Peca(int idPeca) {
-
         this.idPeca = idPeca;
-        this.disponivel = true;
-    }
-
-    public void setDisponibilidade(boolean disponibilidade) {
-        this.disponivel = disponibilidade;
-    }
-
-    public boolean getDisponibilidade() {
-        return this.disponivel;
     }
 }
 ```
 
 ```java
-public class Monte {
+public class Cemiterio {
 
-    private List<Peca> pool_de_pecas;
+    private ArrayList<Peca> disponiveisParaUso;
+    private ArrayList<Peca> pecasDeVoltaAoJogo;
 
     public Peca pegarPeca() {
-        // disponibiliza a peça para o cliente solicitado
-     }
-
-    public void liberarPeca() {
-        // o cliente devolve a peça, e ela volta para a lista
+        if (disponiveisParaUso.isEmpty()) { 
+            return null;
+        } 
+        else {
+                pecasDeVoltaAoJogo.add(disponiveisParaUsos.get(0));
+                disponiveisParaUso.remove(0);              
+                return referencia_em_uso = pecasDeVoltaAoJogo.get(pecasDeVoltaAoJogo.size() - 1); 
+        }
+    }   
+    public void liberarPeca(Peca pecaDevolvida) { 
+        pecasDeVoltaAoJogo.remove(0);           
+        disponiveisParaUso.add(pecaDevolvida); 
     }
+}
+```
 
+
+## Exemplo de código
+
+Código generico de classes quando é utilizado o object pool.
+
+```java
+public class Objeto {
+
+    private int idObjeto;
+    //qualquer outros atributos que o objeto possua
+    public Objeto(int idObjeto) {
+        this.idObjeto = idObjeto;
+    }
+}
+```
+
+```java
+public class PoolDeObjeto {
+
+    private ArrayList<Objeto> disponiveis;
+    private ArrayList<Objeto> emUso;
+
+    public Objeto pegarObjeto() {
+        if (disponiveis.isEmpty()) { // ver se a lista está vazia, caso esteja retorna null
+            return null;
+        } 
+        else {
+                emUso.add(disponiveis.get(0));
+                disponiveis.remove(0);              
+                return  referencia_em_uso = emUso.get(emUso.size() - 1); // se a lista tem objetos disponiveis, retorna a referencia do objeto para o cliente
+        }
+    }   
+    public void liberarObjeto(Objeto objetoDevolvido) { 
+        emUso.remove(0);           
+        disponiveis.add(objetoDevolvido);  // o cliente devolve o objeto, e ele volta para a lista de disponiveis
+        
+    }
 }
 ```
 ## Usos conhecidos
