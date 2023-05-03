@@ -137,14 +137,9 @@ $$VOLUME = COMPRIMENTO \times LARGURA \times ALTURA$$.
 1. Escreva um programa que leia um número inteiro, maior ou igual a zero, do usuário. Imprima o enésimo termo da sequência de Fibonacci. Essa sequência começa  no termo de ordem zero, e, a partir do segundo termo, seu valor é dado pela soma  dos dois termos anteriores. Alguns termos dessa sequência são: 0, 1, 1, 2, 3, 5, 8,  13, 21, 34.
 1. Elabore um programa que faça a leitura de vários números inteiros até que se digite um número negativo. O programa tem de retornar o maior e o menor número  lido.
 1. Em matemática, a série harmônica é a série infinita definida como:
-$$
-\sum _{k=1}^{\infty }{\frac {1}{k}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
-$$
+    $$\sum _{k=1}^{\infty }{\frac {1}{k}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots$$
     O n-ésimo($H_{n}$) número harmônico é designado por:
-$$
-{H_{n}=\sum _{k=1}^{n}{\frac {1}{k}}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots 
-+{\frac {1}{n}}
-$$
+    $${H_{n}=\sum _{k=1}^{n}{\frac {1}{k}}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots+{\frac {1}{n}}$$
     Apresente um programa que calcule o valor de qualquer $H_{n}$.
 1. Escreva um programa que leia um número inteiro positivo N e em seguida imprima N linhas do chamado triângulo de Floyd:
     ```console
@@ -157,20 +152,10 @@ $$
     ```
 1. Faça um programa que receba um número inteiro maior do que 1 e verifique se o  número fornecido é primo ou não.
 1. Faça um programa que calcule e escreva o valor de S:
-$$
-    S={\frac {1}{1}}
-    +{\frac {3}{2}}
-    +{\frac {5}{3}}
-    +{\frac {7}{4}}
-    +{\frac {9}{5}}
-    +\cdots 
-    +{\frac {1}{55}}
-    $$
+    $$S={\frac {1}{1}}+{\frac {3}{2}}+{\frac {5}{3}}+{\frac {7}{4}}+{\frac {9}{5}}+\cdots +{\frac {1}{55}}$$
 1. Na matemática, o fatorial de um número natural n, representado por n!, é o produto de todos os inteiros positivos menores ou iguais a n. 
     A função fatorial é normalmente definida por:
-    $$
-    n!=\prod _{k=1}^{n}k=n\times (n-1)\times (n-2)\times ...\times 3\times 2\times 1,\qquad \forall n\in \mathbb {N} 
-    $$
+    $$n!=\prod _{k=1}^{n}k=n\times (n-1)\times (n-2)\times ...\times 3\times 2\times 1,\qquad \forall n\in \mathbb {N}$$
     Faça um programa que leia um valor inteiro e positivo N, calcule o mostre o valor  E, conforme a fórmula a seguir:
     $$
     E={\frac {1}{1!}}
