@@ -21,4 +21,4 @@ order: 2
 1. Depois de verificar seu endereço de e-mail, você poderá personalizar ainda mais sua conta e começar a usar o GitHub.
 
 
-Essa conta será utlizada para realizar as entregas das atividades durante a disciplina
+Essa conta será utilizada para realizar as entregas das atividades durante a disciplina
