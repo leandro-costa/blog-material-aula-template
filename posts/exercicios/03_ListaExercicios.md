@@ -9,6 +9,8 @@ category:
 ---
 # Lista de Exercícios
 
+[^BACKES]
+
 ## Entrada e Saída
 
 1. Desenvolver a lógica para um programa que efetue o cálculo da área de uma circunferência, apresentando a medida da área calculada.
