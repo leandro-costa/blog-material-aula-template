@@ -12,13 +12,13 @@ order: 1
 
 Elaborar uma apresentação do padrão seguindo o modelo do [^GAMMA] e utilizando o [template](../XX_Modelo.md)  
 
-| Tarefa                          | aluno                      | link                                                                  |
-| ------------------------------- | -------------------------- | --------------------------------------------------------------------- |
-| Criar postagem Factory Method   | @SarahPithon               | https://github.com/20231-ifba-saj-ads-ppr/blog-material-aula/issues/4 |
-| Criar postagem Abstract Factory | @FabricioLuisdeSousaSantos | https://github.com/20231-ifba-saj-ads-ppr/blog-material-aula/issues/5 |
-| Criar postagem Builder          | @GabrielCoffee9            | https://github.com/20231-ifba-saj-ads-ppr/blog-material-aula/issues/6 |
-| Criar postagem Prototype        | @LuisADS8                  | https://github.com/20231-ifba-saj-ads-ppr/blog-material-aula/issues/7 |
-| Criar postagem Object Pool      | @AmandaSerpa               | https://github.com/20231-ifba-saj-ads-ppr/blog-material-aula/issues/8 |
+| Tarefa                          | aluno                      | 
+| ------------------------------- | -------------------------- | 
+| Criar postagem Factory Method   | @SarahPithon               | 
+| Criar postagem Abstract Factory | @FabricioLuisdeSousaSantos | 
+| Criar postagem Builder          | @GabrielCoffee9            | 
+| Criar postagem Prototype        | @LuisADS8                  | 
+| Criar postagem Object Pool      | @AmandaSerpa               | 
 ## Referências
 
 <!-- @include: ../../bib/bib.md -->
