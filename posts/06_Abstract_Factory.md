@@ -374,42 +374,7 @@ class HamburgerGourmet {
         this.tipoDoMolho  = tipoDoMolho;
     }
 
-    @Override
-    public String toString() {
-        return "HamburgerGourmet{" + "tipoDoPao=" + tipoDoPao + ", tipoDaCarne=" + tipoDaCarne + ", tipoDoQueijo=" + tipoDoQueijo + ", tipoDoMolho=" + tipoDoMolho + '}';
-    }
-
-    public String getTipoDoPao() {
-        return tipoDoPao;
-    }
-
-    public void setTipoDoPao(String tipoDoPao) {
-        this.tipoDoPao = tipoDoPao;
-    }
-
-    public String getTipoDaCarne() {
-        return tipoDaCarne;
-    }
-
-    public void setTipoDaCarne(String tipoDaCarne) {
-        this.tipoDaCarne = tipoDaCarne;
-    }
-
-    public String getTipoDoQueijo() {
-        return tipoDoQueijo;
-    }
-
-    public void setTipoDoQueijo(String tipoDoQueijo) {
-        this.tipoDoQueijo = tipoDoQueijo;
-    }
-
-    public String getTipoDoMolho() {
-        return tipoDoMolho;
-    }
-
-    public void setTipoDoMolho(String tipoDoMolho) {
-        this.tipoDoMolho = tipoDoMolho;
-    }
+    //toString, gets e sets
     
 }
 
@@ -432,43 +397,7 @@ class HamburgerNormal {
         this.tipoDoMolho  = tipoDoMolho;
     }
 
-    @Override
-    public String toString() {
-        return "HamburgerNormal{" + "tipoDoPao=" + tipoDoPao + ", tipoDaCarne=" + tipoDaCarne + ", tipoDoQueijo=" + tipoDoQueijo + ", tipoDoMolho=" + tipoDoMolho + '}';
-    }
-    
-   
-    public String getTipoDoPao() {
-        return tipoDoPao;
-    }
-
-    public void setTipoDoPao(String tipoDoPao) {
-        this.tipoDoPao = tipoDoPao;
-    }
-
-    public String getTipoDaCarne() {
-        return tipoDaCarne;
-    }
-
-    public void setTipoDaCarne(String tipoDaCarne) {
-        this.tipoDaCarne = tipoDaCarne;
-    }
-
-    public String getTipoDoQueijo() {
-        return tipoDoQueijo;
-    }
-
-    public void setTipoDoQueijo(String tipoDoQueijo) {
-        this.tipoDoQueijo = tipoDoQueijo;
-    }
-
-    public String getTipoDoMolho() {
-        return tipoDoMolho;
-    }
-
-    public void setTipoDoMolho(String tipoDoMolho) {
-        this.tipoDoMolho = tipoDoMolho;
-    }
+        //toString, gets e sets
       
 }
 
@@ -481,14 +410,13 @@ class HamburgerNormal {
 public class AbstractFactory {
 
     public static void main(String[] args) {
-        HamburgerBrasileiro brBurger = new HamburgerBrasileiro();
-        HamburgerUSA usaBurger       = new HamburgerUSA();
-        
-        System.out.println(brBurger.criarHamburgerNormal());
-        System.out.println(brBurger.criarHamburgerGourmet());
-        
-        System.out.println(usaBurger.criarHamburgerNormal());
-        System.out.println(usaBurger.criarHamburgerGourmet());
+        FabricaAbstrataHamburger fabrica = new HamburgerBrasileiro();
+        System.out.println(fabrica.criarHamburgerNormal());
+        System.out.println(fabrica.criarHamburgerGourmet());
+
+        fabrica = new HamburgerUSA();
+        System.out.println(fabrica.criarHamburgerNormal());
+        System.out.println(fabrica.criarHamburgerGourmet());
         
     }
 }
@@ -497,7 +425,7 @@ public class AbstractFactory {
 ````
 
 
-````
+````console
 //Saida
 
 //Hambúrger Brasileiro
