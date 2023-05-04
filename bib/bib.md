@@ -114,9 +114,9 @@
 
 [^MACORATTI_DIP]: Princípio da Inversão da Dependência. [https://macoratti.net/20/05/c_invdep1.htm](https://macoratti.net/20/05/c_invdep1.htm)
 
-[^SourceMaking]: Object Pool Design Pattern. [https://sourcemaking.com/design_patterns/object_pool] 
+[^SourceMaking]: Object Pool Design Pattern. [https://sourcemaking.com/design_patterns/object_pool](https://sourcemaking.com/design_patterns/object_pool) 
 
-[^ODesign]: Object Pool Pattern. [https://www.oodesign.com/object-pool-pattern] 
+[^ODesign]: Object Pool Pattern. [https://www.oodesign.com/object-pool-pattern](https://www.oodesign.com/object-pool-pattern)
 
 [^BestPratice]: Best Practice Software Engineering - Object Pool. [http://best-practice-software-engineering.ifs.tuwien.ac.at/patterns/objectpool.html] 
 

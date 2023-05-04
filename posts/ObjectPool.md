@@ -174,13 +174,14 @@ public class Cemiterio {
             return null;
         } 
         else {
-                pecasDeVoltaAoJogo.add(disponiveisParaUsos.get(0));
-                disponiveisParaUso.remove(0);              
-                return referencia_em_uso = pecasDeVoltaAoJogo.get(pecasDeVoltaAoJogo.size() - 1); 
+                Peca referencia_em_uso = disponiveisParaUsos.get(0);
+                pecasDeVoltaAoJogo.add(referencia_em_uso);
+                disponiveisParaUso.remove(referencia_em_uso);              
+                return referencia_em_uso; 
         }
     }   
     public void liberarPeca(Peca pecaDevolvida) { 
-        pecasDeVoltaAoJogo.remove(0);           
+        pecasDeVoltaAoJogo.remove(pecaDevolvida);           
         disponiveisParaUso.add(pecaDevolvida); 
     }
 }
@@ -199,6 +200,8 @@ public class Objeto {
     public Objeto(int idObjeto) {
         this.idObjeto = idObjeto;
     }
+
+    //equals
 }
 ```
 
