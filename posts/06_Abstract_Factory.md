@@ -83,43 +83,48 @@ Use o padrão Abstract Factory quando:
 
 ## Estrutura
 
+<figure>
+
 ```plantuml
 @startuml _02
 abstract class AbstractFactory{
 
-    +CreateProductA()
-    +CreateProductB()
+    +{abstract}CreateProductA()
+    +{abstract}CreateProductB()
 }
 
-class ConcreteFactory1{
-
-    +CreateProductA()
-    +CreateProductB()
-}
-
-class ConcreteFactory2{
+class ConcreteFactory1 extends AbstractFactory{
 
     +CreateProductA()
     +CreateProductB()
 }
 
-AbstractFactory --> ConcreteFactory1
-AbstractFactory --> ConcreteFactory2
+class ConcreteFactory2 extends AbstractFactory{
 
+    +CreateProductA()
+    +CreateProductB()
+}
 
-Client --> AbstractFactory
-Client --> AbstractProductA
-Client --> AbstractProductB
+Client ..> AbstractFactory
+Client ..> AbstractProductA
+Client ..> AbstractProductB
 
-AbstractProductA --> ProductA1
-AbstractProductA --> ProductA2
+abstract class AbstractProductA
+class ProductA1 extends AbstractProductA
+class ProductA2 extends AbstractProductA
 
-AbstractProductB --> ProductB1
-AbstractProductB --> ProductB2
+abstract class AbstractProductB
+class ProductB1 extends AbstractProductB
+class ProductB2 extends AbstractProductB
+
 
 @enduml
 
 ```
+
+
+<figcaption>UML da Estrutura</figcaption>
+</figure>
 
 ## Participantes
 - **AbstractFactory** (WidgetFactory)
@@ -286,8 +291,10 @@ public class Client
 
 ## Exemplo de código
 
-Nesse exemplo foi utilizado dois tipos de hambúger para de dois tipos de lugares do mundo para inlustar o mecanismo da
-Abstract Factory:
+Uma rede de fast food deseja abrir várias franquias em dois pais diferentes para estender seus negócios.Os países escolhidos foram Brasil e U.S.A(Estados Unidos da America). Por ser pequena ainda a empresa só entrega aos clientes dois tipos de hambúrguer, "Normal", um hambúrguer um pouco mais barato e mais simples em sua composição e o hambúrguer "Gourmet" que acaba sendo mais caro, porém, seus ingredientes são de melhor qualidade. O que difere cada tipo sendo 
+Normal e Gourmet é o: o tipo do pão, o tipo da Carne, o tipo do Queijo e o tipo do Molho. Que variam de acordo com qual dos dois locais está essa franquia.
+
+O código abaixo inlustra um sistema feito para quê o cliente de um desses dois países solicite um hambúrguer de cada um dos dois tipos seguindo a customização de cada país.
 
 1. Primeiro é criado uma classe abstract chamada **FabricaAbstrataHamburger** que contem duas assinturas de metódos:
 - **criarHamburgerGourmet()** que retorna um objeto do tipo **HamburgerGourmet**
@@ -440,45 +447,62 @@ HamburgerGourmet{tipoDoPao=Com Gergerlin, tipoDaCarne=Beacon, tipoDoQueijo=Chedd
 ````
 5. Vejamos esse código em um diagrama UML
 
+
+<figure>
+
 ```plantuml
-@startuml _02
+@startuml _03
 abstract class FabricaAbstrataHamburger{
- +criarHamburgerGourmet()
- +criarHamburgerNormal()
- }
- 
- class HamburgerUSA{
- +criarHamburgerGourmet()
- +criarHamburgerNormal()
+    +{abstract}criarHamburgerGourmet()
+    +{abstract}criarHamburgerNormal()
  }
 
- class HamburgerBrasileiro{
- +criarHamburgerGourmet()
- +criarHamburgerNormal()
+ class HamburgerUSA extends FabricaAbstrataHamburger{
+    +criarHamburgerGourmet()
+    +criarHamburgerNormal()
  }
- 
- FabricaAbstrataHamburger --> HamburgerUSA
- FabricaAbstrataHamburger --> HamburgerBrasileiro
 
-Client --> HamburgerUSA
-Client --> HamburgerBrasileiro
-Client --> FabricaAbstrataHamburger
+ class HamburgerBrasileiro extends FabricaAbstrataHamburger{
+    +criarHamburgerGourmet()
+    +criarHamburgerNormal()
+ }
 
-HamburgerUSA --> HamburgerGourmet
-HamburgerBrasileiro --> HamburgerGourmet
+Cliente ..> _HamburgerBrasileiro
+Cliente ..> _HamburgerUSA
+Cliente ..> FabricaAbstrataHamburger
 
-HamburgerUSA --> HamburgerNormal
-HamburgerBrasileiro --> HamburgerNormal
+abstract class _HamburgerBrasileiro{}
+class HamburgerGourmetBrasileiro extends _HamburgerBrasileiro{}
+class HamburgerNormalBrasileiro extends _HamburgerBrasileiro{}
+
+abstract class _HamburgerUSA{}
+class HamburgerGourmetUSA extends _HamburgerUSA{}
+class HamburgerNormalUSA extends _HamburgerUSA{}
 
 @enduml
 
 ```
-
-
+<figcaption>UML do Exemplo</figcaption>
+</figure>
 
 ## Usos conhecidos
 
-InterViews usa o sufixo “Kit” [Lin92] para denotar classes AbstractFactory. Ela define fábricas abstratas WidgetKit e DialogKit para geração de objetos específicos da interface de usuário para interação. InterViews também inclui LayoutKit, que gera diferentes objetos por composição dependendo do layout desejado. Por exemplo, um layout que é conceitualmente horizontal pode exigir diferentes objetos compostos, dependendo da orientação do documento (retrato ou paisagem). ET++ [WGM88] usa o padrão Abstract Factory para obter portabilidade entre diferentes sistemas de janelas (X Windows e SunView, por exemplo). A classe abstrata base WindowSystem define a interface para criar objetos que representam recursos do sistema de janelas (MakeWindow, MakeFont, MakeColor, por exemplo). As subclasses concretas implementam as interfaces para um sistema de janelas específico. Em tempo de execução, ET++ cria uma instância de uma subclasse concreta WindowSystem que cria objetos concretos para os recursos do sistema.
+- InterViews usa fábricas abstratas para
+encapsular diferentes tipos de aparências para
+sua interface gráfica.
+
+- ET++ usa fábricas abstratas para permitir a
+fácil portabilidade para diferentes ambientes de
+janelas (XWindows e SunView, por exemplo).
+
+- Sistema de captura e reprodução de vídeo feito
+na UIUC usa fábricas abstratas para permitir
+portabilidade entre diferentes placas de captura
+de vídeo.
+
+- Em linguagens dinâmicas como Smalltalk (e
+talvez em POO em geral) classes podem ser
+vistas como fábricas de objetos.
 
 ## Padrão relacionados
 As classes AbstractFactory são freqüentemente implementadas com métodos-fábrica Factory Method, mas elas também podem ser implementadasusando Prototype. Uma fábrica concreta é freqüentemente um singleton.
@@ -488,4 +512,5 @@ As classes AbstractFactory são freqüentemente implementadas com métodos-fábr
 - **ERICK GAMMA**, Padrões de Projetos: Soluções Reutilizáveis de Software Orientados a Objetos,  Bookman; 1ª edição (1 janeiro 2000)
 - **ABSTRACT FACTORY PATTERN - STARTERTUTORIALS**, https://www.startertutorials.com/patterns/abstract-factory-pattern.html
 - **REFACTORING GURU:** https://refactoring.guru/pt-br/design-patterns/abstract-factory
+- **UNIVASF - "Padrões de Projeto de Software Orientado a Objetos" - Ricardo Argenton Ramos -** - http://www.univasf.edu.br/~ricardo.aramos/disciplinas/ES_II_2010_1/aulas/Aula_04.pdf
 
