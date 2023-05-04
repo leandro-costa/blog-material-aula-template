@@ -1,6 +1,7 @@
 ---
 icon: edit
-date: 2023-04-26 13:15:00.00 -3
+date: 2023-05-04 14:16:00.00 -3
+author: Gabriel Café
 tag:
   - builder
   - gof
@@ -108,15 +109,21 @@ O padrão Builder captura todos estes relacionamentos. Cada classe conversora é
 
 Use o padrão Builder quando:
 
-- o algoritmo para criação de um objeto complexo deve ser independente das partes que compõem o objeto e de como elas são montadas;
-- existem classes com construtores com muitos parâmetros opcionais ou classes que tenham muitas versões de construtores sobrecarregadas;
-- você precisa que seu código permita a criação de diferentes representações de um Objeto. Ex: Casa --> Casa de Madeira e Casa de Pedra;
-- você quer construir uma árvore de Objetos utilizando o **Composite**;
+- O algoritmo para criação de um objeto complexo deve ser independente das partes que compõem o objeto e de como elas são montadas;
+
+- Existem classes com construtores com muitos parâmetros opcionais ou classes que tenham muitas versões de construtores sobrecarregadas;
+
+- Você precisa que seu código permita a criação de diferentes representações de um Objeto. Exemplo:
+    - Casa
+        - Casa de Madeira 
+        - Casa de Pedra
+
+- Você quer construir uma árvore de Objetos utilizando o **Composite**;
 
 
 ## Um pouco sobre o Composite
 
-O Composite é um padrão de projeto estrutural que permite que a composição de objetos em estruturas de árvores que representam hierarquias partes-todo. Após a composição, estas estruturas podem ser utilizadas da mesma maneira que objetos individuais.
+O [Composite](/XX_Composite.md) é um padrão de projeto estrutural que permite que a composição de objetos em estruturas de árvores que representam hierarquias partes-todo. Após a composição, estas estruturas podem ser utilizadas da mesma maneira que objetos individuais.
 
 Usar o padrão Composite faz sentido apenas quando o modelo central de sua aplicação pode ser representada como uma árvore.
 Por exemplo, imagine que você tem dois tipos de objetos:
@@ -180,20 +187,34 @@ hide empty methods
     - implementa métodos para a construção e montagem em partes do produto, usando a interface de Builder.
     - Não expõe o produto durante a montagem, mantém a representação até o objeto ser recuperado.
     - ConcreteBuilders devem fornecer seus próprios métodos para recuperar os resultados de construções, já que os produtos gerados podem ser completamente diferentes.
-- **Director** (RTFReader)
+- **Director** (RTFReader)  
     - Mantém uma instancia de um Builder passado pelo cliente.
-    - atua como controlador do Builder passado e implementa métodos visando a execução sequencial correta e a organização das etapas de configuração para cada tipo de situação.
+    - Implementa métodos visando a execução sequencial correta e a organização das etapas de configuração para cada tipo de situação.
+    - **Não é estritamente necessário**, é possivel que o padrão seja implementado com o cliente assumindo um papel parecido com o de director.
 
 - **Product** (ASCIIText, TeXText, TextWidget)
     - representa o objeto complexo em construção. ConcreteBuilder constrói a representação interna do produto e define o as etapas de montagem;
     - inclui classes que definem as diversas partes que constituem o objeto complexo, inclusive as interfaces para a montagem das partes no resultado final.
 
 
-## Colaborações
-- O cliente cria o objeto Director e o configura com o objeto Builder desejado.
-- Director utiliza o Builder para notificar que o processo de montagem de uma parte do produto deve ser executado.
-- Builder trata solicitações do Director e acrescenta partes ao produto.
-- O cliente recupera o produto após a montagem do Builder.
+## Colaborações e variação
+Apesar do Builder presente no GOF sempre utilizar um diretor, a implementação de uma variação desse padrão utilizando o cliente como um "diretor" é popularmente usada.
+
+Com isso, as colaborações podem variar:
+
+- Com **Director** (GOF)
+    - O cliente cria o objeto director e o configura com o objeto builder desejado.
+    - Director notifica ao builder para executar o processo de montagem de uma parte do produto.
+    - Builder trata solicitações do director e acrescenta partes ao produto.
+    - O cliente recupera o produto após a montagem do builder.
+
+- Sem **Director**
+    - O cliente cria e mantém a instância do objeto builder desejado.
+    - O cliente chama a função do builder para executar o processo de montagem de uma parte do produto.
+    - Builder trata solicitações do cliente e acrescenta partes ao produto.
+    - O cliente recupera o produto após a montagem do builder.
+
+Com a interação direta do cliente com o builder no processo de construção, o cliente tem que saber como o processo de construção(etapas) funciona, porém, com a implementação do director, basta que o cliente saiba qual director usar naquela situação especifica para obter o produto final desejado.
 
 ## Consequências
 
@@ -216,7 +237,7 @@ Eis um exemplo para representar a implementação do padrão **Builder** em java
 ```java
 public interface Builder {
     public void buildPart(Part productPart); // define a montagem de uma parte
-     //Part é uma classe abstrata
+     // Part é uma classe abstrata
 }
 ```
 
@@ -239,7 +260,11 @@ public class ConcreteBuilder implements Builder {
 public class Director {
     private Builder builder;
 
-     public void constructProduct(Builder builder) {
+    public Director(Builder builder){
+        this.builder = builder;
+    }
+
+     public void constructProduct() {
         Part exempleProductPart = new SpecificProductPart();
         // SpecificProductPart representa uma classe que implementa a classe abstrata Part
 
@@ -264,24 +289,47 @@ public class Product {
 }
 ```
 
-Com essas implementações, este seria o código cliente (código da aplicação):
+Com essas implementações, este seria o código cliente(código da aplicação) **COM** o uso do director :
 
 ```java
 public class Client {
 
     public static void main(String[] args) {
-        Director director = new Director();
-
-        //Director usa o objeto ConcreteBuilder dado pelo cliente.
-        //Isto porque o código cliente sabe qual o builder correto a ser utilizado para gerar um produto especifico.
+        // Director usa o objeto ConcreteBuilder dado pelo cliente.
+        // Isto porque o código cliente sabe qual o builder correto a ser utilizado para gerar um produto específico.
         ConcreteBuilder builder = new ConcreteBuilder();
-        director.constructProduct(builder);
 
-        //O produto final é retornado pela instância de builder, 
-        //já que director não enxerga e não depende de um concreteBuilder especifico e seu produto final.
+        Director director = new Director(builder);
+        director.constructProduct();
+
+        // O produto final é retornado pela instância de builder, 
+        // já que director não enxerga e não depende de um concreteBuilder específico e seu produto final.
         Product product = builder.getResult();
 
-        //Faz algo com o produto ou constrói outros produtos
+        // ..Faz algo com o produto ou constrói outros produtos
+    }
+}
+```
+
+Este seria o código cliente(código da aplicação) **SEM** o uso do director: 
+
+```java
+public class Client {
+
+    public static void main(String[] args) {
+        // O cliente instancia o objeto do ConcreteBuilder desejado.
+        // Isto porque o código cliente sabe qual o builder correto a ser utilizado para gerar um produto específico.
+        ConcreteBuilder builder = new ConcreteBuilder();
+
+        // a instancia de SpecificProductPart é necessária, pois é requisitada na função buildPart().
+        Part exempleProductPart = new SpecificProductPart();
+
+        builder.buildPart(exempleProductPart);
+
+        // O produto final é retornado pela instância de builder.
+        Product product = builder.getResult();
+
+        // ..Faz algo com o produto ou constrói outros produtos
     }
 }
 ```
@@ -289,50 +337,90 @@ public class Client {
 
 ## Exemplo de código
 
-Consideremos um contexto onde é preciso construir objetos complexos que representam as peças de um jogo de tabuleiro, cada peça tem uma cabeça, um corpo, pés e um equipamento (como uma lança) e o jeito que é permitido se mover. Isto é importante para que cada peça tenha um devido papel baseado nas suas partes. O código a seguir, utiliza o padrão Builder para facilitar a construção de peças padrões do jogo.
+Consideremos um contexto onde é preciso construir objetos complexos que representam as peças de um jogo de tabuleiro, cada peça tem uma cabeça, um corpo, pés e um equipamento (como uma lança). Isto é importante para que cada peça tenha um devido impacto baseado nas suas partes. As peças podem assumir papéis com nomenclaturas, como no xadrez onde existem peões, cavalos, rei e rainha. O código a seguir, utiliza o padrão Builder para facilitar a construção de peças padrões do jogo.
 
-Para facilitar o entendimento, implementaremos primeiro as representações das partes das peças:
 
-A maioria das partes a seguir são enums, atribuindo um valor representativo e evitando que o código do exemplo seja muito grande.
+Para facilitar o entendimento, aqui está uma UML desse contexto:
 
-```java
-public enum PieceHead {
-    HUMAN, LIZARD, ROBOT, SKELETON
+<figure>
+
+```plantuml
+@startuml
+interface BoardPieceBuilder{
+   + buildHead()
+   + buildBody()
+   + buildFeet()
+   + buildEquipament()
+   + setName()
 }
+
+class BoardPieceDirector{
+   - Builder builder
+   + constructHumanWithSword()
+   + constructLizardWithShield()
+   + constructRobotWithGun()
+}
+
+note bottom of BoardPieceDirector
+ {
+    builder.buildHead(new RobotHead());
+    builder.buildBody(new MetalicBody());
+    builder.buildFeet(new TankTreadFeet());
+    builder.buildEquipament(new GunEquipament());
+ }
+        
+end note
+
+
+BoardPieceDirector o-> BoardPieceBuilder:builder
+
+class KingBuilder{
+    - PieceHead head
+    - PieceBody body
+    - PieceFeet feet
+    - PieceEquipament equipament
+    - String name
+
+    + getKing()
+    + buildHead()
+    + buildBody()
+    + buildFeet()
+    + buildEquipament()
+    + setName()
+}
+
+class HorseBuilder{
+    - PieceHead head
+    - PieceBody body
+    - PieceFeet feet
+    - PieceEquipament equipament
+    - String name
+
+    + getHorse()
+    + buildHead()
+    + buildBody()
+    + buildFeet()
+    + buildEquipament()
+    + setName()
+}
+
+
+BoardPieceBuilder <|-- KingBuilder
+BoardPieceBuilder <|-- HorseBuilder
+KingBuilder ..> King
+HorseBuilder..> Horse
+
+hide empty attributes
+hide empty methods
+@enduml
 ```
 
-```java
-public enum PieceBody {
-    FLESH, SCALES, METALIC, BONES
-}
-```
+<figcaption>Builder aplicado no contexto de peças de tabuleiro.</figcaption>
 
+</figure>
 
-```java
-public enum PieceFeet {
-    BIPEDS, QUADRUPED, TANK_TREAD, PROPULSOR
-}
-```
+Este UML exemplifica o contexto do builder sendo usado para criar peças de tabuleiro, onde **PieceHead**, **PieceBody**, **PieceFeet** e **PieceEquipament** são classes abstratas que definem regras para a implementaçao das caracteristicas das peças do tabuleiro, e os builders são os construtores que levam em consideração o papel que a peça vai assumir para a construção do produto final.
 
-
-PieceEquipament é criado como uma classe abstrata para definir os papéis obrigatórios que um equipamento deve ter, esta abordagem permite a criação de vários equipamentos diferentes.
-
-```java
-public abstract class PieceEquipament {
-    private int defense;
-    private int attack;
-    private EquipamentType type; 
-    private boolean broken;
-
-    public int getDefense();
-
-    public int getAttack();
-
-    public EquipamentType getType();
-
-    public boolean breakingCondition(EquipamentAction action); 
-}
-```
 
 Agora que temos todas as representações que precisamos, podemos começar a implementar o padrão Builder.
 
@@ -360,7 +448,7 @@ public class KingBuilder implements BoardPieceBuilder {
     private PieceEquipament equipament;
     private String name;
 
-    public Horse getKing() {
+    public King getKing() {
         return new King(head, body, feet, equipament, name);
     }
 
@@ -468,7 +556,7 @@ public class King {
     
     public String getGeneratedName(){
         return 'King Skeleton With Magic Staff';
-        //Representação de um nome gerado 
+        // Representação de um nome gerado 
     }
 
     public PieceHead getHead(){
@@ -537,7 +625,7 @@ public class Horse {
 
     public String getGeneratedName(){
         return 'Cyclope With Lance';
-        //Representação de um nome gerado 
+        // Representação de um nome gerado 
     }
 
     public PieceHead getHead(){
@@ -571,74 +659,122 @@ public class Horse {
 }
 ```
 
-Com os participantes Builders e ConcreteBuilders prontos, assim como seus Produtos, agora é possivel implementar O Director responsável por direcionar a solicitação do cliente para a execução correta da montagem das peças, como no exemplo abaixo:
-
-```java
-public interface BoardPieceDirector {
-   
-    public void constructHumanWithSword(BoardPieceBuilder builder){
-        builder.buildHead(PieceHead.HUMAN);
-        builder.buildBody(PieceBody.FLESH);
-        builder.buildFeet(PieceFeet.BIPEDS);
-        builder.buildEquipament(new SwordEquipament());
-    }
-
-    public void constructLizardWithShield(BoardPieceBuilder builder){
-        builder.buildHead(PieceHead.LIZARD);
-        builder.buildBody(PieceBody.SCALES);
-        builder.buildFeet(PieceFeet.BIPEDS);
-        builder.buildEquipament(new ShieldEquipament());
-    } 
-
-    public void constructRobotWithGun(BoardPieceBuilder builder){
-        builder.buildHead(PieceHead.ROBOT);
-        builder.buildBody(PieceBody.METALIC);
-        builder.buildFeet(PieceFeet.TANK_TREAD);
-        builder.buildEquipament(new GunEquipament());
-    }
-
-}
-```
-
-Este director é responsavel por construir as peças padrões do jogo, útil para guiar os builders sobre o que fazer e quando fazer.
-
-Após toda a implementação, a utilização no código cliente seria:
+Sem a utilização de um Director, o código cliente ficaria assim : 
 
 ```java
 public class Client {
 
     public static void main(String[] args) {
-        BoardPieceDirector director = new BoardPieceDirector();
-        
-        //Assim como no exemplo de implementação anterior,
-        //Director (BoardPieceDirector) usa o objeto KingBuilder dado pelo cliente.
-        //Isto porque o código cliente sabe qual o builder correto a ser utilizado para gerar um produto especifico.
-
+        // O cliente instancia o objeto KingBuilder desejado.
         KingBuilder kingBuilder = new KingBuilder();
-        director.constructHumanWithSword(kingBuilder);
 
-        //O produto final é retornado pela instância de builder (neste caso, KingBuilder), 
-        //já que director não enxerga e não depende de KingBuilder e seu produto final.
+        // Sem um director, para construir uma peça como um humano com uma espada,
+        // seria necessário o próprio cliente saber todos os passos para a montagem.
+        kingBuilder.buildHead(new HumanHead());
+        kingBuilder.buildBody(new FleshBody());
+        kingBuilder.buildFeet(new BipedsFeet());
+        kingBuilder.buildEquipament(new SwordEquipament());
+
+        // O produto final é retornado pela instância de builder.
         King kingProduct = kingBuilder.getKing();
 
-        //outros Builders..
 
+        // ..Outro processo de construção envolve ditar novamente os passos de construção.
         HorseBuilder horseBuilder = new HorseBuilder();
-        director.constructLizardWithShield(horseBuilder);
-
+        
+        horseBuilder.buildHead(new LizardHead());
+        horseBuilder.buildBody(new ScalesBody());
+        horseBuilder.buildFeet(new BipedsFeet());
+        horseBuilder.buildEquipament(new ShieldEquipament());
+        
+        // O produto final é retornado pela instância de builder.
         Horse horseProduct = horseBuilder.getHorse();
     }
 }
 ```
+
+
+A implementação sem o director faz com que o cliente repita código e tenha que saber o que fazer para montar cada peça, o que também faz o código do cliente ficar poluído com lógica de construção de produtos.
+
+Com o Director(como explicado no GOF) é possivel separar e organizar a execução correta da montagem das peças, direcionando a solicitação do cliente :
+
+```java
+public class BoardPieceDirector {
+   private BoardPieceBuilder builder;
+
+    public BoardPieceDirector(BoardPieceBuilder builder){
+        this.builder = builder;
+    }
+
+    public void constructHumanWithSword(){
+        builder.buildHead(new HumanHead());
+        builder.buildBody(new FleshBody());
+        builder.buildFeet(new BipedsFeet());
+        builder.buildEquipament(new SwordEquipament());
+    }
+
+    public void constructLizardWithShield(){
+        builder.buildHead(new LizardHead());
+        builder.buildBody(new ScalesBody());
+        builder.buildFeet(new BipedsFeet());
+        builder.buildEquipament(new ShieldEquipament());
+    } 
+
+    public void constructRobotWithGun(){
+        builder.buildHead(new RobotHead());
+        builder.buildBody(new MetalicBody());
+        builder.buildFeet(new TankTreadFeet());
+        builder.buildEquipament(new GunEquipament());
+    }
+
+
+}
+```
+
+Este director é responsável por construir as peças padrões do jogo, útil para guiar os builders sobre o que fazer e quando fazer.
+
+Após a implementação, a utilização no cliente com o uso deste director seria:
+
+```java
+public class Client {
+
+    public static void main(String[] args) {
+
+        // Director (BoardPieceDirector) usa o objeto KingBuilder dado pelo cliente.
+        // Isto porque o código cliente sabe qual o builder correto a ser utilizado para gerar um produto especifico.
+        KingBuilder kingBuilder = new KingBuilder();
+
+        BoardPieceDirector kingDirector = new BoardPieceDirector(kingBuilder);
+        kingDirector.constructHumanWithSword();
+
+        // O produto final é retornado pela instância de builder (neste caso, KingBuilder), 
+        // já que director não enxerga e não depende de KingBuilder e seu produto final.
+        King kingProduct = kingBuilder.getKing();
+
+        
+        // Outros Builders..
+        
+        HorseBuilder horseBuilder = new HorseBuilder();
+        
+        BoardPieceDirector horseDirector = new BoardPieceDirector(horseBuilder);
+        horseDirector.constructLizardWithShield();
+
+        Horse horseProduct = horseBuilder.getHorse();
+    }
+} 
+``` 
+Como podemos ver, o uso do director facilita a interação com os builders e mantém as etapas de construção fora do conhecimento do cliente.
   
 ## Usos conhecidos
 
-**Project Lombok** é uma blibioteca Java que utiliza Annotations para gerar código automatico de Builders para classes, facilitando a implementação de construtores e automatizando tarefas repetitivas, como implementar getters e setters para todas as classes.. [^ProjectLombok].
+**Project Lombok** é uma blibioteca Java que utiliza Annotations para gerar código automatico de Builders para classes, facilitando a implementação de construtores e automatizando tarefas repetitivas, como implementar getters e setters para todas as classes.[^ProjectLombok]
+
+**Doctrine - The Query Builder** é um ORM que permite que o cliente utilize uma API para construir uma DQL (Data query language) para comunicação com bancos de dados em vários passos, este é um exemplo real do padrão builder sendo implementado sem a utilização de um director.[^DoctrineQueryBuilder]
 
 ## Padrão relacionados
-[Composite](/XX_Composite.md): Como já citado anteriormente, O padrão Composite é geralmente utilizado junto ao Composite devido a praticidade ao criar objetos complexos.
+[Composite](/XX_Composite.md): Como já citado anteriormente, o padrão Composite é geralmente utilizado junto ao Builder devido a praticidade ao criar objetos complexos.
 
-[Factory Method](/XX_Factory_Method.md): Muitos projetos começam com o Factory method por ser mais simples e depois evoluem para o Builder por ser mais flexivel (apesar de ser mais complexo).
+[Factory Method](/XX_Factory_Method.md): Muitos projetos começam com o Factory method por ser mais simples e depois evoluem para o Builder por ser mais flexível (apesar de mais complexo).
 
 [Singleton](/XX_Singleton.md): Construtores Builder também podem ser implementados como Singletons.
 

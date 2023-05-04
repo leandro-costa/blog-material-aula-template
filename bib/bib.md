@@ -241,11 +241,11 @@
 [^MACORATTI_DIP]: Princípio da Inversão da Dependência. [https://macoratti.net/20/05/c_invdep1.htm](https://macoratti.net/20/05/c_invdep1.htm)
 
 
-
-
 [^GAMMA]: GAMMA, Erich. et al. Padrões de projetos: Soluções reutilizáveis de software orientados a objetos Bookman editora, 2009.
 
 [^Shvets]: Shvets, Alexander. EBOOK Mergulho Nos Padrões de Projeto.
 
-[^ProjectLombok]: Project Lombok [https://projectlombok.org/features/Builder](https://projectlombok.org/features/Builder) (Acessado em 24/04/2023)
+[^ProjectLombok]: Project Lombok [projectlombok.org](https://projectlombok.org/features/Builder) (Acessado em 24/04/2023).
+
+[^DoctrineQueryBuilder]: Doctrine - Query Builder ORM [doctrine-project.org/projects/doctrine-orm](https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/query-builder.html) (Acessado em 01/05/2023).
 
