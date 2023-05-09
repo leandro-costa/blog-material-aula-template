@@ -223,6 +223,16 @@ int main(){
 
 No exemplo acima, o comando `scanf()` é usado para a entrada de três valores inteiros separados por uma barra ("/") cada(dados  formatados como uma data: *dia/mês/ano*). Quando o usuário for digitar os três valores, será obrigado a digitar os três valores separados por barra (as barras serão descartadas e não interferem nos dados). 
 
+#### Limpando o buffer do teclado
+
+As vezes, podem ocorrer erros durante a leitura de caracteres ou strings do teclado. Para resolver esses pequenos erros, podemos limpar o buffer do teclado (entrada-padrão) usando a função `setbuf(stdin, NULL)` antes de realizar a leitura de caracteres ou strings.
+
+```c
+char ch;
+setbuf(stdin, NULL);
+scanf("%c", &ch);
+```
+
 ## Exercícios
 
 [Exercício](exercicios/01_estrutura_c.md)
