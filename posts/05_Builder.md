@@ -337,6 +337,8 @@ public class Client {
 
 ## Exemplo de código
 
+### Exemplo 1 - Jogo de tabuleiro 
+
 Consideremos um contexto onde é preciso construir objetos complexos que representam as peças de um jogo de tabuleiro, cada peça tem uma cabeça, um corpo, pés e um equipamento (como uma lança). Isto é importante para que cada peça tenha um devido impacto baseado nas suas partes. As peças podem assumir papéis com nomenclaturas, como no xadrez onde existem peões, cavalos, rei e rainha. O código a seguir, utiliza o padrão Builder para facilitar a construção de peças padrões do jogo.
 
 
@@ -659,43 +661,6 @@ public class Horse {
 }
 ```
 
-Sem a utilização de um Director, o código cliente ficaria assim : 
-
-```java
-public class Client {
-
-    public static void main(String[] args) {
-        // O cliente instancia o objeto KingBuilder desejado.
-        KingBuilder kingBuilder = new KingBuilder();
-
-        // Sem um director, para construir uma peça como um humano com uma espada,
-        // seria necessário o próprio cliente saber todos os passos para a montagem.
-        kingBuilder.buildHead(new HumanHead());
-        kingBuilder.buildBody(new FleshBody());
-        kingBuilder.buildFeet(new BipedsFeet());
-        kingBuilder.buildEquipament(new SwordEquipament());
-
-        // O produto final é retornado pela instância de builder.
-        King kingProduct = kingBuilder.getKing();
-
-
-        // ..Outro processo de construção envolve ditar novamente os passos de construção.
-        HorseBuilder horseBuilder = new HorseBuilder();
-        
-        horseBuilder.buildHead(new LizardHead());
-        horseBuilder.buildBody(new ScalesBody());
-        horseBuilder.buildFeet(new BipedsFeet());
-        horseBuilder.buildEquipament(new ShieldEquipament());
-        
-        // O produto final é retornado pela instância de builder.
-        Horse horseProduct = horseBuilder.getHorse();
-    }
-}
-```
-
-
-A implementação sem o director faz com que o cliente repita código e tenha que saber o que fazer para montar cada peça, o que também faz o código do cliente ficar poluído com lógica de construção de produtos.
-
 Com o Director(como explicado no GOF) é possivel separar e organizar a execução correta da montagem das peças, direcionando a solicitação do cliente :
 
 ```java
@@ -764,10 +729,50 @@ public class Client {
 } 
 ``` 
 Como podemos ver, o uso do director facilita a interação com os builders e mantém as etapas de construção fora do conhecimento do cliente.
+
+### Exemplo 2 - Project Lombok, aplicação sem o director
+
+Lombok é uma biblioteca java que facilita a implementação, gerando métodos como: getter, equals, construtores de classes completas apenas com annotations e etc.[^ProjectLombok] 
+
+Nesta blibioteca existe uma annotation(@) que implementa um Builder, porém sem utilização do director.
+ 
+Exemplo de implementação utilizando a annotation @Builder numa classe Cliente. 
+
+```java
+@Builder // Anotação do Lombok
+public class Cliente {
+     private String nome;
+     private String cnpj;
+     private String endereco;
+}
+``` 
+
+A anotação @Builder acima da classe, define que a blibioteca Lombok deve gerar um Builder para esta classe, ao compilar a classe o Lombok gera uma outra classe chamada ClienteBuilder que faz todo o papel de um ConcreteBuilder por debaixo dos panos. Além disso ainda é possivel utilizar o encadeamento de métodos, uma sintaxe utilizada para invocar várias chamadas de método de uma vez.
+
+Implementação no cliente (implementação popular utilizando o LOMBOK, sem a necessidade de um director):
+
+```java
+public class Client {
+
+    public static void main(String[] args) {
+       Cliente cliente1;
+    
+       // Encadeamento de métodos.
+       cliente1 = Cliente.builder()
+       .nome("Nome do Cliente")
+       .cnpj("1234567890")
+       .endereco("São Paulo")
+       .build();
+       //.build entrega a instância do cliente criado pelo builder.  
+    }
+}
+``` 
+
+Por causa da anotação e do Lombok, o concreteBuilder da classe Cliente não precisa ser instanciado para ser acessado, é possivel ter acesso diretamente pelo nome da classe, liberando assim a necessidade de ter mais complicações em implementar novas classes manualmente. Neste caso de aplicação do padrão Builder, um director não é necessario, já que o lombok simplifica bastante as chamadas de métodos com o encadeamento e também a implementação dos builders concretos.
   
 ## Usos conhecidos
 
-**Project Lombok** é uma blibioteca Java que utiliza Annotations para gerar código automatico de Builders para classes, facilitando a implementação de construtores e automatizando tarefas repetitivas, como implementar getters e setters para todas as classes.[^ProjectLombok]
+**Project Lombok** (como mencionado acima), é uma blibioteca Java que utiliza Annotations para gerar código automatico de Builders para classes, facilitando a implementação de construtores e automatizando tarefas repetitivas, como implementar getters e setters para todas as classes.[^ProjectLombok]
 
 **Doctrine - The Query Builder** é um ORM que permite que o cliente utilize uma API para construir uma DQL (Data query language) para comunicação com bancos de dados em vários passos, este é um exemplo real do padrão builder sendo implementado sem a utilização de um director.[^DoctrineQueryBuilder]
 
