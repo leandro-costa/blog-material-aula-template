@@ -13,6 +13,9 @@ tag:
  [^BestPratice] 
  [^CsiUneb] 
  [^Microsoft]
+ [^ASPNET]
+ [^Unity]
+ [^Unity3D]
 
 ## Intenção
 
@@ -195,10 +198,19 @@ public class Cemiterio {
                 return referencia_em_uso; 
         }
     }   
-    public void liberarPeca(Peca pecaDevolvida) { 
-        pecasDeVoltaAoJogo.remove(pecaDevolvida);           
-        disponiveisParaUso.add(pecaDevolvida); 
+    public Peca liberarPeca(Peca pecaDevolvida) { 
+       for (Peca peca : pecasDeVoltaAoJogo) {
+            if (peca.equals(pecaDevolvida)) {
+                
+                pecasDeVoltaAoJogo.remove(pecaDevolvida);           
+                disponiveisParaUso.add(pecaDevolvida);
+                return null; 
+            }
+            else 
+                return pecaDevolvida;
+        }   
     }
+
 }
 ```
 
@@ -248,17 +260,24 @@ public class PoolDeObjeto {
                 return  referencia_em_uso; // se a lista tem objetos disponiveis, retorna a referencia do objeto para o cliente
         }
     }   
-    public void liberarObjeto(Objeto objetoDevolvido) { 
-        emUso.remove(0objetoDevolvido);           
-        disponiveis.add(objetoDevolvido);  // o cliente devolve o objeto, e ele volta para a lista de disponiveis
-        
+    public Objeto liberarObjeto(Objeto objetoDevolvido) { 
+       for (Objeto objeto : emUso) {                // verifica se o objeto devolvido está na lista dos objetos que foram emprestados
+            if (objeto.equals(objetoDevolvido)) {
+
+                emUso.remove(objetoDevolvido);           
+                disponiveis.add(objetoDevolvido);  // caso o objeto devolvido esteja na lista emUso, ele volta para a lista de disponiveis
+                return null; 
+            }
+            else 
+                return objetoDevolvido; // caso não esteja, o objeto devolvido é retornado para o cliente
+        }             
     }
 }
 ```
 ## Usos conhecidos
 
-O ASP.NET Core utiliza o padrão de projeto **object pool** para fazer a reutilização de objetos. É utilizado uma pool de objetos em alguns locais para reutilizar instâncias de StringBuilder, que servem para alocar e gerenciar seus próprios buffers para armazenar dados de caracteres. A ASP.NET Core usa StringBuilder regularmente para implementar recursos, e reutilizá-los oferece um benefício de desempenho.
-<!-- pesquisar sobre unity e op -->
+- **ASP.NET Core** - É a versão de código aberto da ASP.NET, é uma estrutura de desenvolvimento para aplicativos Web, que utiliza o padrão de projeto **object pool** para fazer a reutilização de objetos. É utilizado uma pool de objetos em alguns locais para reutilizar instâncias de StringBuilder, que servem para alocar e gerenciar seus próprios buffers para armazenar dados de caracteres. A ASP.NET Core usa StringBuilder regularmente para implementar recursos, e reutilizá-los oferece um benefício de desempenho.
+- **UNITY** - A unity é um motor de jogo (Game Engine) que permite a criação de videojogos para varias plataformas, oferecendo varias ferramentas de criação de jogos e também de aprendizado para o desenvolvedor, dentre essas ferramentas para uso, eles permitem a utilização do padrão de projeto object pool, que como eles descrevem, otimiza os projetos e diminui a carga que é colocada na CPU ao criar e destruir GameObjects repetidas vezes.
 
 
 ## Padrão relacionados
