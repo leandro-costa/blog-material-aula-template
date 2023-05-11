@@ -500,9 +500,7 @@ na UIUC usa fábricas abstratas para permitir
 portabilidade entre diferentes placas de captura
 de vídeo.
 
-- Em linguagens dinâmicas como Smalltalk (e
-talvez em POO em geral) classes podem ser
-vistas como fábricas de objetos.
+- Em linguagens dinâmicas como Smalltalk
 
 ## Padrão relacionados
 As classes AbstractFactory são freqüentemente implementadas com métodos-fábrica Factory Method, mas elas também podem ser implementadasusando Prototype. Uma fábrica concreta é freqüentemente um singleton.
