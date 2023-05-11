@@ -288,4 +288,4 @@ public class PoolDeObjeto {
 
 ## Referências
 
-@include(../bib/bib.md)
+<!-- @include: ../bib/bib.md -->
