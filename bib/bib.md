@@ -250,6 +250,7 @@
 [^DoctrineQueryBuilder]: Doctrine - Query Builder ORM [doctrine-project.org/projects/doctrine-orm](https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/query-builder.html) (Acessado em 01/05/2023).
 
 [^Unity]: Unity - Introduction to Object Pooling [https://learn.unity.com/tutorial/introduction-to-object-pooling#](https://learn.unity.com/tutorial/introduction-to-object-pooling#)
+
 [^Unity3D]: Unity 3D - Desenvolvimento de Games [https://www.devmedia.com.br/unity-3d-introducao-ao-desenvolvimento-de-games/30653](https://www.devmedia.com.br/unity-3d-introducao-ao-desenvolvimento-de-games/30653)
 
 [^ASPNET]: ASP.NET CORE [https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet-core](https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet-core)
