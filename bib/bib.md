@@ -118,11 +118,11 @@
 
 [^ODesign]: Object Pool Pattern. [https://www.oodesign.com/object-pool-pattern](https://www.oodesign.com/object-pool-pattern)
 
-[^BestPratice]: Best Practice Software Engineering - Object Pool. [http://best-practice-software-engineering.ifs.tuwien.ac.at/patterns/objectpool.html] 
+[^BestPratice]: Best Practice Software Engineering - Object Pool. [http://best-practice-software-engineering.ifs.tuwien.ac.at/patterns/objectpool.html](http://best-practice-software-engineering.ifs.tuwien.ac.at/patterns/objectpool.html) 
 
-[^CsiUneb]: Object Pool - Padrões de Projeto. [http://www.csi.uneb.br/padroes_de_projetos/object_pool.html] 
+[^CsiUneb]: Object Pool - Padrões de Projeto. [http://www.csi.uneb.br/padroes_de_projetos/object_pool.html](http://www.csi.uneb.br/padroes_de_projetos/object_pool.html)
 
-[^Microsoft]: Reutilização de objeto com Object Pool no ASP.NET Core. [https://learn.microsoft.com/pt-br/aspnet/core/performance/objectpool?view=aspnetcore-7.0] 
+[^Microsoft]: Reutilização de objeto com Object Pool no ASP.NET Core. [https://learn.microsoft.com/pt-br/aspnet/core/performance/objectpool?view=aspnetcore-7.0](https://learn.microsoft.com/pt-br/aspnet/core/performance/objectpool?view=aspnetcore-7.0) 
 
 [^MANZANO]: Manzano, J. and Oliveira, J., 2005. Algoritmos. 17th ed. São Paulo (SP): Érica.
 

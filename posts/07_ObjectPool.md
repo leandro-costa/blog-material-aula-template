@@ -1,6 +1,7 @@
 ---
 icon: edit
 date: 2023-04-20 20:10:00.00 -3
+author: Amanda Serpa
 tag:
   - Object Pool
 ---
@@ -29,24 +30,25 @@ Por exemplo se trabalhamos com bancos de dados, o processo de criar uma conexão
 
 ```plantuml
 @startuml
+    class Cliente{
+        
+    }
+
     class Connection{
         +Connection (database: String)
     }
 
-    class ConnectionImpl{
-    }
-
-    Connection ..> ConnectionImpl: usa
-    Connection --> ConnectionPool: pede pelo ConnectionImpl
+    Cliente ..> Connection: usa
+    Cliente --> ConnectionPool: pede pela Connection
 
 
     class ConnectionPool{
-        -<Reusable> reusables
-        +acquireConnectionImpl()
-        +releaseConnectionImpl()
+        -<Connection> connections
+        +acquireConnection()
+        +releaseConnection()
     }
 
-    ConnectionImpl --o ConnectionPool
+    Connection --o ConnectionPool
 
 
     hide empty attributes
@@ -61,13 +63,13 @@ Quando um cliente precisar consultar o banco de dados, ele poderá instanciar um
 - Se nenhum objeto reutilizável for encontrado, ele tenta criar um novo. Se esta ação for bem-sucedida, o novo objeto reutilizável será retornado ao cliente.
 - Se o pool não conseguir criar um novo objeto reutilizável, ele aguardará até que um objeto reutilizável seja liberado.
 
-**Connection** - Representa o objeto que é instanciado pelo cliente. Da perspectiva do cliente, este objeto é criado e manipula as operações do banco de dados, é o único objeto visível para o cliente. O cliente não sabe que usa algumas conexões compartilhadas.
+**Cliente** - É quem irá utilizar, e também solicitar a connection, para a connectionPool.
 
-**ConnectionImpl** - É o objeto que implementa as operações de banco de dados que são expostas por Connection para o cliente.
+**Connection** - Representa o objeto que é instanciado pelo cliente.
 
-**ConnectionPool** - É o que gerencia as conexões com o banco de dados. Ele mantém uma lista de objetos ConnectionImpl e instancia novos objetos, se necessário.
+**ConnectionPool** - É o que gerencia as conexões com o banco de dados. Ele mantém uma lista de objetos Connection e instancia novos objetos, se necessário.
 
-Lembrando que o cliente é responsável por solicitar o objeto reutilizável, bem como liberá-lo para o pool. Caso esta ação não seja realizada o objeto reutilizável será perdido, sendo considerado indisponível pelo ResourcePool.
+Lembrando que o cliente é responsável por solicitar o objeto reutilizável, bem como liberá-lo para o pool. Caso esta ação não seja realizada, o objeto reutilizável será perdido, e será considerado indisponível.
 
 
 ## Aplicabilidade
@@ -116,9 +118,9 @@ hide empty methods
 
 ## Participantes 
 
-- **Reusable** (ConnectionImpl)
+- **Reusable** (Connection)
     - Instâncias dessa classe colaboram com outros objetos por um período de tempo limitado, onde serão compartilhados por vários clientes por um período de tempo limitado e então não são mais necessárias para essa colaboração
-- **Cliente** (Connection)
+- **Cliente** (Cliente)
     - Instâncias dessa classe usam os obejtos reutilizaveis (Reusable Objects).
 - **ReusablePool** (ConnectionPool)
     - Instâncias dessa classes gerenciam os objetos reutilizáveis ​​para utilização pelos clientes, criando e manuseando uma pool de objetos.
@@ -160,6 +162,19 @@ public class Peca {
     public Peca(int idPeca) {
         this.idPeca = idPeca;
     }
+    @Override
+        public boolean equals(Object obj)
+        {
+            if(this == obj)
+                return true;
+        
+            if(obj == null || obj.getClass()!= this.getClass())
+                return false;
+            
+            Peca peca = (Peca) obj;
+            
+            return (peca.idPeca == this.idPeca);
+        }
 }
 ```
 
@@ -200,8 +215,19 @@ public class Objeto {
     public Objeto(int idObjeto) {
         this.idObjeto = idObjeto;
     }
-
-    //equals
+    @Override
+        public boolean equals(Object obj)
+        {
+            if(this == obj)
+                return true;
+        
+            if(obj == null || obj.getClass()!= this.getClass())
+                return false;
+            
+            Objeto objeto = (Objeto) obj;
+            
+            return (objeto.idObjeto == this.idObjeto);
+        }
 }
 ```
 
@@ -216,13 +242,14 @@ public class PoolDeObjeto {
             return null;
         } 
         else {
-                emUso.add(disponiveis.get(0));
-                disponiveis.remove(0);              
-                return  referencia_em_uso = emUso.get(emUso.size() - 1); // se a lista tem objetos disponiveis, retorna a referencia do objeto para o cliente
+                Peca referencia_em_uso = disponiveis.get(0);
+                emUso.add(referencia_em_uso);
+                disponiveis.remove(referencia_em_uso);              
+                return  referencia_em_uso; // se a lista tem objetos disponiveis, retorna a referencia do objeto para o cliente
         }
     }   
     public void liberarObjeto(Objeto objetoDevolvido) { 
-        emUso.remove(0);           
+        emUso.remove(0objetoDevolvido);           
         disponiveis.add(objetoDevolvido);  // o cliente devolve o objeto, e ele volta para a lista de disponiveis
         
     }
@@ -231,6 +258,7 @@ public class PoolDeObjeto {
 ## Usos conhecidos
 
 O ASP.NET Core utiliza o padrão de projeto **object pool** para fazer a reutilização de objetos. É utilizado uma pool de objetos em alguns locais para reutilizar instâncias de StringBuilder, que servem para alocar e gerenciar seus próprios buffers para armazenar dados de caracteres. A ASP.NET Core usa StringBuilder regularmente para implementar recursos, e reutilizá-los oferece um benefício de desempenho.
+<!-- pesquisar sobre unity e op -->
 
 
 ## Padrão relacionados
