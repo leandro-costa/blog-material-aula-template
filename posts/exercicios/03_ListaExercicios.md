@@ -224,6 +224,51 @@ star: true
 1. Escreva um programa que leia um número inteiro e calcule a soma de todos os  divisores desse número, com exceção dele próprio. Exemplo: a soma dos divisores  do número 66 é 1 + 2 + 3 + 6 + 11 + 22 + 33 = 78.
 1. Faça um programa que exiba a soma de todos os números naturais abaixo de  1.000 que são múltiplos de 3 ou 5.
 1. Escreva um programa que leia um número inteiro, maior ou igual a zero, do usuário. Imprima o enésimo termo da sequência de Fibonacci. Essa sequência começa  no termo de ordem zero, e, a partir do segundo termo, seu valor é dado pela soma  dos dois termos anteriores. Alguns termos dessa sequência são: 0, 1, 1, 2, 3, 5, 8,  13, 21, 34.
+    ::: details 
+    ```c
+    #include <stdio.h>
+    /*
+    Fibonacci(x) = Fibonacci(x-1)+Fibonacci(x-2)
+    se x = 1 entao 0
+    se x = 2 entao 1
+    */
+    int main(){
+        int numero;
+        scanf("%d", &numero);
+        if (numero >= 0){
+            int fibonacciXMenos2 = 0;
+            int fibonacciXMenos1 = 1;
+            int fibonacciX = 1;
+            if (numero == 1){
+                printf("%d", fibonacciXMenos2);
+            }else{
+                if (numero == 2){
+                    printf("%d", fibonacciXMenos1);
+                }else{
+                    if (numero == 3){
+                        printf("%d", fibonacciX);
+                    }else{
+                        // 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 
+                        //                   ^       //fibonacciXMenos2
+                        //                      ^    //fibonacciXMenos1
+                        //                         ^ //fibonacciX
+                        //Fibonacci(x) = Fibonacci(x-1)+Fibonacci(x-2)
+                        for (int i = 4; i <= numero; i++){
+                            fibonacciXMenos2 = fibonacciXMenos1;
+                            fibonacciXMenos1 = fibonacciX;
+                            fibonacciX = fibonacciXMenos2 + fibonacciXMenos1;
+                        }
+                        printf("%d", fibonacciX);
+                    }
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    ```
+    ::: 
 1. Elabore um programa que faça a leitura de vários números inteiros até que se digite um número negativo. O programa tem de retornar o maior e o menor número  lido.
 1. Em matemática, a série harmônica é a série infinita definida como:
     $$\sum _{k=1}^{\infty }{\frac {1}{k}}=1+{\frac {1}{2}}+{\frac {1}{3}}+{\frac {1}{4}}+\cdots$$
