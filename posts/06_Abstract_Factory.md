@@ -296,189 +296,216 @@ Normal e Gourmet é o: o tipo do pão, o tipo da Carne, o tipo do Queijo e o tip
 
 O código abaixo inlustra um sistema feito para quê o cliente de um desses dois países solicite um hambúrguer de cada um dos dois tipos seguindo a customização de cada país.
 
-1. Primeiro é criado uma classe abstract chamada **FabricaAbstrataHamburger** que contem duas assinturas de metódos:
-- **criarHamburgerGourmet()** que retorna um objeto do tipo **HamburgerGourmet**
-- **criarHamburgerNormal()** que retorna um objeto do tipo **HamburgerNormal**
+1. Primeiro é criado uma classe abstrata chamada **FabricaAbstrataHamburger** que contem duas assinturas de metódos:
+- **CriarHamburgerUSA()** que retorna um objeto do tipo **HamburgerUSA**
+- **CriarHamburgerBrasil()** que retorna um objeto do tipo **HamburgerBrasil**;
 
 ````java
 
-public interface FabricaAbstrataHamburger {
-    public HamburgerGourmet criarHamburgerGourmet();
-    public HamburgerNormal  criarHamburgerNormal();
+public abstract class FabricaAbstrataHamburger {
+    public abstract HamburgerUSA    CriarHamburgerUSA();
+    public abstract HamburgerBrasil CriarHamburgerBrasil();
     
 }
 
 ````
-
-
-2. Agora apartir dessa fábrica abstrata, criamos duas outras concretas:
-- **HamburgerBrasileiro** que representa um hambúrger do tipo brasileiro
-- **HamburgerUSA** que representa um hambúrger do tipo norte-americano
+2. Criamos uma classe abstrata: **Hamburger** que apenas vai servir de base para os dois tipos de hamburges: Brasil e USA;
 
 ````java
-public class HamburgerUSA implements FabricaAbstrataHamburger{
-    
-    @Override
-    public HamburgerGourmet criarHamburgerGourmet(){
-        
-        return new HamburgerGourmet("Com Gergerlin", "Beacon", "Cheddar", "Molho barbecue");
-        
-    };
-    @Override
-    public HamburgerNormal criarHamburgerNormal(){
-        
-        return new HamburgerNormal("Com Gergerlin", "Beacon", "Cheddar", "sem");
-        
-    };
+public abstract class Hamburger {
+    public String tipoDoPao;
+    public String tipoDaCarne;
+    public String tipoDoQueijo;
+    public String tipoDoMolho;
     
 }
-
-
 ````
 
-````java
-public class HamburgerBrasileiro implements FabricaAbstrataHamburger{
-    
-    @Override
-    public HamburgerGourmet criarHamburgerGourmet(){
-        
-        return new HamburgerGourmet("Com Gergerlin", "Picanha", "Cheddar", "Molho barbecue");
-    };
-    @Override
-    public HamburgerNormal criarHamburgerNormal(){
-        
-        return new HamburgerNormal("Pão de hambúrger", "Carne de hambúrger ", "Quijo minas", "Sem");
-        
-    };
-    
-    
-}
-
-
-````
-
-Ambos retornam nos metodos implemetados atravez da classe abstarata, dois objetos:
-- No método **criarHamburgerGourmet()**, um obejto **HamburgerGourmet**
-- No método **criarHamburgerNormal()**, um obejto **HamburgerNormal**
-
-
-3. Agora só restou criar as duas classes que representar os objetos **HamburgerGourmet** e **HamburgerNormal** elas
-repesentam os dois estilos de hambúrgers em si.
-
+3. Criamos os dois tipos de hamburges **HamburgerUSA** e **HamburgerBrasil**, eles vão extender da classe **Hamburger**;
 
 ````java
+public class HamburgerBrasil extends Hamburger{
+    public String tipoDoPao;
+    public String tipoDaCarne;
+    public String tipoDoQueijo;
+    public String tipoDoMolho;
 
-class HamburgerGourmet {
-    private String tipoDoPao;
-    private String tipoDaCarne;
-    private String tipoDoQueijo;
-    private String tipoDoMolho;
-
-    public HamburgerGourmet(String tipoDoPao, String tipoDaCarne, String tipoDoQueijo, String tipoDoMolho) {
+    public HamburgerBrasil(String tipoDoPao, String tipoDaCarne, String tipoDoQueijo, String tipoDoMolho) {
         this.tipoDoPao    = tipoDoPao;
         this.tipoDaCarne  = tipoDaCarne;
         this.tipoDoQueijo = tipoDoQueijo;
         this.tipoDoMolho  = tipoDoMolho;
     }
-
-    //toString, gets e sets
     
-}
+    public HamburgerBrasil clone(){
+        
+        return new HamburgerBrasil(this.tipoDoPao, this.tipoDaCarne, this.tipoDoQueijo, this.tipoDoMolho);
+        
+    }
 
+    @Override
+    public String toString() {
+        return "HamburgerBrasil{" + "tipoDoPao=" + tipoDoPao + ", tipoDaCarne=" + tipoDaCarne + ", tipoDoQueijo=" + tipoDoQueijo + ", tipoDoMolho=" + tipoDoMolho + '}';
+    }
+  
+}
 
 ````
 
-
 ````java
+public class HamburgerUSA extends Hamburger{
+    public String tipoDoPao;
+    public String tipoDaCarne;
+    public String tipoDoQueijo;
+    public String tipoDoMolho;
 
-class HamburgerNormal {
-    private String tipoDoPao;
-    private String tipoDaCarne;
-    private String tipoDoQueijo;
-    private String tipoDoMolho;
-
-    public HamburgerNormal(String tipoDoPao, String tipoDaCarne, String tipoDoQueijo, String tipoDoMolho) {
+    public HamburgerUSA(String tipoDoPao, String tipoDaCarne, String tipoDoQueijo, String tipoDoMolho) {
         this.tipoDoPao    = tipoDoPao;
         this.tipoDaCarne  = tipoDaCarne;
         this.tipoDoQueijo = tipoDoQueijo;
         this.tipoDoMolho  = tipoDoMolho;
     }
+    
+    public HamburgerUSA clone(){
+        
+        return new HamburgerUSA(this.tipoDoPao, this.tipoDaCarne, this.tipoDoQueijo, this.tipoDoMolho);
+        
+    }
 
-        //toString, gets e sets
-      
+    @Override
+    public String toString() {
+        return "HamburgerUSA{" + "tipoDoPao=" + tipoDoPao + ", tipoDaCarne=" + tipoDaCarne + ", tipoDoQueijo=" + tipoDoQueijo + ", tipoDoMolho=" + tipoDoMolho + '}';
+    }
+     
 }
 
 ````
 
-4. Por fim vamos só visualizar os resultados:
+Nas duas classes há um metódo clone, quê usando a proposta do padão **Prototype**, retorna um clone do tipo do Hamburger ao inves de uma nova instancia; 
+
+
+4. Agora, criamos duas classes concretas:
+- **FabricaConcretaHamburgerGourmet** que representa um hambúrger Gourmet que pode ser tanto do tipo Brasil quanto USA;
+- **FabricaConcretaHamburgerNormal**  que representa um hambúrger Normal que pode ser também tanto do tipo Brasil quanto USA;
+Os dois vão extender de classe abstrata **FabricaAbstrataHamburger** e herdar seus metódos;
+
+````java
+public class FabricaConcretaHamburgerGourmet extends FabricaAbstrataHamburger{
+
+    @Override
+    public HamburgerUSA CriarHamburgerUSA() {
+       
+        HamburgerUSA hamburgerGourmetUSA = new HamburgerUSA("GourmetUSA", "GourmetUSA", "GourmetUSA", "GourmetUSA");
+        return hamburgerGourmetUSA.clone();
+       
+    }
+
+    @Override
+    public HamburgerBrasil CriarHamburgerBrasil() {
+        
+        HamburgerBrasil hamburgerGourmetBrasil = new HamburgerBrasil("GourmetBra", "GourmetBra", "GourmetBra", "GourmetBra");
+        return hamburgerGourmetBrasil.clone();
+       
+        
+    }
+    
+}
+````
+
+````java
+public class FabricaConcretaHamburgerNormal extends FabricaAbstrataHamburger{
+
+    @Override
+    public HamburgerUSA CriarHamburgerUSA() {
+        
+        HamburgerUSA hamburgerNormalUSA = new HamburgerUSA("NormalUSA", "NormalUSA", "NormalUSA", "NormalUSA");
+        return hamburgerNormalUSA.clone();
+        
+    }
+
+    @Override
+    public HamburgerBrasil CriarHamburgerBrasil() {
+       
+        HamburgerBrasil hamburgerNormalBrasil = new HamburgerBrasil("NormalBra", "NormalBra", "NormalBra", "NormalBra");
+        return hamburgerNormalBrasil.clone();
+       
+    }
+
+}
+````
+Cada metódo vai retornar ou um clone de um objeto do tipo **HamburgerUSA** ou do tipo **HamburgerBrasil**, com uma serie de argumentos predefinidos
+para inlustar cada modelo de hamburger;
+
+
+5. Por fim vamos só visualizar os resultados:
 
 
 ````java
-public class AbstractFactory {
-
+public class Client {
     public static void main(String[] args) {
-        FabricaAbstrataHamburger fabrica = new HamburgerBrasileiro();
-        System.out.println(fabrica.criarHamburgerNormal());
-        System.out.println(fabrica.criarHamburgerGourmet());
-
-        fabrica = new HamburgerUSA();
-        System.out.println(fabrica.criarHamburgerNormal());
-        System.out.println(fabrica.criarHamburgerGourmet());
+       FabricaAbstrataHamburger fchg = new FabricaConcretaHamburgerGourmet();
+       FabricaAbstrataHamburger fchn = new FabricaConcretaHamburgerNormal();
+        
+       HamburgerBrasil burgerBrGourmet = (HamburgerBrasil) fchg.CriarHamburgerBrasil();
+       System.out.println(burgerBrGourmet);
+       
+       HamburgerUSA burgerUSANormal = (HamburgerUSA) fchn.CriarHamburgerUSA();
+       System.out.println(burgerUSANormal);
+       
         
     }
 }
 
-
 ````
-
 
 ````console
-//Saida
 
-//Hambúrger Brasileiro
-HamburgerNormal{tipoDoPao=Pão de hambúrger, tipoDaCarne=Carne de hambúrger , tipoDoQueijo=Queijo minas, tipoDoMolho=Sem}
-HamburgerGourmet{tipoDoPao=Com Gergerlin, tipoDaCarne=Picanha, tipoDoQueijo=Cheddar, tipoDoMolho=Molho barbecue}
-
-//Hambúrger Norte-americano
-HamburgerNormal{tipoDoPao=Com Gergerlin, tipoDaCarne=Beacon, tipoDoQueijo=Cheddar, tipoDoMolho=sem}
-HamburgerGourmet{tipoDoPao=Com Gergerlin, tipoDaCarne=Beacon, tipoDoQueijo=Cheddar, tipoDoMolho=Molho barbecue}
-
+HamburgerBrasil{tipoDoPao=GourmetBra, tipoDaCarne=GourmetBra, tipoDoQueijo=GourmetBra, tipoDoMolho=GourmetBra}
+HamburgerUSA{tipoDoPao=NormalUSA, tipoDaCarne=NormalUSA, tipoDoQueijo=NormalUSA, tipoDoMolho=NormalUSA}
 
 ````
+
 5. Vejamos esse código em um diagrama UML
 
 
 <figure>
 
 ```plantuml
-@startuml _03
+@startuml
 abstract class FabricaAbstrataHamburger{
-    +{abstract}criarHamburgerGourmet()
-    +{abstract}criarHamburgerNormal()
+    +{abstract}CriarHamburgerUSA()
+    +{abstract}CriarHamburgerBrasil()
  }
 
- class HamburgerUSA extends FabricaAbstrataHamburger{
-    +criarHamburgerGourmet()
-    +criarHamburgerNormal()
+ class FabricaConcretaHamburgerGourmet extends FabricaAbstrataHamburger{
+    +CriarHamburgerUSA()
+    +CriarHamburgerBrasil()
  }
 
- class HamburgerBrasileiro extends FabricaAbstrataHamburger{
-    +criarHamburgerGourmet()
-    +criarHamburgerNormal()
+ class FabricaConcretaHamburgerNormal extends FabricaAbstrataHamburger{
+    +CriarHamburgerUSA()
+    +CriarHamburgerBrasil()
  }
 
-Cliente ..> _HamburgerBrasileiro
-Cliente ..> _HamburgerUSA
-Cliente ..> FabricaAbstrataHamburger
+ abstract class HamburgerNormal
 
-abstract class _HamburgerBrasileiro{}
-class HamburgerGourmetBrasileiro extends _HamburgerBrasileiro{}
-class HamburgerNormalBrasileiro extends _HamburgerBrasileiro{}
+ class HamburgerNormalBrasileiro  extends HamburgerNormal{}
+ class HamburgerNormalUSA  extends HamburgerNormal{}
 
-abstract class _HamburgerUSA{}
-class HamburgerGourmetUSA extends _HamburgerUSA{}
-class HamburgerNormalUSA extends _HamburgerUSA{}
+ abstract class HamburgerGourmet
 
+ class HamburgerGourmetUSA extends HamburgerGourmet{}
+ class HamburgerGourmetBrasileiro extends HamburgerGourmet{}
+
+ Cliente..>FabricaAbstrataHamburger
+ Cliente..>HamburgerNormal
+ Cliente..>HamburgerGourmet
+
+ FabricaConcretaHamburgerNormal..>HamburgerNormalBrasileiro
+ FabricaConcretaHamburgerNormal..>HamburgerNormalUSA
+
+ FabricaConcretaHamburgerGourmet..>HamburgerGourmetBrasileiro
+ FabricaConcretaHamburgerGourmet..>HamburgerGourmetUSA
 @enduml
 
 ```
@@ -503,7 +530,7 @@ de vídeo.
 - Em linguagens dinâmicas como Smalltalk
 
 ## Padrão relacionados
-As classes AbstractFactory são freqüentemente implementadas com métodos-fábrica Factory Method, mas elas também podem ser implementadasusando Prototype. Uma fábrica concreta é freqüentemente um singleton.
+As classes AbstractFactory são freqüentemente implementadas com métodos-fábrica **Factory Method**, mas elas também podem ser implementadas usando **Prototype**. Uma fábrica concreta é freqüentemente um **singleton**.
 
 ## Referências
 
