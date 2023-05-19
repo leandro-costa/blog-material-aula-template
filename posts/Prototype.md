@@ -186,16 +186,16 @@ Utilize o padrão Prototype quando:
 ```plantuml
 @startuml
 class Client {
-  Operation()
+  operation()
 }
 interface Prototype {
-  Clone()
+  clone()
 }
 class ConcretPrototype1 {
-  Clone()
+  clone()
 }
 class ConcretPrototype2 {
-  Clone()
+  clone()
 }      
 
 
@@ -281,13 +281,9 @@ Vários objetos do nosso sistema poderiam ter essa capacidade de clonar. Seria i
 
 
 ```java
-
-
 public interface Prototype<T> {
     T clone();
 }
-
-
 ```
 
 
@@ -295,18 +291,12 @@ Depois, devemos implementar a interface Prototype nas classes que devem possuir 
 
 
 ```java
-
-
 public class Campanha implements Prototype<Campanha> {
     // Atributos e métodos da classe
-
-
     public Campanha clone() {
         //Lógica para criar uma cópia da campanha 'this'
     }
 }
-
-
 ```
 
 
@@ -314,15 +304,11 @@ Quando o usuário quiser criar uma campanha com as mesmas configurações de uma
 
 
 ```java
-
-
 Campanha campanha1 = ...
 Campanha campanha2 = campanha1.clone();
 campanha2.setNome("K19 - Campanha de Verão");
 campanha2.getAnuncios().get(0).setTitulo("K19 - Padrões de Projeto");
 campanha2.getAnuncios().get(0).setTexto("Novo treinamento de Padrões de Projeto da K19");
-
-
 ```
 
 
@@ -331,277 +317,36 @@ A seguir tem outro exemplo de código em Java, utilizando o padrão Prototype qu
 
 Interface "Prototipo" declara um método clone, que deve ser implementado em todas as classes que desejam ser clonáveis.
 
+@[code](./code/gof/prototype/Prototype.java)
 
-```java
+Classe abstrata `Formas`, onde vai conter todos os atributos e métodos necessários para as formas.
 
+@[code](./code/gof/prototype/Formas.java)
 
-public interface Prototipo {
-    Prototipo clone();
-}
-
-
-```
-
-
-Classe abstrata "Formas", onde vai conter todos os atributos e métodos necessários para as formas.
-
-
-```java
-
-
-public abstract class Formas {
-    int tamanho;
-
-
-    public Formas(int tamanho) {
-        this.tamanho = tamanho;
-    }
-
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
-    }
-}
-
-
-```
-
-
-Classes das formas que vão conter a classe abstrata "Formas" como superclasse e implementa a interface "Prototipo":
+Classes das formas que vão conter a classe abstrata "Formas" como superclasse e implementa a interface `Prototipo`:
 
 
 Círculo:
 
-
-```java
-
-
-public class Circulo extends Formas implements Prototipo{
-
-
-    public Circulo(int tamanho) {
-        super(tamanho);
-    }
-
-
-
-
-    public Prototipo clone() {
-        return new Circulo(tamanho);
-    }
-
-
-
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-
-
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
-    }
-
-
-
-
-    @Override
-    public String toString() {
-        return "Circulo \nTamanho:" + tamanho;
-    }
-
-
-}
-
-
-```
-
+@[code](./code/gof/prototype/Circulo.java)
 
 Quadrado:
 
-
-```java
-
-
-public class Quadrado extends Formas implements Prototipo {
-   
-    public Quadrado(int tamanho) {
-        super(tamanho);
-    }
-
-
-
-
-    public Prototipo clone() {
-        return new Quadrado(tamanho);
-    }
-
-
-
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-
-
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
-    }
-
-
-
-
-    @Override
-    public String toString() {
-        return "Quadrado \nTamanho:" + tamanho;
-    }
-}
-
-
-```
+@[code](./code/gof/prototype/Quadrado.java)
 
 
 Triângulo:
 
-
-```java
-
-
-public class Triangulo extends Formas implements Prototipo {
-
-
-    public Triangulo(int tamanho) {
-        super(tamanho);
-    }
-
-
-
-
-    public Prototipo clone() {
-        return new Triangulo(tamanho);
-    }
-
-
-
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-
-
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
-    }
-
-
-
-
-    @Override
-    public String toString() {
-        return "Triangulo \nTamanho:" + tamanho;
-    }
-}
-
-
-```
+@[code](./code/gof/prototype/Triangulo.java)
 
 
 Classe "Colecao", onde vai criar os grupos/coleções e implementa a interface "Prototipo":
 
-
-```java
-
-
-    public class Colecao implements Prototipo {
-    ArrayList<Formas> formas;
-
-
-    public Colecao(ArrayList<Formas> formas) {
-        this.formas = formas;
-    }
-
-
-    public void addFormas(Formas formas) {
-        this.formas.add(formas);
-    }
-
-
-    public Prototipo clone() {
-        return new Colecao(formas);
-    }
-
-
-    public void showColecao() {
-        for(Formas formas : this.formas) {
-            System.out.println(formas);
-        }
-    }
-}
-
-
-```
-
+@[code](./code/gof/prototype/Colecao.java)
 
 Classe "Cliente", onde vai conter o código de compilação:
 
-
-```java
-
-
-public class Cliente {
-    public static void main(String[] args) {
-        Circulo c1 = new Circulo(20);
-        Circulo c2 = (Circulo) c1.clone();
-
-
-        Triangulo t1 = new Triangulo(20);
-        Triangulo t2 = (Triangulo) t1.clone();
-       
-        Quadrado q1 = new Quadrado(20);
-        Quadrado q2 = (Quadrado) q1.clone();
-
-
-        Colecao colecao = new Colecao(new ArrayList<>());
-        colecao.addFormas(c1);
-        colecao.addFormas(t1);
-        colecao.addFormas(q1);
-        colecao.showColecao();
-        /* Circulo
-        Tamanho:20
-        Triangulo
-        Tamanho:20
-        Quadrado
-        Tamanho:20 */
-
-
-        Colecao colecao2 = (Colecao) colecao.clone();
-        colecao2.formas.get(0).setTamanho(50);
-        colecao2.formas.get(1).setTamanho(50);
-        colecao2.formas.get(2).setTamanho(50);
-        colecao2.showColecao();
-        /* Circulo
-        Tamanho:50
-        Triangulo
-        Tamanho:50
-        Quadrado
-        Tamanho:50 */
-    }
-}
-
-
-```
-
+@[code](./code/gof/prototype/Cliente.java)
 
 ## Usos conhecidos
 
