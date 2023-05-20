@@ -18,5 +18,3 @@
 18. Faça um programa em C que leia um número inteiro e calcule o seu fatorial.
 19. Escreva um programa em C que leia um número inteiro e exiba a quantidade de dígitos pares e ímpares presentes nesse número.
 20. Crie um programa em C que leia um número inteiro e exiba se ele é um palíndromo.
-
-Essas são apenas algumas sugestões de exercícios em linguagem C, envolvendo entrada e saída de dados, condicionais e estruturas de repetição. Você pode adaptá-los de acordo com suas necessidades ou criar outros exercícios similares.
