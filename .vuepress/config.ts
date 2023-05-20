@@ -1,6 +1,5 @@
 import { defineUserConfig } from "vuepress";
 import umlPlugin from 'markdown-it-plantuml';
-import { searchPlugin } from "@vuepress/plugin-search";
 
 import theme from "./theme.js";
 
@@ -13,7 +12,7 @@ export default defineUserConfig({
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
   ],
   lang: "pt-BR",
-  title: "Blog Aulas 20231 PPR",
+  title: "Blog Aulas 20231 LPR",
   description: "Material de aulas",
 
   extendsMarkdown: (md) => {    
@@ -21,10 +20,6 @@ export default defineUserConfig({
   },
 
   theme,
-
-  plugins: [
-    searchPlugin({}),
-  ],
 
   shouldPrefetch: false,
 

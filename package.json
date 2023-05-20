@@ -1,6 +1,6 @@
 {
-  "name": "blog-aulas-20231-ppr",
   "version": "1.0.0",
+  "name": "20231-blog-aulas-lpr",
   "description": "Materiais das aulas",
   "license": "MIT",
   "scripts": {
@@ -9,11 +9,10 @@
     "dev": "vuepress dev ."
   },
   "devDependencies": {
-    "@vuepress/client": "2.0.0-beta.62",
-    "@vuepress/plugin-search": "2.0.0-beta.62",
-    "markdown-it-plantuml": "^1.4.1",
-    "vue": "^3.3.4",
-    "vuepress": "2.0.0-beta.62",
-    "vuepress-theme-hope": "2.0.0-beta.211"
+    "@vuepress/client": "2.0.0-beta.61",
+    "vue": "^3.2.47",
+    "vuepress": "2.0.0-beta.61",
+    "vuepress-theme-hope": "2.0.0-beta.206",
+    "markdown-it-plantuml": "^1.4.1"
   }
 }
