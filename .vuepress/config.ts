@@ -1,6 +1,5 @@
 import { defineUserConfig } from "vuepress";
 import umlPlugin from 'markdown-it-plantuml';
-import { searchPlugin } from "@vuepress/plugin-search";
 
 import theme from "./theme.js";
 
@@ -21,10 +20,6 @@ export default defineUserConfig({
   },
 
   theme,
-
-  plugins: [
-    searchPlugin({}),
-  ],
 
   shouldPrefetch: false,
 
