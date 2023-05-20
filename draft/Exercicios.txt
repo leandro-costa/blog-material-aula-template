@@ -1,0 +1,22 @@
+1. Escreva um programa em C que receba um número inteiro e verifique se ele é par ou ímpar.
+2. Crie um programa em C que leia um número inteiro e exiba o seu dobro.
+3. Faça um programa em C que leia a idade de uma pessoa e exiba a mensagem "Você é maior de idade" se a idade for igual ou superior a 18 anos, ou "Você é menor de idade" caso contrário.
+4. Escreva um programa em C que leia dois números inteiros e exiba o maior deles.
+5. Crie um programa em C que leia um número inteiro e verifique se ele é positivo, negativo ou zero.
+6. Faça um programa em C que leia um número inteiro e exiba todos os números pares de 0 até o número informado.
+7. Escreva um programa em C que leia três números inteiros e exiba a média desses números.
+8. Crie um programa em C que leia um número inteiro e exiba a sequência de Fibonacci até o número informado.
+9. Faça um programa em C que leia um número inteiro e verifique se ele é primo.
+10. Escreva um programa em C que leia um caractere e verifique se ele é uma vogal ou uma consoante.
+11. Crie um programa em C que leia um número inteiro e exiba a tabuada desse número, de 1 a 10.
+12. Faça um programa em C que leia a altura e o peso de uma pessoa e calcule o seu índice de massa corporal (IMC).
+13. Escreva um programa em C que leia três valores e exiba-os em ordem crescente.
+14. Crie um programa em C que leia um número inteiro e verifique se ele é um número perfeito.
+15. Faça um programa em C que leia um número inteiro e exiba a soma dos seus dígitos.
+16. Escreva um programa em C que leia um número inteiro e exiba todos os números primos até o número informado.
+17. Crie um programa em C que leia uma sequência de números e exiba o maior valor digitado.
+18. Faça um programa em C que leia um número inteiro e calcule o seu fatorial.
+19. Escreva um programa em C que leia um número inteiro e exiba a quantidade de dígitos pares e ímpares presentes nesse número.
+20. Crie um programa em C que leia um número inteiro e exiba se ele é um palíndromo.
+
+Essas são apenas algumas sugestões de exercícios em linguagem C, envolvendo entrada e saída de dados, condicionais e estruturas de repetição. Você pode adaptá-los de acordo com suas necessidades ou criar outros exercícios similares.

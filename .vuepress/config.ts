@@ -13,7 +13,7 @@ export default defineUserConfig({
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
   ],
   lang: "pt-BR",
-  title: "Blog Aulas 20231 PPR",
+  title: "Blog Aulas 20231 LPR",
   description: "Material de aulas",
 
   extendsMarkdown: (md) => {    
