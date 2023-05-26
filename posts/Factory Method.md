@@ -3,6 +3,7 @@
 
 ## Intenção
 
+[^GAMMA]
 
 Definir uma interface para criar um objeto, mas deixar as subclasses decidirem que classe instanciar. O Factory Method permite adiar a instanciação para subclasses.
 
@@ -48,20 +49,14 @@ public class DrawingDocument extends Document {
     public void new() {
         // Código para criar documento
     }
-
-
     @Override
     public void open() {
         // Código para abrir documento
     }
-
-
     @Override
     public void close() {
         // Código para fechar documento
     }
-
-
     @Override
     public void save() {
         // Código para salvar documento
@@ -74,13 +69,11 @@ public abstract class Application {
     // Factory Method que cria instâncias de Document
     public abstract Document createDocument();
 
-
     // Métodos responsáveis por gerenciar os documentos
     public void newDocument() {
         Document document = createDocument();
         document.create();
     }
-
 
     public void openDocument() {
         Document document = createDocument();
@@ -147,17 +140,17 @@ class ConcreteProduct{
 
 
 class Creator{
-    FactoryMethod()
-    AnOperation()
+    factoryMethod()
+    anOperation()
 }
 
 
 class ConcreteCreator{
-    FactoryMethod()
+    factoryMethod()
 }
 
 
-Product <|-- ConcreteProduct
+Product <|.. ConcreteProduct
 ConcreteProduct <- ConcreteCreator
 Creator <|-- ConcreteCreator
 
@@ -228,6 +221,7 @@ hide empty methods
 
 ## Implementação
 
+[^REFACTORING_GURU]
 
 Considere os passos à seguir, para aplicar o padrão Factory Method:
 
@@ -239,7 +233,7 @@ Considere os passos à seguir, para aplicar o padrão Factory Method:
 
 
 3. No código da classe criadora, encontre todas as referências aos construtores de produtos. Um por um, substitua-os por chamadas ao método fábrica, enquanto extrai o código de criação do produto para o método fábrica.
-- Pode ser necessário adicionar um parâmetro temporário ao método fábrica para controlar o tipo de produto retornado.
+    - Pode ser necessário adicionar um parâmetro temporário ao método fábrica para controlar o tipo de produto retornado.
 
 
 4. Crie um conjunto de subclasses criadoras para cada tipo de produto listado no método fábrica. Sobrescreva o método fábrica nas subclasses e extraia os pedaços apropriados do código de construção do método base.
@@ -257,8 +251,6 @@ Considere os passos à seguir, para aplicar o padrão Factory Method:
 
 
 ```java
-
-
 // Classe abstrata Document
 public abstract class Document{
     // Métodos abstratos que devem ser implementados pelas subclasses
@@ -268,56 +260,41 @@ public abstract class Document{
     public abstract void save();
 }
 
-
-// Classe concreta createPDF
-public class createPDF extends Document {
+public class XLSXDocument extends Document {
     // Atributos
     @Override
     public void new() {
         // Código para criar documento
     }
-
-
     @Override
     public void open() {
         // Código para abrir documento
     }
-
-
     @Override
     public void close() {
         // Código para fechar documento
     }
-
-
     @Override
     public void save() {
         // Código para salvar documento
     }
 }
 
-
 // Classe concreta createWord
-public class createWord extends Document {
+public class DOCXDocument extends Document {
     // Atributos
     @Override
     public void new() {
         // Código para criar documento
     }
-
-
     @Override
     public void open() {
         // Código para abrir documento
     }
-
-
     @Override
     public void close() {
         // Código para fechar documento
     }
-
-
     @Override
     public void save() {
         // Código para salvar documento
@@ -346,30 +323,29 @@ public abstract class Application {
 
 
 // Classe concreta Aplicação específica para PDF
-public class PDFApplication extends Application {
+public class Excel extends Application {
     @Override
     public Document createDocument() {
-        return new createPDF();
+        return new XLSXDocument();
     }
 }
 
 
 // Classe concreta Aplicação específica para Word
-public class WordApplication extends Application {
+public class Word extends Application {
     @Override
     public Document createDocument() {
-        return new createWord();
+        return new DOCXDocument();
     }
 }
-
 
 // Exemplo de uso do framework
 public class Main {
     public static void main(String[] args) {
-        Application applicationPDF = new PDFApplication();
-        applicationPDF.createDocument();
-        Application applicationWord = new WordApplication();
-        applicationWord.createDocument();
+        Application applicationExcel = new Excel();
+        Document xlsx = applicationPDF.createDocument();
+        Application applicationWord = new Word();
+        Document docx = applicationWord.createDocument();
     }
 }
 ```
@@ -395,9 +371,9 @@ Seguindo a mesma lógica, no Unidraw que é um framework gráfico, os métodos f
 ## Padrão relacionados
 
 
-[Abstract Factory]: Abstract Factory e Factory Method podem ser combinados de maneira que o Abstract Factory cria famílias de objetos dependentes, sem que seja necessário especificar suas classes concretas e o Factory Method pode ser utilizado para criar objetos individuais dentro dessas famílias.
-[Template Methods]: Template Method e Factory Method podem ser utilizados juntos da seguinte maneira, o Factory Method é utilizado dentro do Template Method, possibilitando a criação de objetos especifícos durante a execução de um algoritmo.
-[Prototype]: Prototype e Factory Method podem ser combinados quando se cria um objeto protótipo dentro do método fábrica, sendo assim os obejtos são clonados sem que seja necessário criar o objeto do zero, após clonar você pode fazer a alterações necessárias.
+- [Abstract Factory](06_Abstract_Factory.md): Abstract Factory e Factory Method podem ser combinados de maneira que o Abstract Factory cria famílias de objetos dependentes, sem que seja necessário especificar suas classes concretas e o Factory Method pode ser utilizado para criar objetos individuais dentro dessas famílias.
+- [Template Methods]: Template Method e Factory Method podem ser utilizados juntos da seguinte maneira, o Factory Method é utilizado dentro do Template Method, possibilitando a criação de objetos especifícos durante a execução de um algoritmo.
+- [Prototype](Prototype.md): Prototype e Factory Method podem ser combinados quando se cria um objeto protótipo dentro do método fábrica, sendo assim os obejtos são clonados sem que seja necessário criar o objeto do zero, após clonar você pode fazer a alterações necessárias.
 
 
 ## Referências
