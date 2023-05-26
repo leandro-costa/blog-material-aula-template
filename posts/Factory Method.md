@@ -1,3 +1,16 @@
+---
+icon: edit
+date: 2023-05-25 20:10:00.00 -3
+author: Sara Pithon
+tag:
+  - Factory_method
+  - gof
+category:
+  - aula
+order: 11
+excerpt: Apresentação do Padrão de Factory Method
+---
+
 # Factory Method (GOF)
 
 
@@ -378,9 +391,6 @@ Seguindo a mesma lógica, no Unidraw que é um framework gráfico, os métodos f
 
 ## Referências
 
-
-- Mergulho nos Padrões de Projeto
-- Gamma Erich - Padrões de Projetos - Soluções Reutilizáveis
 <!-- @include: ../bib/bib.md -->
 
 

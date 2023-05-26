@@ -163,7 +163,7 @@
 
 [^K19]: K19. Design Patterns em Java. 2012
 
-[^REFACTORING_GURU] Mergulho nos Padrões de Projeto, [https://refactoring.guru/pt-br/design-patterns](https://refactoring.guru/pt-br/design-patterns)
+[^REFACTORING_GURU]: Mergulho nos Padrões de Projeto, [https://refactoring.guru/pt-br/design-patterns](https://refactoring.guru/pt-br/design-patterns)
 
 
 [^Ascencio]: Ascencio, A. and Campos, E., 2008. Fundamentos Da Programação De Computadores. São Paulo: Pearson Prentice Hall.
