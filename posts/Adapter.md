@@ -1,3 +1,16 @@
+---
+icon: edit
+author: Fabrício Luís
+date: 2023-04-20 20:10:00.00 -3
+tag: Adapter, GOF, Design Pattern, Poo, Java, Project, Adaptee, Wrapper
+  - Adapter
+  - gof
+category:
+  - aula
+order: 21
+excerpt: Apresentação do Padrão de Projeto Adapter
+---
+
 # Adapter
 
 ## Intenção
@@ -268,105 +281,20 @@ Abstract class Pagamento{
 </figure>
 <figcaption>UML do código</figcaption>
 
-
-
 Essa interface `Pagamento` é resposavel por gerir os métodos para que seja realizada um pagamento em dinheiro.
+@[code](.\code\gof\Adapter\Pagamento.java)
 
-```java
+Aqui simplesmente a classe `PagamentoEmDinheiro` implementa de `Pagamento` e agora é possivel realizar transações de dinheiro em espécie.
+@[code](.\code\gof\Adapter\PagamentoEmDinheiro.java)
 
-package com.mycompany.adapter;
-
-public interface Pagamento {
-    public double fazerPagamento(double value);
-    public double retornarTroco(double valorDaCompra);
-}
-
-```
-
-Aqui simplesmente a classe `PagamentoEmDinheiro`implementa de `Pagamento` e agora é possivel realizar transações de dinheiro em espécie.
-
-```java
-package com.mycompany.adapter;
-
-public class PagamentoEmDinheiro implements Pagamento{
-    double value;
-
-    @Override
-    public double fazerPagamento(double value){
-        System.out.println("O pagamento foi feito em dinheiro: R$ " + value);
-        this.value = value;
-        return value;
-        
-    }
-    @Override
-    public double retornarTroco(double valorDaCompra){
-        double troco = this.value - valorDaCompra;
-        if(troco <= 0){
-            troco = 0;
-        }
-        System.out.println("Seu troco é R$ " + troco);
-        return troco;
-        
-    }
-    
-}
-
-```
 Todavia nosso problemas surge já que não é possivel fazer transações do tipo Pix.
 O que vamos fazer é `adaptar` a interface `Pagamento` para que ela funcione com o Pix.
-
-```java
-package com.mycompany.adapter;
-
-public class PixAdapter implements Pagamento{
-    private double chave;
-
-    public PixAdapter(double chave) {
-        this.chave = chave;
-    }
-    
-    @Override
-    public double fazerPagamento(double value) {
-        System.out.println("O pagamento foi feito no pix: R$ " + value);
-        return value;
-       
-    }
-
-    @Override
-    public double retornarTroco(double valorDaCompra) {
-        System.out.println("Essa função não está disponível no Pix");
-        return 0.0;
-        
-    }
-    
-    public double retornarChavePixQuefoiPaga(){
-        System.out.println("A chave do cobrador é" + this.chave);
-        return this.chave;
-        
-    }
-    
-}
-```
+@[code](.\code\gof\Adapter\PixAdapter.java)
 
 Porfim vamos ver como isso ficaria na prática.
-```java
-package com.mycompany.adapter;
+@[code](.\code\gof\Adapter\Client.java)
 
-public class Client {
-
-    public static void main(String[] args) {
-        Pagamento pd = new PagamentoEmDinheiro();
-        pd.fazerPagamento(49.50);
-        pd.retornarTroco(50.50);
-        
-        PixAdapter pp = new PixAdapter(234332.0);
-        pp.fazerPagamento(12.90);
-        pp.retornarTroco(13.00);
-        pp.retornarChavePixQuefoiPaga();
-         
-    }
-}
-```
+**Resultado**
 
 ```console
 
