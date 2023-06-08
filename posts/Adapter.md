@@ -31,19 +31,9 @@ corresponde à interface específica.
 
 ## Aplicabilidade
 
-1 - Utilize a classe Adaptador quando você quer usar uma classe
-existente, mas sua interface não for compatível com o resto do
-seu código.
-
-2 - O padrão Adapter permite que você crie uma classe de meio
-termo que serve como um tradutor entre seu código e a classe
-antiga, uma classe de terceiros, ou qualquer outra classe com
-uma interface estranha.
-
-3 - Você pode estender cada subclasse e colocar a funcionalidade
-faltante nas novas classes filhas. Contudo, você terá que 
-duplicar o código em todas as novas classes, o que 
-cheira muito mal.
+1. Utilize a classe Adaptador quando você quer usar uma classe existente, mas sua interface não for compatível com o resto do seu código.
+1. O padrão Adapter permite que você crie uma classe de meio termo que serve como um tradutor entre seu código e a classe antiga, uma classe de terceiros, ou qualquer outra classe com uma interface estranha.
+1. Você pode estender cada subclasse e colocar a funcionalidade faltante nas novas classes filhas. Contudo, você terá que  duplicar o código em todas as novas classes, o que  cheira muito mal.
 
 
 ## Estrutura
@@ -260,21 +250,32 @@ A solução foi "adaptar" as funcionalidades atuais de pagamento por dinheiro pa
 ```plantuml
 @startuml
 
-PixAdapter..|>Client
-PixAdapter-->Pagamento
-
-Class PixAdapter{
-- double chave
-
-+public double fazerPagamento(double value)
-+public double retornarTroco(double valorDaCompra)
-+public double retornarChavePixQuefoiPaga()
-}
-
-Abstract class Pagamento{
+abstract class Pagamento{
  + {abstract} public double fazerPagamento(double value)
  + {abstract} public double retornarTroco(double valorDaCompra)
 }
+
+class Client
+class PixAdapter implements Pagamento{
+    - double chave
+    - Pix pagamento
+    +public double fazerPagamento(double value)
+    +public double retornarTroco(double valorDaCompra)
+    +public double retornarChavePixQuefoiPaga()
+}
+class PagamentoEmDinheiro implements Pagamento{
+    +public double fazerPagamento(double value)
+    +public double retornarTroco(double valorDaCompra)
+}
+
+class Pix
+
+Client .> Pagamento
+PixAdapter o.> Pix
+
+
+
+
 
 @enduml
 ```
@@ -282,17 +283,17 @@ Abstract class Pagamento{
 <figcaption>UML do código</figcaption>
 
 Essa interface `Pagamento` é resposavel por gerir os métodos para que seja realizada um pagamento em dinheiro.
-@[code](.\code\gof\Adapter\Pagamento.java)
+@[code](./code/gof/Adapter/Pagamento.java)
 
 Aqui simplesmente a classe `PagamentoEmDinheiro` implementa de `Pagamento` e agora é possivel realizar transações de dinheiro em espécie.
-@[code](.\code\gof\Adapter\PagamentoEmDinheiro.java)
+@[code](./code/gof/Adapter/PagamentoEmDinheiro.java)
 
 Todavia nosso problemas surge já que não é possivel fazer transações do tipo Pix.
 O que vamos fazer é `adaptar` a interface `Pagamento` para que ela funcione com o Pix.
-@[code](.\code\gof\Adapter\PixAdapter.java)
+@[code](./code/gof/Adapter/PixAdapter.java)
 
 Porfim vamos ver como isso ficaria na prática.
-@[code](.\code\gof\Adapter\Client.java)
+@[code](./code/gof/Adapter/Client.java)
 
 **Resultado**
 
