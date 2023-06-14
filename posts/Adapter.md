@@ -11,7 +11,6 @@ order: 21
 excerpt: Apresentação do Padrão de Projeto Adapter
 ---
 
-# Adapter
 
 ## Intenção
 
@@ -258,23 +257,23 @@ abstract class Pagamento{
 class Client
 class PixAdapter implements Pagamento{
     - double chave
-    - Pix pagamento
+    - String tipo
+    Pix pix
     +public double fazerPagamento(double value)
     +public double retornarTroco(double valorDaCompra)
-    +public double retornarChavePixQuefoiPaga()
 }
 class PagamentoEmDinheiro implements Pagamento{
     +public double fazerPagamento(double value)
     +public double retornarTroco(double valorDaCompra)
 }
 
-class Pix
+class Pix{
+    - double chave
+    - String tipo
+}
 
 Client .> Pagamento
 PixAdapter o.> Pix
-
-
-
 
 
 @enduml
@@ -289,7 +288,13 @@ Aqui simplesmente a classe `PagamentoEmDinheiro` implementa de `Pagamento` e ago
 @[code](./code/gof/Adapter/PagamentoEmDinheiro.java)
 
 Todavia nosso problemas surge já que não é possivel fazer transações do tipo Pix.
-O que vamos fazer é `adaptar` a interface `Pagamento` para que ela funcione com o Pix.
+O que vamos fazer é **adaptar** uma classe chamada `Pagamento` para que ela funcione usando elementos da
+classe `Pix` e assim o usuário possa fazer pagamento em Pix usando a interface pagamento.
+
+Classe `Pix`.
+@[code](./code/gof/Adapter/Pix.java)
+
+Classe `Pix Adapter`. Essa classe implementa de `Pagamento` e o **adapta** usando um objeto `Pix`.
 @[code](./code/gof/Adapter/PixAdapter.java)
 
 Porfim vamos ver como isso ficaria na prática.
@@ -299,18 +304,19 @@ Porfim vamos ver como isso ficaria na prática.
 
 ```console
 
-O pagamento foi feito em dinheiro: R$ 49.5
-Seu troco é R$ 0.0
+O pagamento foi feito em dinheiro: R$ 11.0 Reais
+Seu troco é R$ 1.0
 
-O pagamento foi feito no pix: R$ 12.9
-Essa função não está disponível no Pix
-A chave do cobrador é234332.0
+O pagamento foi feito no Pix: R$ 11.0
+Chave: 2233.4
+Tipo: Chave Aleatória
+ - Essa função não está disponível no Pix
 
 ```
 
 ## Usos conhecidos
 
-- Muito utilizada quando temos um Connector, retorna dados de um ou mais serviços REST, por exemplo, e precisamos converter o JSON de retorno para uma classe específica que nosso software possa utilizar.
+- Suponha que você tenha um sistema legado que se comunica usando um protocolo específico, como SOAP, mas você deseja modernizar sua aplicação e utilizar uma arquitetura baseada em APIs RESTFUL. Nesse caso, o Adapter pode ser usado para adaptar a interface SOAP para uma interface RESTFUL, permitindo a comunicação entre os sistemas antigo e novo.
 
 ## Padrões semelhantes
 
