@@ -205,7 +205,7 @@ O padrão Bridge tem os seguintes benefícios e desvantagens:
 
 ## Implementação
 
-Eis um exemplo para representar a implementação do padrão Builder em java:
+Eis um exemplo para representar a implementação do padrão Bridge em java:
 
 ```java
 public abstract class Abstraction {
