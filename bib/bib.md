@@ -254,3 +254,5 @@
 [^Unity3D]: Unity 3D - Desenvolvimento de Games [https://www.devmedia.com.br/unity-3d-introducao-ao-desenvolvimento-de-games/30653](https://www.devmedia.com.br/unity-3d-introducao-ao-desenvolvimento-de-games/30653)
 
 [^ASPNET]: ASP.NET CORE [https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet-core](https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet-core)
+
+[^JavaList]: List - Java Docs: [docs.oracle.com/javase/8/docs/api/java/util/List](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)
