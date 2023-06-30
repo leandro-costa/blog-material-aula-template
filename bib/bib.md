@@ -256,3 +256,7 @@
 [^ASPNET]: ASP.NET CORE [https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet-core](https://dotnet.microsoft.com/pt-br/learn/aspnet/what-is-aspnet-core)
 
 [^JavaList]: List - Java Docs: [docs.oracle.com/javase/8/docs/api/java/util/List](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)
+
+[^JogoSelva]: Jogo Selva [https://brainking.com/pt/GameRules?tp=56](https://brainking.com/pt/GameRules?tp=56)
+
+
