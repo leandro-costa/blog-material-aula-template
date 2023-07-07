@@ -8,7 +8,7 @@ category:
 order: 1
 ---
 
-# Seminários 1
+# Seminários 2
 
 Elaborar uma apresentação do padrão seguindo o modelo do [^GAMMA] e utilizando o [template](../XX_Modelo.md)  
 
