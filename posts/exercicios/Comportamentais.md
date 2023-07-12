@@ -27,19 +27,19 @@ O padrão Observer (274) define e mantém uma dependência entre objetos. O exem
 Outros padrões comportamentais de objetos se preocupam com o encapsulamento de comportamento em um objeto e com a delegação de solicitações para ele. O padrão [Strategy](../04_Strategy.md) encapsula um algoritmo num objeto. Strategy torna fácil especificar e mudar o algoritmo que um objeto usa. O padrão Command (222) encapsula uma solicitação num objeto, de maneira que possa ser passada como um parâmetro, armazenada numa lista histórica ou manipulada de outras formas. O padrão State (284) encapsula os estados de um objeto, de maneira que o objeto possa mudar o seu comportamento quando o seu objeto-estado mudar. Visitor (305) encapsula comportamento que, de outra forma, seria distribuído entre classes, Iterator (244) abstrai a maneira como objetos de um agregado são acessados e percorridos.
 
 ## Lista de padrões
-|Padrão|Aluno|
-|--|--|
-|Chain of Responsibility ||
-|Command ||
-|Interpreter |@leandro-costa|
-|Iterator |@leandro-costa|
-|Mediator ||
-|Memento |@FabricioLuisdeSousaSantos|
-|Observer |@leandro-costa|
-|State |@GabrielCoffee9|
-|Strategy |@leandro-costa|
-|Template Method ||
-|Visitor ||
+| Padrão                  | Aluno                      |
+| ----------------------- | -------------------------- |
+| Chain of Responsibility |                            |
+| Command                 |                            |
+| Interpreter             | @leandro-costa             |
+| Iterator                | @leandro-costa             |
+| Mediator                |                            |
+| Memento                 | @FabricioLuisdeSousaSantos |
+| Observer                | @leandro-costa             |
+| State                   | @GabrielCoffee9            |
+| Strategy                | @leandro-costa             |
+| Template Method         | @AmandaSerpa               |
+| Visitor                 |                            |
 
 ## Referências
 

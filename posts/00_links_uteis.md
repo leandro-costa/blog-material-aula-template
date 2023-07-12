@@ -14,3 +14,6 @@ star: true
 - [sourcemaking Design Patterns](https://sourcemaking.com/design_patterns)
 - [Padrões de Projeto - Prof. Diogo D. Moreira](https://diogomoreira.gitbook.io/padroes-de-projeto/)
 
+## Design Patterns Revisited in Modern Java by Venkat Subramaniam 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yTuwi--LFsM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
