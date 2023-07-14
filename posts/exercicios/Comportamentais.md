@@ -9,7 +9,9 @@ category:
 excerpt: Apresentação dos Padrões Comportamentais do GOF
 ---
 
-# Padrões Comportamentais
+# Seminários 3
+
+## Padrões Comportamentais
 
 [^GAMMA]
 
@@ -31,8 +33,8 @@ Outros padrões comportamentais de objetos se preocupam com o encapsulamento de 
 | ----------------------- | -------------------------- |
 | Chain of Responsibility | @leandro-costa             |
 | Command                 | @leandro-costa             |
-| Interpreter :            | @leandro-costa             |
-| Iterator                | @leandro-costa             |
+| 🆗Interpreter           | @leandro-costa             |
+| 🆗Iterator              | @leandro-costa             |
 | Mediator                | @LuisADS8                  |
 | Memento                 | @FabricioLuisdeSousaSantos |
 | Observer                | @leandro-costa             |
