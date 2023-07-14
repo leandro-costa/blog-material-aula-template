@@ -46,3 +46,5 @@ Outros padrões comportamentais de objetos se preocupam com o encapsulamento de 
 ## Referências
 
 <!-- @include: ../../bib/bib.md -->
+
+https://dzone.com/articles/the-observer-pattern-using-modern-java
