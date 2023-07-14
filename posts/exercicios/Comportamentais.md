@@ -37,7 +37,7 @@ Outros padrões comportamentais de objetos se preocupam com o encapsulamento de 
 | 🆗Iterator              | @leandro-costa             |
 | Mediator                | @LuisADS8                  |
 | Memento                 | @FabricioLuisdeSousaSantos |
-| Observer                | @leandro-costa             |
+| 🆗Observer                | @leandro-costa             |
 | State                   | @GabrielCoffee9            |
 | Strategy                | @leandro-costa             |
 | Template Method         | @AmandaSerpa               |
