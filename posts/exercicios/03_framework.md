@@ -14,7 +14,7 @@ Descrever um framework, utilizando os padrões de projetos vistos na disciplina,
 
 Para caso de teste, deve ser descrito como construir um jogo de Damas e de Xadrez utilizando o seu framework.
 
-A da apresentação dos padrões utilizados no framework devem seguir a seguinte estrutura:
+A apresentação de cada um dos padrões utilizados no framework devem seguir a seguinte estrutura:
 - Nome do padrão
 - Intensão
 - Estrutura
