@@ -29,17 +29,17 @@ Outros padrões comportamentais de objetos se preocupam com o encapsulamento de 
 ## Lista de padrões
 | Padrão                  | Aluno                      |
 | ----------------------- | -------------------------- |
-| Chain of Responsibility |                            |
-| Command                 |                            |
-| Interpreter             | @leandro-costa             |
+| Chain of Responsibility | @leandro-costa             |
+| Command                 | @leandro-costa             |
+| Interpreter :            | @leandro-costa             |
 | Iterator                | @leandro-costa             |
-| Mediator                |                            |
+| Mediator                | @LuisADS8                  |
 | Memento                 | @FabricioLuisdeSousaSantos |
 | Observer                | @leandro-costa             |
 | State                   | @GabrielCoffee9            |
 | Strategy                | @leandro-costa             |
 | Template Method         | @AmandaSerpa               |
-| Visitor                 |                            |
+| Visitor                 | @SarahPithon               |
 
 ## Referências
 
