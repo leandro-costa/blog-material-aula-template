@@ -74,6 +74,10 @@ public class DrawingDocument extends Document {
     public void save() {
         // Código para salvar documento
     }
+    @Override
+    public void create() {
+        // Código para criar documento
+    }
 }
 
 
@@ -257,120 +261,106 @@ Considere os passos à seguir, para aplicar o padrão Factory Method:
 
 6. Se, após todas as extrações, o método fábrica base ficar vazio, você poderá torná-lo abstrato. Se sobrar algo, você pode tornar isso em um comportamento padrão do método.
 
-
-
-
 ## Exemplo de código
 
+No cenário do código a seguir, retrata uma empresa de transportes que contém carros e motos. A empresa busca atender passageiros da cidade, pegando a pessoa e levando para o destino desejado. Como a empresa contém vários carros e motos, foi criada uma fábrica para cada tipo de transporte.
 
 ```java
-// Classe abstrata Document
-public abstract class Document{
-    // Métodos abstratos que devem ser implementados pelas subclasses
-    public abstract void new();
-    public abstract void open();
-    public abstract void close();
-    public abstract void save();
+
+public interface Transportes {
+    public void pegarPassageiro(String nomePassageiro);
+    public void levarPassageiro(String nomePassageiro);
+    public void pararTransporte();
 }
 
-public class XLSXDocument extends Document {
-    // Atributos
-    @Override
-    public void new() {
-        // Código para criar documento
-    }
-    @Override
-    public void open() {
-        // Código para abrir documento
-    }
-    @Override
-    public void close() {
-        // Código para fechar documento
-    }
-    @Override
-    public void save() {
-        // Código para salvar documento
-    }
-}
+public class Moto implements Transportes {
+    String nomeTransporte;
 
-// Classe concreta createWord
-public class DOCXDocument extends Document {
-    // Atributos
-    @Override
-    public void new() {
-        // Código para criar documento
+    public Moto (String nomeTransporte) {
+        this.nomeTransporte = nomeTransporte;
     }
-    @Override
-    public void open() {
-        // Código para abrir documento
+
+    public void pegarPassageiro(String nomePassageiro) {
+        // Lógica do método...
+        System.out.println("A caminho do passageiro(a): " + nomePassageiro);
     }
-    @Override
-    public void close() {
-        // Código para fechar documento
+
+    public void levarPassageiro(String nomePassageiro) {
+        // Lógica do método...
+        System.out.println("Levando passageiro(a) " + nomePassageiro + " ao seu destino.");
     }
-    @Override
-    public void save() {
-        // Código para salvar documento
+
+    public void pararTransporte() {
+        // Lógica do método...
+        System.out.println("Parando transporte");
     }
 }
 
+public class Carro implements Transportes {
+    String nomeTransporte;
 
-// Classe abstrata Aplicação
-public abstract class Application {
-    // Factory Method que cria instâncias de Documento
-    public abstract Document createDocument();
-
-
-    // Métodos responsáveis por gerenciar os documentos
-    public void newDocument() {
-        Document document = createDocument();
-        document.create();
+    public Carro (String nomeTransporte) {
+        this.nomeTransporte = nomeTransporte;
     }
 
+    public void pegarPassageiro(String nomePassageiro) {
+        // Lógica do método...
+        System.out.println("A caminho do passageiro(a): " + nomePassageiro);
+    }
 
-    public void openDocument() {
-        Document document = createDocument();
-        document.open();
+    public void levarPassageiro(String nomePassageiro) {
+        // Lógica do método...
+        System.out.println("Levando passageiro(a) " + nomePassageiro + " ao seu destino.");
+    }
+
+    public void pararTransporte() {
+        // Lógica do método...
+        System.out.println("Parando transporte");
     }
 }
 
+public abstract class FactoryTransportes {
+    public abstract Transportes criarTransporte(String nomeTransporte);
+}
 
-// Classe concreta Aplicação específica para PDF
-public class Excel extends Application {
+public class FactoryMoto extends FactoryTransportes {
+
     @Override
-    public Document createDocument() {
-        return new XLSXDocument();
+    public Transportes criarTransporte(String nomeTransporte) {
+        return new Moto(nomeTransporte);
     }
+    
 }
 
+public class FactoryCarro extends FactoryTransportes {
 
-// Classe concreta Aplicação específica para Word
-public class Word extends Application {
     @Override
-    public Document createDocument() {
-        return new DOCXDocument();
+    public Transportes criarTransporte(String nomeTransporte) {
+        return new Carro(nomeTransporte);
     }
+    
 }
 
-// Exemplo de uso do framework
 public class Main {
     public static void main(String[] args) {
-        Application applicationExcel = new Excel();
-        Document xlsx = applicationPDF.createDocument();
-        Application applicationWord = new Word();
-        Document docx = applicationWord.createDocument();
+        FactoryCarro fabricaCarros = new FactoryCarro();
+
+        Carro gol = (Carro) fabricaCarros.criarTransporte("Gol vermelho");
+        gol.levarPassageiro("João");
+        Carro uno = (Carro) fabricaCarros.criarTransporte("Uno preto");
+        uno.pegarPassageiro("Maria");
+
+        Moto biz = (Moto) fabricaCarros.criarTransporte("Honda Biz 125");
+        biz.levarPassageiro("Ana");
     }
 }
+
 ```
-
-
-
 
 ## Usos conhecidos
 
 
-- Os métodos fábricas são utilizados por toolkits e frameworks, pela sua abordagem flexível para a criação de objetos, permitindo a criação de objetos com necessidades específicas. Exemplo o MacApp e ET++, que são frameworks e os métodos fábricas são criados e utilizados para criar objetos relacionados a documentos. Pode existir um método fábrica que seja responsável por criar diversos tipos de documentos como de texto, planilha e entre outros.
-Seguindo a mesma lógica, no Unidraw que é um framework gráfico, os métodos fábricas podem ser usados para criar manipuladores, destinados a lidar com interações de usuário, como seleção, edição e elementos gráficos.
+- Sistemas de Interface Gráfica do Usuário, muitos sistemas que envolvem interfaces gráficas, utilizam o Factory Method para criar objetos de componentes de interface do usuário, como botões, caixas de texto e janelas.
 
 
 - A classe `View` do framework Model/View/Controller no Smalltalk-80, tem um método chamado defaultController, responsável por criar uma instância controlador. Isso pode parecer com o método fábrica, mas a verdadeira implementação do método fábrica é encontrada no método defaultControllerClass, que retorna a classe da qual defaultController cria instâncias.
@@ -379,14 +369,12 @@ Seguindo a mesma lógica, no Unidraw que é um framework gráfico, os métodos f
 - Sistema ORB Orbix da IONA Technologies[ION94], utiliza do padrão Factory Method para criar tipos apropriados de proxy, quando um objeto utiliza solicita uma referência para um objeto remoto. O padrão facilita a substituição do proxy padrão para um outro que seja adequado para a interação.
 
 
-
-
 ## Padrão relacionados
 
 
 - [Abstract Factory](06_Abstract_Factory.md): Abstract Factory e Factory Method podem ser combinados de maneira que o Abstract Factory cria famílias de objetos dependentes, sem que seja necessário especificar suas classes concretas e o Factory Method pode ser utilizado para criar objetos individuais dentro dessas famílias.
-- [Template Methods]: Template Method e Factory Method podem ser utilizados juntos da seguinte maneira, o Factory Method é utilizado dentro do Template Method, possibilitando a criação de objetos especifícos durante a execução de um algoritmo.
-- [Prototype](Prototype.md): Prototype e Factory Method podem ser combinados quando se cria um objeto protótipo dentro do método fábrica, sendo assim os obejtos são clonados sem que seja necessário criar o objeto do zero, após clonar você pode fazer a alterações necessárias.
+- [Template Methods]: Template Method e Factory Method podem ser utilizados juntos da seguinte maneira, o Factory Method é utilizado dentro do Template Method, possibilitando a criação de objetos específicos durante a execução de um algoritmo.
+- [Prototype](Prototype.md): Prototype e Factory Method podem ser combinados quando se cria um objeto protótipo dentro do método fábrica, sendo assim os objetos são clonados sem que seja necessário criar o objeto do zero, após clonar você pode fazer a alterações necessárias.
 
 
 ## Referências
