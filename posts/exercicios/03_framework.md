@@ -19,6 +19,12 @@ A apresentação de cada um dos padrões utilizados no framework devem seguir a 
 - Intensão
 - Estrutura
 - Participantes (lincando com código do framework)
-- código do framework 
+- código do framework
+
+## Entregas
+- Parcial 2 27/07/2023
+- Parcial 3 03/08/2023
+
+
  
 <!-- @include: ../../bib/bib.md -->
