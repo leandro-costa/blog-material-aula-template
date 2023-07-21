@@ -43,8 +43,8 @@ anterior do objeto.
 ```plantuml
 @startuml
 
-Originator ..|> Memento
-Caretaker o--|> Memento
+Originator ..> Memento
+Caretaker o--> Memento
 
 class Memento {
   - state: String
@@ -105,48 +105,71 @@ restaurado.
 
 ```java
 
-package com.mycompany.mementoexample;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 class Originator {
-    private String state;
+    private String data;
+    private LocalDateTime timestamp;
+    private String author;
 
-    public void setState(String state) {
-        this.state = state;
+    public void setState(String data, LocalDateTime timestamp, String author) {
+        this.data      = data;
+        this.timestamp = timestamp;
+        this.author    = author;
     }
 
-    public String getState() {
-        return state;
+    public String getData() {
+        return data;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+    
     public Memento save() {
-        return new Memento(state);
+        return new Memento(data, timestamp, author);
     }
 
     public void restore(Memento memento) {
-        state = memento.getState();
+        data      = memento.getData();
+        timestamp = memento.getTimestamp();
+        author    = memento.getAuthor();
     }
-}
 
+}
 
 class Memento {
-    private String state;
+    private String data;
+    private LocalDateTime timestamp;
+    private String author;
 
-    public Memento(String state) {
-        this.state = state;
+    public Memento(String data, LocalDateTime timestamp, String author) {
+        this.data      = data;
+        this.timestamp = timestamp;
+        this.author    = author;
     }
 
-    public String getState() {
-        return state;
+    public String getData() {
+        return data;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 }
 
-
-
 class Caretaker {
-    private List<Memento> mementos = new ArrayList();
+    private List<Memento> mementos = new ArrayList<>();
 
     public void addMemento(Memento memento) {
         mementos.add(memento);
@@ -157,28 +180,76 @@ class Caretaker {
     }
 }
 
-
 public class MementoExample {
     public static void main(String[] args) {
-        
+
         Originator originator = new Originator();
         Caretaker caretaker   = new Caretaker();
 
-        originator.setState("Estado 1");
+        originator.setState("Data 0", LocalDateTime.MAX, "Name00");
         caretaker.addMemento(originator.save());
-
-        originator.setState("Estado 2");
+        
+        originator.setState("Data 1", LocalDateTime.MIN, "Name01");
         caretaker.addMemento(originator.save());
+        
+        
+        originator.restore(caretaker.getMemento(0));
+        System.out.println("Current Data: " + originator.getData());
+        System.out.println("Time: "         + originator.getTimestamp());
+        System.out.println("Author: "       + originator.getAuthor());
 
-        originator.setState("Estado 3");
-        caretaker.addMemento(originator.save());
-
-        originator.restore(caretaker.getMemento(1));
-        System.out.println("Estado atual: " + originator.getState());
+       
     }
 }
 
 ```
+
+<figure>
+
+```plantuml
+@startuml
+
+class Originator {
+    - data: String
+    - timestamp: LocalDateTime
+    - author: String
+    + setState(): void
+    + getData(): String
+    + getTimestamp(): LocalDateTime
+    + getAuthor(): String
+    + save(): Memento
+    + restore(memento: Memento):void
+}
+
+class Memento {
+    - data: String
+    - timestamp: LocalDateTime
+    - author: String
+    + getData(): String
+    + getTimestamp(): LocalDateTime
+    + getAuthor(): String
+}
+
+class Caretaker {
+    - mementos: List<Memento>
+    + addMemento(memento: Memento): void
+    + getMemento(index: int): Memento
+}
+
+Originator ..> Memento
+Caretaker o--> Memento
+
+
+note right of Originator::save()
+  return new Memento(data: String, timestamp: LocalDateTime, author: String)
+end note
+
+
+@enduml
+```
+<figcaption>UML do código</figcaption>
+</figure>
+
 
 ## Exemplo de código
 
@@ -187,7 +258,6 @@ Uma empresa "N" está desenvolvendo um game de ação e eles desejam criar "pon
 
 **A classe ``Game`` representa o estado atual do jogo;**
 ```java
-
 package com.mycompany.padrao_memento;
 
 public class Game {
@@ -199,7 +269,7 @@ public class Game {
     private double money;
     private double xp;
 
-    public Game(double level, double health, double bulletProof, double primaryGunAmmunition, double secondGunAmmunition, double money, double xp) {
+    public void setInfo(double level, double health, double bulletProof, double primaryGunAmmunition, double secondGunAmmunition, double money, double xp) {
         this.level                = level;
         this.health               = health;
         this.bulletProof          = bulletProof;
@@ -208,9 +278,8 @@ public class Game {
         this.money                = money;
         this.xp                   = xp;
     }
+   
     
-    
-
 public SlotSaveState saveGame(){
     return new SlotSaveState(this.level, this.health, this.bulletProof, this.primaryGunAmmunition, this.secondGunAmmunition, this.money, this.xp);
 
@@ -230,9 +299,7 @@ public void loadGame(SlotSaveState savegame){
 
 }
 
-
 ```
-
 
 **A classe ``SlotSaveState`` representa um slote vazio que pode ser preenchido com infomações de um devido estado do game, ou seja pode ser um momento especifico do jogo;**
 ```java
@@ -298,7 +365,6 @@ public class SlotSaveState {
 
 ```
 
-
 **E por fim a classe ``MemoryCard`` que representa a abstração de um memory card que pode armazenar os saves de um dado estado do game;**
 ```java
 
@@ -336,11 +402,13 @@ public class User {
         
         MemoryCard memoryCard = new MemoryCard();
         
-        Game state00 = new Game(20, 80, 70, 80, 10, 2.000, 3.600);
-        Game state01 = new Game(40, 30, 90, 80, 10, 2.000, 4.000);
+        Game state00 = new Game();
         
+        state00.setInfo(20, 80, 70, 80, 10, 2.000, 3.600);
         memoryCard.writeInMemory(state00.saveGame());
-        memoryCard.writeInMemory(state01.saveGame());
+        
+        state00.setInfo(40, 30, 90, 80, 10, 2.000, 4.000);
+        memoryCard.writeInMemory(state00.saveGame());
         
         System.out.println(memoryCard.readFromMemory(1));
         
@@ -375,6 +443,7 @@ class Game {
     - money: double
     - xp: double
 
+    + setInfo(): void
     + saveGame(): SlotSaveState
     + loadGame(SlotSaveState): void
 }
@@ -391,14 +460,13 @@ class SlotSaveState {
 
 class MemoryCard {
     - savesStates: List<SlotSaveState>
-
     + writeInMemory(SlotSaveState): void
     + readFromMemory(int): SlotSaveState
 }
 
 
-Game ..|> SlotSaveState
-MemoryCard o--|> SlotSaveState
+Game ..> SlotSaveState
+MemoryCard o--> SlotSaveState
 
 
 @enduml
