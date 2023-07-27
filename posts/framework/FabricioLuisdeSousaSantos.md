@@ -73,7 +73,7 @@ abstract class Peca {
     private String tipo;
     private String cor;
     private Movimento movimento;
-    public abstract void mover(Movimento movimento);
+    public abstract void mover();
     public abstract Peca clone();
 }
 
@@ -286,7 +286,7 @@ abstract class Peca {
     private String tipo;
     private String cor;
     private Movimento movimento;
-    public abstract void mover(Movimento movimento);
+    public abstract void mover();
     public abstract Peca clone();
 }
 
@@ -427,7 +427,7 @@ abstract class Peca {
     private String tipo;
     private String cor;
     private Movimento movimento;
-    public abstract void mover(Movimento movimento);
+    public abstract void mover();
     public abstract Peca clone();
 }
 
