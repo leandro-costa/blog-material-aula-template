@@ -90,7 +90,7 @@ class PecaXadrez extends Peca{
     }
     
     @Override
-    public void mover(Movimento movimento){
+    public void mover(){
         movimento.mover();
     }
     
@@ -113,7 +113,7 @@ class PecaDamas extends Peca{
     }
     
     @Override
-    public void mover(Movimento movimento){
+    public void mover(){
         movimento.mover();
     }
     
@@ -303,7 +303,7 @@ class PecaXadrez extends Peca{
     }
     
     @Override
-    public void mover(Movimento movimento){
+    public void mover(){
         movimento.mover();
     }
     
@@ -326,7 +326,7 @@ class PecaDamas extends Peca{
     }
     
     @Override
-    public void mover(Movimento movimento){
+    public void mover(){
         movimento.mover();
     }
     
@@ -444,7 +444,7 @@ class PecaXadrez extends Peca{
     }
     
     @Override
-    public void mover(Movimento movimento){
+    public void mover(){
         movimento.mover();
     }
     
@@ -467,7 +467,7 @@ class PecaDamas extends Peca{
     }
     
     @Override
-    public void mover(Movimento movimento){
+    public void mover(){
         movimento.mover();
     }
     
@@ -812,7 +812,7 @@ class PecaComMovimentoEspecialDamasDecorator extends PecaDecorator{
     
     
     @Override
-    public void mover(Movimento movimento) {
+    public void mover() {
         movimento.mover();
     }
 
