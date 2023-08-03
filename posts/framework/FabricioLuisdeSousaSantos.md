@@ -1,238 +1,7 @@
-# 1. Builder
+# 1. Prototype
 
-## Intenção
-
-- Separar a construção de um objeto complexo da sua representação de modo que o mesmo processo de construção possa criar diferentes representações.
-
-## Estrutura
-<figure>
-
-```plantuml
-@startuml
-interface Builder{
-BuildPart()
-}
-
-class Director{
-Builder builder
-Construct()
-}
-
-note bottom of Director
-foreach item in structure {
-   builder.BuildPart()
-}
-end note
-
-
-Director o-> Builder:builder
-
-class ConcreteBuilder{
-    BuildPart()
-    GetResult()
-}
-
-
-Builder <|-- ConcreteBuilder
-ConcreteBuilder -right..> Product
-
-
-hide empty attributes
-hide empty methods
-@enduml
-```
-<figcaption>Estrutura Builder</figcaption>
-</figure>
-
-## Participantes
-
-- **Builder(PecaBuilder)**
-    - define uma interface com as configurações em comum para todos os objetos que são baseados nesse Builder. Director usa esta interface para chamar o método definido por um ConcreteBuilder.
-- **ConcreteBuilder(PecaBuilderXadrez, PecaBuilderDamas)** 
-    - implementa métodos para a construção e montagem em partes do produto, usando a interface de Builder.
-    - Não expõe o produto durante a montagem, mantém a representação até o objeto ser recuperado.
-    - ConcreteBuilders devem fornecer seus próprios métodos para recuperar os resultados de construções, já que os produtos gerados podem ser completamente diferentes.
-- **Director(Main)**   
-    - Mantém uma instancia de um Builder passado pelo cliente.
-    - Implementa métodos visando a execução sequencial correta e a organização das etapas de configuração para cada tipo de situação.
-    - **Não é estritamente necessário**, é possivel que o padrão seja implementado com o cliente assumindo um papel parecido com o de director.
-
-- **Product(PecaXadrez, PecaDamas)** 
-    - representa o objeto complexo em construção. ConcreteBuilder constrói a representação interna do produto e define o as etapas de montagem;
-    - inclui classes que definem as diversas partes que constituem o objeto complexo, inclusive as interfaces para a montagem das partes no resultado final.
-
-
-## Código do Framework
-
-- Utiliza-se o padrão builder nesse código para poder construir uma peca. A classe PecaBuilder gera as assinatura de método para sem herdadas por PecaBuilderXadrez e PecaBuilderDamas que implementarão esse método que retornam para a mesma instancia cada atributo com uma peca e por fim em 
-cadeia se usa o método build() para finalizar e retornar todas as informações que foram adicionadas aquele objeto. 
-
-```java
-
-abstract class Peca {
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-    public abstract void mover();
-    public abstract Peca clone();
-}
-
-
-class PecaXadrez extends Peca{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-    public PecaXadrez(String tipo, String cor, Movimento movimento) {
-        this.tipo      = tipo;
-        this.cor       = cor;
-        this.movimento = movimento;
-    }
-    
-    @Override
-    public void mover(){
-        movimento.mover();
-    }
-    
-    @Override
-    public Peca clone(){
-        return new PecaXadrez(tipo, cor, movimento);
-    }
-    
-}
-
-class PecaDamas extends Peca{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-    public PecaDamas(String tipo, String cor, Movimento movimento) {
-        this.tipo      = tipo;
-        this.cor       = cor;
-        this.movimento = movimento;
-    }
-    
-    @Override
-    public void mover(){
-        movimento.mover();
-    }
-    
-    
-    
-    @Override
-    public Peca clone(){
-        return new PecaDamas(tipo, cor, movimento);
-    }
-    
-}
-```
-
-```java
-interface PecaBuilder{
-    public PecaBuilder setTipo(String tipo);
-    public PecaBuilder setCor(String cor);
-    public PecaBuilder setMovimento(Movimento movimento);
-    public Peca build();
-    
-}
-
-class PecaBuilderXadrez implements PecaBuilder{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-    public PecaBuilderXadrez setTipo(String tipo) {
-        this.tipo = tipo;
-        return this;
-        
-    }
-
-    public PecaBuilderXadrez setCor(String cor) {
-        this.cor = cor;
-        return this;
-        
-    }
-
-    public PecaBuilderXadrez setMovimento(Movimento movimento) {
-        this.movimento = movimento;
-        return this;
-       
-    }
-
-    public Peca build() {
-        return new PecaXadrez(tipo, cor, movimento);
-        
-    }
-    
-}
-
-class PecaBuilderDamas implements PecaBuilder{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-   
-    public PecaBuilderDamas setTipo(String tipo) {
-        this.tipo = tipo;
-        return this;
-        
-    }
-
-    public PecaBuilderDamas setCor(String cor) {
-        this.cor = cor;
-        return this;
-        
-    }
-
-    public PecaBuilderDamas setMovimento(Movimento movimento) {
-        this.movimento = movimento;
-        return this;
-       
-    }
-
-    public Peca build() {
-        return new PecaDamas(tipo, cor, movimento);
-        
-    }
-    
-}
-
-```
-```java
-Movimento movimento = new Baixo();
-
-PecaBuilderDamas construtorDePecaDamas   = new PecaBuilderDamas();
-Peca pecaDamas00                         = construtorDePecaDamas.setCor("Branca").setTipo("Dama").setMovimento(movimento).build();
-pecaDamas00.mover();
-
-PecaBuilderXadrez construtorDePecaXadrez = new PecaBuilderXadrez();
-Peca pecaXadrez00                        = construtorDePecaXadrez.setCor("Preta").setTipo("Torre").setMovimento(movimento).build();
-pecaXadrez00.mover();
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 2. Prototype
-
-## Intenção
-
-- Especificar os tipos de objetos a serem criados usando uma instância-protótipo e criar
-novos objetos pela cópia desse protótipo.
-
+## Intensão
+- Especificar os tipos de objetos a serem criados usando uma instância-protótipo e criar novos objetos pela cópia desse protótipo.
 ## Estrutura
 <figure>
 
@@ -258,10 +27,6 @@ note bottom: p = prototype->Clone()
 Prototype <|--- ConcretPrototype1 
 Prototype <|--- ConcretPrototype2 
 
-class ConcretPrototype1 
-note bottom: Retorna a cópia de si mesmo
-class ConcretPrototype2 
-note bottom: Retorna a cópia de si mesmo
 @enduml
 ```
 <figcaption>Estrutura Prototype</figcaption>
@@ -271,93 +36,347 @@ note bottom: Retorna a cópia de si mesmo
 - **Prototype(Peca)** 
     - declara uma interface para clonar a si próprio.
 
-- **ConcretePrototype(PecaXarez, PecaDamas)**
+- **ConcretePrototype(Dama, Peao, Torre)**
     - implementa uma operação para clonar a si próprio
 
 - **Client(Main)** 
     - cria um novo objeto solicitando a um protótipo que clone a si próprio.
+## Utilização
+- Esse padrão é útil para clonar instancias de pecas de Xadrez e Damas com configurações especificas. Todas as pecas que herdam da classe Peca tem um método clonarPeca() que retorna uma instancia com os mesmos atributos.
 
-## Código do Framework
+## Código do framework
 
-- Nesse código a Classe Peca representa uma abstração de uma peca genérica, que por sua vez e herdada por PecaXadez e PecaDamas, ambas recebem o método clone() que deve ser reescrito para retornar uma instância idêntica à mesma, ou seja com os mesmos atributos.
-
-```java
-abstract class Peca {
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-    public abstract void mover();
-    public abstract Peca clone();
-}
+@[Peca](./code/TiposDePecas/Peca.java)
+@[Dama](./code/TiposDePecas/Dama.java)
+@[Peao](./code/TiposDePecas/Peao.java)
+@[Torre](./code/TiposDePecas/Torre.java)
 
 
-class PecaXadrez extends Peca{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
+# 2. Proxy
 
-    public PecaXadrez(String tipo, String cor, Movimento movimento) {
-        this.tipo      = tipo;
-        this.cor       = cor;
-        this.movimento = movimento;
-    }
-    
-    @Override
-    public void mover(){
-        movimento.mover();
-    }
-    
-    @Override
-    public Peca clone(){
-        return new PecaXadrez(tipo, cor, movimento);
-    }
-    
-}
-
-class PecaDamas extends Peca{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-    public PecaDamas(String tipo, String cor, Movimento movimento) {
-        this.tipo      = tipo;
-        this.cor       = cor;
-        this.movimento = movimento;
-    }
-    
-    @Override
-    public void mover(){
-        movimento.mover();
-    }
-    
-    
-    
-    @Override
-    public Peca clone(){
-        return new PecaDamas(tipo, cor, movimento);
-    }
-    
-}
-
-```
-
-```java
-Movimento movimento = new Baixo();
-Peca pecaDamas      = new PecaDamas("Dama", "Preta", movimento);
-Peca pecaDamasClone = pecaDamas.clone();
-
-```
-
-
-
-# 3. Factory Method
-
-## Intenção
-
-- Definir uma interface para criar um objeto, mas deixar as subclasses decidirem que classe instanciar. O Factory Method permite adiar a instanciação para subclasses.
-
+## Intensão
+- Fornece um substituto (surrogate) ou marcador da localização de outro objeto paracontrolar o acesso a esse objeto.
 ## Estrutura
+<figure>
 
+```plantuml
+@startuml
+
+interface Subject {
+    {abstract} request()
+}
+
+class RealSubject {
+    + request()
+}
+
+class Proxy {
+    + request() 
+}
+
+Subject <|.. RealSubject
+Subject <|.. Proxy
+
+RealSubject <-- Proxy : realsubject
+
+note right of Proxy
+  realSubject–>Request()
+end note
+
+@enduml
+
+```
+
+<figcaption>Estrutura Proxy</figcaption>
+</figure>
+
+## Participantes
+- **Proxy (PecaProxy)** 
+    - mantém uma referência que permite ao proxy acessar o objeto real (real
+    subject). O proxy pode referenciar um Subject se as interfaces de RealSubject
+    e Subject forem as mesmas;
+    - fornece uma interface idêntica a de Subject, de modo que o proxy possa
+    substitur o objeto real (real subject).
+    - controla o acesso ao objeto real e pode ser responsável pela sua criação e
+    exclusão.
+    - outras responsabilidades dependem do tipo de proxy:
+    - remote proxies são responsáveis pela codificação de uma solicitação e de
+    seus argumentos, bem como pelo envio da solicitação codificada para o
+    objeto real num espaço de endereçamento diferente;
+    - virtual proxies podem manterinformações adicionais sobre o objeto real,
+    de maneira que possam postergar o acesso ao mesmo. Por exemplo, o
+    ImageProxy da seção Motivação armazena a extensão da imagem real;
+    - protection proxies verificam se quem chama tem as permissões de acesso
+    requeridas para executar uma consulta.
+
+- **Subject (Peca)**
+    - define uma interface comum para RealSubject e Proxy, de maneira que um
+    Proxy possa ser usado em qualquer lugar em que um RealSubject é
+    esperado.
+
+- **RealSubject (Dama, Peao, Torre)**
+    - Define o objeto real que o proxy representa.
+## Utilização
+- O padrão proxy foi usado para fazer a verificação dos movimentos das pecas antes que elas se movam dentro do tabuleiro. PecaProxy checa se a peca não vai se movimentar para fora dos limites do tabuleiro.
+
+## Código do framework
+@[PecaProxy](./code/TiposDePecas/PecaProxy.java)
+@[Peca](./code/TiposDePecas/Peca.java)
+@[Dama](./code/TiposDePecas/Dama.java)
+@[Peao](./code/TiposDePecas/Peao.java)
+@[Torre](./code/TiposDePecas/Torre.java)
+
+
+# 3. Memento
+
+## Intensão
+- O Memento é um padrão de projeto comportamental que permite que você salve e restaure o estado anterior de um objeto sem revelar os detalhes de sua implementação.
+## Estrutura
+<figure>
+
+```plantuml
+@startuml
+
+Originator ..> Memento
+Caretaker o--> Memento
+
+class Memento {
+  - state: String
+  + getState(): String
+  + setState(): String
+}
+
+class Originator {
+  - state: String
+  + save(): Memento
+  + restore(memento: Memento)
+}
+
+class Caretaker {
+  - mementos: List<Memento>
+  + addMemento(memento: Memento)
+  + getMemento(index: int): Memento
+}
+
+
+note right of Originator::save()
+  return new Memento(state)
+end note
+
+
+@enduml
+
+```
+<figcaption>Estrutura Memento</figcaption>
+</figure>
+
+## Participantes
+- **Memento (Estado)**
+    - armazena o estado interno do objeto Originator. O memento pode armazenar pouco ou muito do estado interno do originator, conforme necessário
+    e segundo critérios do seu originador.
+    - protege contra acesso por objetos que não o originador. Mementos têm
+    efetivamente duas interfaces. O Caretaker vê uma interface mínima do
+    memento – ele somente pode passar o memento para outros objetos. O
+    originador, diferentemente, vê uma interface ampla, que lhe permite acessar
+    todos os dados necessários para se restaurar ao seu estado prévio.
+    Idealmente, somente o originador que produziu o memento teria o acesso
+    permitido ao seu estado interno.
+
+- **Originator (Dama, Peao, Torre)**
+    - cria um memento contendo um instantâneo do seu estado interno corrente.
+    - usa o memento para restaurar o seu estado interno.
+
+- **Caretaker (EstadosPeca)**
+    - é responsável pela custódia do memento.
+    - nunca opera ou examina os conteúdos de um memento.
+
+## Utilização
+- O Memento age como um savestate dentro do framework, permitindo quê a cada movimento o local e o estado da peca seja salvo. A classe Peca pode salvar e restaurar seu estado. Estado representa um estado da peca e EstadosPeca salva vários estados de uma peca juntos.
+
+## Código do framework
+@[Peca](./code/TiposDePecas/Peca.java)
+@[Estado](./code/SalvarJogo/Estado.java)
+@[EstadosPeca](./code/SalvarJogo/EstadosPeca.java)
+
+# 4. Façade
+
+## Intensão
+- Fornecer uma interface unificada para um conjunto de interfaces em um subsistema. Façade define uma interface de nível mais alto que torna o subsistema mais fácil de ser usado.
+## Estrutura
+<figure>
+
+```plantuml
+@startuml
+class Facade {
+    - Subsystem1 subsystem1 
+    - Subsystem2 subsystem2 
+    - Subsystem3 subsystem3 
+    + operation()
+}
+
+class Subsystem1 {
+    + operation1()
+}
+
+class Subsystem2 {
+    + operation2()
+}
+
+class Subsystem3 {
+    + operation3()
+}
+
+Facade --> Subsystem1 : uses
+Facade --> Subsystem2 : uses
+Facade --> Subsystem3 : uses
+
+@enduml
+```
+
+<figcaption>Estrutura Façade</figcaption>
+</figure>
+
+## Participantes
+- **Façade (InterfaceJogo)**
+    - conhece quais as classes do subsistema são responsáveis pelo atendimento
+    de uma solicitação;
+    - delega solicitações de clientes a objetos apropriados do subsistema.
+- **Classes de subsistema (Todas as outras)**
+    - implementam a funcionalidade do subsistema;
+    - encarregam-se do trabalho atribuído a elas pelo objeto Façade;
+    - não têm conhecimento da façade; isto é, não mantêm referências para a
+    mesma.
+
+## Utilização
+- O Façade serve para criar uma interface que oculta as implementações mais complexas do jogador final. InterfaceJogo cria uma fachada para facilitar que o usuário final tenha facilidade em usar o framework.
+
+## Código do framework
+@[InterfaceJogo](./code/Fachada/InterfaceJogo.java)
+
+
+# 5. Strategy
+
+## Intensão
+- Definir uma família de algoritmos, encapsular cada uma delas e torná-las intercambiáveis. Strategy permite que o algoritmo varie independentemente dos clientes que o utilizam.
+## Estrutura
+<figure>
+
+```plantuml
+@startuml
+title Strategy Pattern
+
+class Context {
+  +contextInterface()
+}
+
+abstract class Strategy {
+  +algorithmInterface()
+}
+
+class ConcreteStrategyA {
+  +algorithmInterface()
+}
+
+class ConcreteStrategyB {
+  +algorithmInterface()
+}
+
+class ConcreteStrategyC {
+  +algorithmInterface()
+}
+
+Context o--right--> Strategy
+Strategy <|-down- ConcreteStrategyA
+Strategy <|-down- ConcreteStrategyB
+Strategy <|-down- ConcreteStrategyC
+
+@enduml
+```
+<figcaption>Estrutura Strategy</figcaption>
+</figure>
+
+## Participantes
+- **Strategy(Movimento)**
+    - define uma interface comum para todos os algoritmos suportados. Context
+    usa esta interface para chamar o algoritmo definido por uma
+    ConcreteStrategy.
+
+- **ConcreteStrategy(MovimentoCima, MovimentoBaixo, etc...)**
+    - implementa o algoritmo usando a interface de Strategy.
+
+- **Context (Main)**
+    - é configurado com um objeto ConcreteStrategy;
+    - mantém uma referência para um objeto Strategy;
+    - pode definir uma interface que permite a Strategy acessar seus dados.
+## Utilização
+- Esse padrão serve para criar diferentes estrategias de movimentos para serem usadas pelas pecas de Xadrez e Damas. 
+
+## Código do framework
+@[Peca](./code/TiposDePecas/Peca.java)
+@[Movimento](./code/Movimentos/Movimento.java)
+@[MovimentoDiagonalDireita](./code/Movimentos/MovimentoDiagonalDireita.java)
+@[MovimentoCima](./code/Movimentos/MovimentoCima.java)
+
+# 6. Template Method
+
+## Intensão
+- O template method tem como objetivo definir o esqueleto de um algortimo em uma operação, que poderá ser utilizado por uma subclasse.
+## Estrutura
+<figure>
+
+```plantuml
+@startuml
+
+abstract class AbstractClass {
+    + templateMethod()
+    {abstract} primitiveOperation1()
+    {abstract} primitiveOperation2()
+}
+
+class ConcreteClass {
+    + primitiveOperation1()
+    + primitiveOperation2()
+}
+
+AbstractClass <|-- ConcreteClass
+
+note bottom of AbstractClass
+      templateMethod(){
+        primitiveOperation1();
+        primitiveOperation2();
+}
+end note
+
+@enduml
+
+```
+<figcaption>Estrutura Template Method</figcaption>
+</figure>
+
+
+## Participantes
+- **AbstractClass (Tabuleiro)**
+    - define operações primitivas abstratas que as subclasses concretas definem
+    para implementar passos de um algoritmo.
+    - implementa um método-template que define o esqueleto de um algoritmo.
+    O método-template invoca operações primitivas, bem como operações
+    definidas em AbstractClass ou ainda outros objetos. 
+- **ConcreteClass (TabuleiroConcreto)**
+    - implementa as operações primitivas para executarem os passos específicos
+    do algoritmo da subclasse.
+
+## Utilização
+- Esse padrão cria um método de template para inicializar um tabuleiro.
+
+## Código do framework
+@[Tabuleiro](./code/Tabuleiro.java)
+@[TabuleiroConcreto](./code/TabuleiroConcreto.java)
+
+# 7. Factory Method
+
+## Intensão
+- Definir uma interface para criar um objeto, mas deixar as subclasses decidirem que classe instanciar. O Factory Method permite adiar a instanciação para subclasses.
+## Estrutura
 <figure>
 
 ```plantuml
@@ -402,304 +421,110 @@ hide empty methods
 </figure>
 
 ## Participantes
-
 - **Product(Peca)**
     - define a interface de objetos que o método fábrica cria.
-- **ConcreteProduct(PecaXadez, PecaDamas)** 
+- **ConcreteProduct(Dama, Peao, Torre)** 
     -  implementa a interface de Product.
 - **Creator(PecaBuilder)** 
     - Declara o método fábrica, o qual retorna um objeto do tipo Product. Creator
     pode também definir uma implementação por omissão do método factory
     que retorna por omissão um objeto ConcreteProduct.
     - Pode chamar o método factory para criar um objeto Product.
-- **ConcreteCreator(PecaBuilderXadez, PecaBuilderDamas)**
+- **ConcreteCreator(DamaBuilder, PeaoBuilder, TorreBuilder)**
     - Redefine o método-fábrica para retornar a uma instância de um
     ConcreteProduct.
+## Utilização
 
-## Código do Framework
+- O Factory Method é usado para retornar um produto concreto por meio de uma fábrica concreta. Nessa caso, Damabuilder é uma fábrica concreta que retorna um produto concreto que é uma peca de dama.
 
-- Nesse código de exemplo para a criação de pecas de Xadrez e Damas foi usado com o padrão builder o padrão Factory Method. As classes PecaBuilderXadrez e PecaBuilderDamas são as fábricas concretas de PecaBuilder responsáveis por criar os produtos PecaDamas e PecaXadrez que herdam da classe Peca.
-
-
-```java
-
-abstract class Peca {
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-    public abstract void mover();
-    public abstract Peca clone();
-}
+## Código do framework
+@[Peca](./code/TiposDePecas/Peca.java)
+@[Dama](./code/TiposDePecas/Dama.java)
+@[PecaBuilder](./code/TiposDePecas/PecaBuilder.java)
+@[DamaBuilder](./code/TiposDePecas/DamaBuilder.java)
+@[Peao](./code/TiposDePecas/Peao.java)
+@[PeaoBuilder](./code/TiposDePecas/PeaoBuilder.java)
+@[Torre](./code/TiposDePecas/Torre.java)
+@[TorreBuilder](./code/TiposDePecas/TorreBuilder.java)
 
 
-class PecaXadrez extends Peca{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
+# 8. Builder
 
-    public PecaXadrez(String tipo, String cor, Movimento movimento) {
-        this.tipo      = tipo;
-        this.cor       = cor;
-        this.movimento = movimento;
-    }
-    
-    @Override
-    public void mover(){
-        movimento.mover();
-    }
-    
-    @Override
-    public Peca clone(){
-        return new PecaXadrez(tipo, cor, movimento);
-    }
-    
-}
-
-class PecaDamas extends Peca{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-    public PecaDamas(String tipo, String cor, Movimento movimento) {
-        this.tipo      = tipo;
-        this.cor       = cor;
-        this.movimento = movimento;
-    }
-    
-    @Override
-    public void mover(){
-        movimento.mover();
-    }
-    
-    
-    
-    @Override
-    public Peca clone(){
-        return new PecaDamas(tipo, cor, movimento);
-    }
-    
-}
-
-
-
-
-interface PecaBuilder{
-    public PecaBuilder setTipo(String tipo);
-    public PecaBuilder setCor(String cor);
-    public PecaBuilder setMovimento(Movimento movimento);
-    public Peca build();
-    
-}
-
-class PecaBuilderXadrez implements PecaBuilder{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-    
-   
-    public PecaBuilderXadrez setTipo(String tipo) {
-        this.tipo = tipo;
-        return this;
-        
-    }
-
-    public PecaBuilderXadrez setCor(String cor) {
-        this.cor = cor;
-        return this;
-        
-    }
-
-    public PecaBuilderXadrez setMovimento(Movimento movimento) {
-        this.movimento = movimento;
-        return this;
-       
-    }
-
-    public Peca build() {
-        return new PecaXadrez(tipo, cor, movimento);
-        
-    }
-    
-}
-
-
-class PecaBuilderDamas implements PecaBuilder{
-    private String tipo;
-    private String cor;
-    private Movimento movimento;
-
-   
-    public PecaBuilderDamas setTipo(String tipo) {
-        this.tipo = tipo;
-        return this;
-        
-    }
-
-    public PecaBuilderDamas setCor(String cor) {
-        this.cor = cor;
-        return this;
-        
-    }
-
-    public PecaBuilderDamas setMovimento(Movimento movimento) {
-        this.movimento = movimento;
-        return this;
-       
-    }
-
-    public Peca build() {
-        return new PecaDamas(tipo, cor, movimento);
-        
-    }
-    
-}
-
-
-```
-
-```java
-Movimento movimento = new Baixo();
-        
-PecaBuilderDamas construtorDePecaDamas = new PecaBuilderDamas();
-Peca pecaDamas                         = construtorDePecaDamas.setCor("Preta").setTipo("Dama").setMovimento(movimento).build();
-pecaDamas.mover(movimento);
-
-
-PecaBuilderXadrez construtorDePecaXadrez = new PecaBuilderXadrez();
-Peca pecaXadrez                          = construtorDePecaXadrez.setCor("Branca").setTipo("Rainha").setMovimento(movimento).build();
-pecaXadrez.mover(movimento);
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 4. Strategy
-
-## Intenção
-
-Definir uma família de algoritmos, encapsular cada uma delas e torná-las intercambiáveis. Strategy permite que o algoritmo varie independentemente dos clientes que o utilizam.
-
-
+## Intensão
+- Separar a construção de um objeto complexo da sua representação de modo que o mesmo processo de construção possa criar diferentes representações.
 ## Estrutura
-
 <figure>
 
 ```plantuml
 @startuml
-title Strategy Pattern
-
-class Context {
-  +contextInterface()
+interface Builder{
+BuildPart()
 }
 
-abstract class Strategy {
-  +algorithmInterface()
+class Director{
+Builder builder
+Construct()
 }
 
-class ConcreteStrategyA {
-  +algorithmInterface()
+note bottom of Director
+foreach item in structure {
+   builder.BuildPart()
+}
+end note
+
+
+Director o-> Builder:builder
+
+class ConcreteBuilder{
+    BuildPart()
+    GetResult()
 }
 
-class ConcreteStrategyB {
-  +algorithmInterface()
-}
 
-class ConcreteStrategyC {
-  +algorithmInterface()
-}
+Builder <|-- ConcreteBuilder
+ConcreteBuilder -right..> Product
 
-Context o--right--> Strategy
-Strategy <|-down- ConcreteStrategyA
-Strategy <|-down- ConcreteStrategyB
-Strategy <|-down- ConcreteStrategyC
 
+hide empty attributes
+hide empty methods
 @enduml
 ```
-<figcaption>Estrutura Strategy</figcaption>
+<figcaption>Estrutura Builder</figcaption>
 </figure>
 
 ## Participantes
+- **Builder(PecaBuilder)**
+    - define uma interface com as configurações em comum para todos os objetos que são baseados nesse Builder. Director usa esta interface para chamar o método definido por um ConcreteBuilder.
+- **ConcreteBuilder(DamaBuilder, PeaoBuilder, TorreBuilder)** 
+    - implementa métodos para a construção e montagem em partes do produto, usando a interface de Builder.
+    - Não expõe o produto durante a montagem, mantém a representação até o objeto ser recuperado.
+    - ConcreteBuilders devem fornecer seus próprios métodos para recuperar os resultados de construções, já que os produtos gerados podem ser completamente diferentes.
+- **Director(Main)**   
+    - Mantém uma instancia de um Builder passado pelo cliente.
+    - Implementa métodos visando a execução sequencial correta e a organização das etapas de configuração para cada tipo de situação.
+    - **Não é estritamente necessário**, é possivel que o padrão seja implementado com o cliente assumindo um papel parecido com o de director.
 
-- **Strategy(MovimentoEspecial)**
-    - define uma interface comum para todos os algoritmos suportados. Context
-    usa esta interface para chamar o algoritmo definido por uma
-    ConcreteStrategy.
+- **Product(Dama, Peao, Torre)** 
+    - representa o objeto complexo em construção. ConcreteBuilder constrói a representação interna do produto e define o as etapas de montagem;
+    - inclui classes que definem as diversas partes que constituem o objeto complexo, inclusive as interfaces para a montagem das partes no resultado final.
+## Utilização
 
-- **ConcreteStrategy(Roque, CapturaMultipla)**
-    - implementa o algoritmo usando a interface de Strategy.
+- Nesse caso o Padrão builder foi usado para constuir cada produto concreto que são as pecas de Xadez e Damas, com um builder especifico para cada um.
 
-- **Context(Main)**
-    - é configurado com um objeto ConcreteStrategy;
-    - mantém uma referência para um objeto Strategy;
-    - pode definir uma interface que permite a Strategy acessar seus dados. 
+## Código do framework
+@[Peca](./code/TiposDePecas/Peca.java)
+@[Dama](./code/TiposDePecas/Dama.java)
+@[PecaBuilder](./code/TiposDePecas/PecaBuilder.java)
+@[DamaBuilder](./code/TiposDePecas/DamaBuilder.java)
+@[Peao](./code/TiposDePecas/Peao.java)
+@[PeaoBuilder](./code/TiposDePecas/PeaoBuilder.java)
+@[Torre](./code/TiposDePecas/Torre.java)
+@[TorreBuilder](./code/TiposDePecas/TorreBuilder.java)
 
-## Código do Framework
+# 9. Decorator
 
-- Nessa parte do código foi usado o padrão Strategy para criar diferentes estrategias de movimentos para as pecas. A classe Movimento é uma interface que fornece o método de mover(). Todas as classes concretas no código representam movimentos diferentes que implementam dessa interface.
-
-```java
-
-abstract class MovimentoEspecial implements Movimento{
-    public abstract void mover();
-}
-
-class Roque extends MovimentoEspecial{
-
-    @Override
-    public void mover() {
-        System.out.println("O rei fui movido duas casas em direção à torre e a torre foi movida para o outro lado do rei...");
-    }
-    
-}
-
-
-class CapturaMultipla extends MovimentoEspecial{
-
-    @Override
-    public void mover() {
-        System.out.println("Você realizou uma captura em sequência de várias peças...");
-    }
-    
-}
-
-```
-
-```java
-Movimento movimento00 = new Baixo();
-Movimento movimento00 = new Cima();
-
-PecaBuilderXadrez construtorDePecaXadrez = new PecaBuilderXadrez();
-Peca pecaXadrez00                        = construtorDePecaXadrez.setCor("Preta").setTipo("Torre").setMovimento(movimento).build();
-pecaXadrez00.mover();
-
-```
-
-
-
-
-
-
-
-
-# 5. Decorator
-
-## Intenção
-
+## Intensão
 - Dinamicamente, agregar responsabilidades adicionais a um objeto. Os Decorators fornecem uma alternativa flexível ao uso de subclasses para extensão de funcionalidades.
-
 ## Estrutura
 <figure>
 
@@ -742,111 +567,19 @@ Decorator o--left--> Component
 </figure>
 
 ## Participantes
-
 - **Component(Peca)**
     - define a interface para objetos que podem ter responsabilidades acrescentadas aos mesmos dinamicamente.
-- **ConcreteComponent(PecaXadrez, PecaDamas)**
+- **ConcreteComponent(Peao)**
     - define um objeto para o qual responsabilidades adicionais podem ser
     atribuídas.
-- **Decorator(PecaDecorator)**
+- **Decorator()**
     - mantém uma referência para um objeto Component e define uma interface
     que segue a interface de Component.
-- **ConcreteDecorator(PecaComMovimentoEspecialXadrezDecorator, PecaComMovimentoEspecialDamasDecorator)**
+- **ConcreteDecorator(PromocaoPeaoDecorator)**
     - acrescenta responsabilidades ao componente.
+## Utilização
+- O Decorator foi usado para adicionar a funcionalidade de promover um peao ao outra peca no Xadez.
 
-## Código do Framework
-
-- A decoração que será adicionada na peca é a de adicionar novos movimentos usando o padrão Decorator. A classe abstrata PecaDecorator cria uma Peca com a adição do método moverEspecial(), que consegue criar uma peca com esse novo método embutido, que permite fazer um movimento especial usando uma classe que implementa de MovimentoEspecial (Ex: Roque), que por sua vez implementa da interface Movimento.
-
-
-```java
-
-abstract class MovimentoEspecial implements Movimento{
-    public abstract void mover();
-}
-
-class Roque extends MovimentoEspecial{
-
-    @Override
-    public void mover() {
-        System.out.println("O rei fui movido duas casas em direção à torre e a torre foi movida para o outro lado do rei...");
-    }
-    
-}
-
-
-class capturaMultipla extends MovimentoEspecial{
-
-    @Override
-    public void mover() {
-        System.out.println("Você realizou uma captura em sequência de várias peças...");
-    }
-    
-}
-```
-
-```java
-
-abstract class PecaDecorator extends Peca {
-    private Peca peca;
-    private MovimentoEspecial MovimentoEspecial;
-
-    @Override
-    public abstract void mover(Movimento movimento);
-    
-    public abstract void moverEspecial();
-
-    @Override
-    public abstract Peca clone();
-}
-
-
-class PecaComMovimentoEspecialDamasDecorator extends PecaDecorator{
-    private PecaDamas peca;
-    private MovimentoEspecial movimentoEspecial;
-
-    public PecaComMovimentoEspecialDamasDecorator(PecaDamas peca, MovimentoEspecial movimentoEspecial) {
-        this.peca              = peca;
-        this.movimentoEspecial = movimentoEspecial;
-    }
-    
-    
-    @Override
-    public void mover() {
-        movimento.mover();
-    }
-
- 
-    public void moverEspecial() {
-        movimentoEspecial.mover();
-    }
-
-    @Override
-    public Peca clone() {
-        return new PecaComMovimentoEspecialDamasDecorator((PecaDamas) peca.clone(), movimentoEspecial);
-    }
-  
-}
-
-
-```
-
-
-```java
-
-Movimento movimento = new Baixo();
-
-PecaBuilderXadrez construtorDePecaXadrez = new PecaBuilderXadrez();
-Peca pecaXadrez00                        = construtorDePecaXadrez.setCor("Branca").setTipo("Peão").setMovimento(movimento).build();
-        
-MovimentoEspecial movimentoEspXadrez                  = new Roque();
-PecaComMovimentoEspecialXadrezDecorator espPecaXadrez = new PecaComMovimentoEspecialXadrezDecorator((PecaXadrez)pecaXadrez00, movimentoEspXadrez);
-       
-espPecaXadrez.moverEspecial();
-
-```
-
-
-
-
-
+## Código do framework
+@[Peao](./code/TiposDePecas/Peao.java)
+@[PromocaoPeaoDecorator](./code/TiposDePecas/PromocaoPeaoDecorator.java)
